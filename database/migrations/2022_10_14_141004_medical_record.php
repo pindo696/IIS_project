@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('fk_animal_id');
             $table->foreign('fk_animal_id')->references('animal_id')->on('animals')->onDelete('cascade');
             $table->unsignedBigInteger('fk_user_id');
-            $table->foreign('fk_user_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('fk_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('record_type');
             $table->string('description')->nullable();
             $table->timestamp('date')->useCurrent();

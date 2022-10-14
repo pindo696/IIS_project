@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('examination_requests', function (Blueprint $table) {
             $table->id('examination_request_id');
             $table->unsignedBigInteger('fk_careman_id');
-            $table->foreign('fk_careman_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('fk_careman_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('fk_animal_id');
             $table->foreign('fk_animal_id')->references('animal_id')->on('animals')->onDelete('cascade');
             $table->string('description')->nullable();
