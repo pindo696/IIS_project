@@ -16,7 +16,7 @@ class AuthVolunteer
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!auth()->check() || auth()->user()->role != 'volunteer'){
+        if(!auth()->check() || (auth()->user()->role != 'volunteer' && auth()->user()->role != 'admin')){
             abort(403);
         }
         return $next($request);

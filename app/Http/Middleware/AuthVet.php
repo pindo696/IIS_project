@@ -16,7 +16,7 @@ class AuthVet
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!auth()->check() || auth()->user()->role != 'vet'){
+        if(!auth()->check() || (auth()->user()->role != 'vet' && auth()->user()->role != 'admin')){
             abort(403);
         }
         return $next($request);
