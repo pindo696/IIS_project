@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-class VolunteerController{
-    public function index(){
-        return view('volunteer');
-    }
+use Illuminate\Http\Request;
+
+class VolunteerController extends Controller
+{
+    //
 }
