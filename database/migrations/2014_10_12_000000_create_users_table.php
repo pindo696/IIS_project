@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('role')->default('volunteer');
             $table->string('password');
+            $table->string('confirmation')->default('waiting');
             $table->rememberToken();
             $table->timestamps();
         });

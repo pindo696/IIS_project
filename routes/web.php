@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\CaremanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/unauth', [App\Http\Controllers\VolunteerController::class, 'unauth'])->name('unauth');
+Route::get('/support', [App\Http\Controllers\VolunteerController::class, 'support'])->name('support');
+
 Route::middleware(['auth', 'admin'])->group( function (){
     Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
 });
@@ -32,6 +35,11 @@ Route::middleware(['auth', 'vet'])->group( function (){
 
 Route::middleware(['auth', 'careman'])->group( function (){
     Route::get('/careman', [App\Http\Controllers\CaremanController::class, 'index'])->name('careman');
+    Route::resource('/careman', CaremanController::class);
+    Route::post('/careman/acceptVolunteer', [App\Http\Controllers\CaremanController::class, 'acceptVolunteer']);
+    Route::post('/careman/declineVolunteer', [App\Http\Controllers\CaremanController::class, 'declineVolunteer']);
+    Route::post('/careman/banVolunteer', [App\Http\Controllers\CaremanController::class, 'banVolunteer']);
+    Route::post('/careman/deleteVolunteer', [App\Http\Controllers\CaremanController::class, 'deleteVolunteer']);
 });
 
 Auth::routes();

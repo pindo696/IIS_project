@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Careman extends Model
 {
     use HasFactory;
+
+    protected $table = 'users';
+
+    protected $primaryKey = 'id';
+
 }
