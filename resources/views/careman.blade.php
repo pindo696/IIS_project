@@ -1,11 +1,10 @@
 @extends('layouts.app')
 @section('content')
-@include('layouts.navigation.sidebar')
+@include('caremanheader')
 <head>
     <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
     <link href="{{asset('css/all.css')}}" rel="stylesheet">
 </head>
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
@@ -14,7 +13,6 @@
                         <table class="table text-center">
                             <thead class="bg-white">
                                 <tr>
-                                    <th>ID no.</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Email</th>
@@ -35,7 +33,6 @@
                                 @php ($style = 'text-danger')
                             @endif
                                 <tr class="alert text-center" role="alert">
-                                    <td>{{$data->id}}</td>
                                     <td>{{$data->name}}</td>
                                     <td>{{$data->surname}}</td>
                                     <td>{{$data->email}}</td>

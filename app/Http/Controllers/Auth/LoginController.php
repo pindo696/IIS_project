@@ -37,7 +37,7 @@ class LoginController extends Controller
         }elseif(Auth::user()->role=='vet'){
             return redirect('vet');
         }elseif(Auth::user()->role=='careman'){
-            return redirect('careman');
+            return redirect('careman/requests');
         }else{
             return redirect('/');
         }

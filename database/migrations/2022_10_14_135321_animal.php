@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('animals', function (Blueprint $table) {
             $table->id('animal_id');
-            $table->string('species');
             $table->string('name')->nullable();
+            $table->string('species');
             $table->integer('age')->nullable();
+            $table->string('gender');
             $table->string('description')->nullable();
             $table->string('photo_path')->nullable();
             $table->string('discovery_place')->nullable();

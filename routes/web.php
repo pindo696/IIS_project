@@ -34,8 +34,10 @@ Route::middleware(['auth', 'vet'])->group( function (){
 });
 
 Route::middleware(['auth', 'careman'])->group( function (){
-    Route::get('/careman', [App\Http\Controllers\CaremanController::class, 'index'])->name('careman');
-    Route::resource('/careman', CaremanController::class);
+    Route::get('/careman/requests', [App\Http\Controllers\CaremanController::class, 'index'])->name('careman');
+    Route::get('/careman/animals', [App\Http\Controllers\CaremanController::class, 'pets'])->name('pets');
+    Route::get('/careman/animals/addpet', [App\Http\Controllers\CaremanController::class, 'addpet'])->name('addpet');
+    //Route::resource('/careman/requests', CaremanController::class);
     Route::post('/careman/acceptVolunteer', [App\Http\Controllers\CaremanController::class, 'acceptVolunteer']);
     Route::post('/careman/declineVolunteer', [App\Http\Controllers\CaremanController::class, 'declineVolunteer']);
     Route::post('/careman/banVolunteer', [App\Http\Controllers\CaremanController::class, 'banVolunteer']);
