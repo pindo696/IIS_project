@@ -55,6 +55,21 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @if(Auth::user()->role == "admin")
+                                    <i class="dropdown-header">Switch user</i>
+                                    <a class="dropdown-item" href="/admin">
+                                        {{ __('Admin') }}
+                                    </a>
+                                    <a class="dropdown-item" href="/vet">
+                                        {{ __('Vet') }}
+                                    </a>
+                                    <a class="dropdown-item" href="/careman/requests">
+                                        {{ __('Careman') }}
+                                    </a>
+                                    <a class="dropdown-item" href="/volunteer">
+                                        {{ __('Volunteer') }}
+                                    </a>
+                                    <hr class="dropdown-divider"></hr>@endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
