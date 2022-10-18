@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 @include('caremanheader')
+
 <head>
     <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
     <link href="{{asset('css/all.css')}}" rel="stylesheet">

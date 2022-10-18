@@ -43,6 +43,7 @@ Route::middleware(['auth', 'careman'])->group( function (){
     Route::post('/careman/banVolunteer', [App\Http\Controllers\CaremanController::class, 'banVolunteer']);
     Route::post('/careman/deleteVolunteer', [App\Http\Controllers\CaremanController::class, 'deleteVolunteer']);
     Route::post('/careman/animals/addpet/add', [App\Http\Controllers\AnimalController::class, 'addPet']);
+    Route::post('/careman/animals/pet-detail', [App\Http\Controllers\CaremanController::class, 'showPetDetail']);
 });
 
 Auth::routes();

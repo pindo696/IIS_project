@@ -15,7 +15,8 @@ class CaremanController extends Controller{
     }
 
     function pets(){
-        return view('pets');
+        $result = app()->call('App\Http\Controllers\AnimalController@getAllPets');
+        return view('pets', compact('result', 'result'));
     }
 
     function addpet(){
@@ -48,4 +49,8 @@ class CaremanController extends Controller{
         dd($id);
     }
 
+    public function showPetDetail(Request $request){
+        $result = app()->call('App\Http\Controllers\AnimalController@getPetDetail',['id' => $request]);
+        return view('pet-detail', compact('result', 'result'));
+    }
 }

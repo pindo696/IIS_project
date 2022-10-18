@@ -5,6 +5,7 @@
         <link href="{{asset('css/all.css')}}" rel="stylesheet">
     </head>
     <section class="container-fluid">
+        @include('alertbox')
         <div class="container py-2 h-100">
             <div class="row justify-content-center align-items-center h-100">
                 <div class="col-12 col-lg-9 col-xl-7">
@@ -18,7 +19,7 @@
 
                                             <div class="form-outline">
                                                 <label class="form-label" for="name">Name *</label>
-                                                <input type="text" name="name" id="name" class="form-control form-control-lg" required/>
+                                                <input value="{{ Session::get('name', '') }}" type="text" name="name" id="name" class="form-control form-control-lg" required/>
                                             </div>
 
                                         </div>
@@ -26,26 +27,37 @@
 
                                             <div class="form-outline">
                                                 <label class="form-label" for="species">Species *</label>
-                                                <input type="text" name="species" id="species" class="form-control form-control-lg" required/>
+                                                <input value="{{ Session::get('species', '') }}" type="text" name="species" id="species" class="form-control form-control-lg" required/>
                                             </div>
 
                                         </div>
                                     </div>
 
                                     <div class="row">
+                                        @if(Session::has('dateError'))
                                         <div class="col-md-6 mb-4 d-flex align-items-center">
 
                                             <div class="form-outline datepicker w-100">
                                                 <label for="discoveryDate" class="form-label">Discovery Date</label>
-                                                <input type="date" placeholder="dd-mm-yyyy" min="01.01.1900" name="discoveryDate" class="form-control form-control-lg" id="discoveryDate" data-date-format='d-m-Y'/>
+                                                <input type="date" placeholder="dd-mm-yyyy" min="01.01.1900" name="discoveryDate" class="form-control form-control-lg is-invalid" id="discoveryDate" data-date-format='d-m-Y'/>
                                             </div>
 
                                         </div>
+                                        @else
+                                            <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                                                <div class="form-outline datepicker w-100">
+                                                    <label for="discoveryDate" class="form-label">Discovery Date</label>
+                                                    <input type="date" placeholder="dd-mm-yyyy" min="01.01.1900" name="discoveryDate" class="form-control form-control-lg" id="discoveryDate" data-date-format='d-m-Y'/>
+                                                </div>
+
+                                            </div>
+                                        @endif
                                         <div class="col-md-6 mb-4">
 
                                             <div class="form-outline">
                                                 <label class="form-label" for="discoveryPlace">Discovery place</label>
-                                                <input type="text" name="discoveryPlace" id="discoveryPlace" class="form-control form-control-lg" />
+                                                <input value="{{ Session::get('discoveryPlace', '') }}" type="text" name="discoveryPlace" id="discoveryPlace" class="form-control form-control-lg" />
                                             </div>
 
                                         </div>
@@ -55,14 +67,14 @@
                                         <div class="col-md-9 mb-4 pt-2">
                                             <div class="form-outline">
                                                 <label class="form-label" for="color">Color *</label>
-                                                <input type="text" name="color" id="color" class="form-control form-control-lg" />
+                                                <input value="{{ Session::get('color', '') }}" type="text" name="color" id="color" class="form-control form-control-lg" />
                                             </div>
                                         </div>
 
                                         <div class="col-md-3 mb-4 pt-2">
                                             <div class="form-outline">
                                                 <label class="form-label" for="age">Age</label>
-                                                <input placeholder="years" name="age" type="number" min="0" max="150" id="age" class="form-control form-control-lg" />
+                                                <input value="{{ Session::get('age', '') }}" placeholder="years" name="age" type="number" min="0" max="150" id="age" class="form-control form-control-lg" />
                                             </div>
                                         </div>
 
@@ -72,7 +84,7 @@
                                         <div class="col-md-12 mb-4 pt-2">
                                             <div class="form-outline">
                                                 <label class="form-label" for="age">Description</label>
-                                                <input type="text" name="description" id="description" class="form-control form-control-lg" />
+                                                <input value="{{ Session::get('description', '') }}" type="text" name="description" id="description" class="form-control form-control-lg" />
                                             </div>
                                         </div>
                                     </div>
