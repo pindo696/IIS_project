@@ -27,7 +27,7 @@
                             <th>Species</th>
                             <th>Discovery date</th>
                             <th>Discovery place</th>
-                            <th>Age</th>
+                            <th>Age<small class="text-muted"> (years)</small></th>
                             <th>Action</th>
                         </tr>
                         </thead>

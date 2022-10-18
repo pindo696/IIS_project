@@ -41,7 +41,7 @@ class AnimalController{
     }
 
     public function getAllPets() : array{
-        $result = DB::select('SELECT * FROM animals');
+        $result = DB::select('SELECT * FROM animals ORDER BY animals.discovery_date DESC');
         return $result;
     }
 
