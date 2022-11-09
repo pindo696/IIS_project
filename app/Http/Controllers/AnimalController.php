@@ -68,4 +68,40 @@ class AnimalController{
         return view('pet-edit', compact('result', 'result'));
     }
 
+    public function editPet(Request $request){
+        $date = Carbon::parse($request->discoveryDate);
+        if(!($date->isPast())){
+            return redirect()->back()
+                ->with('dateError', true)
+                ->with('name', $request->input('name'))
+                ->with('species', $request->input('species'))
+                ->with('color', $request->input('color'))
+                ->with('age', $request->input('age'))
+                ->with('discoveryPlace', $request->input('discoveryPlace'))
+                ->with('description', $request->input('description'))
+                ->with('message','Date is in the future');
+
+        }else {
+            $request['discoveryDate'] = $date->format('Y-m-d');
+            $filename = NULL;
+            if($request->hasFile('image')){
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time().'.'.$extension;
+                $file->move(base_path('public\uploads\animal_images\\'), $filename);
+            }
+            $affected = DB::table('animals')
+                -> where('animal_id', $request->animal_id)
+                -> update([
+                    'name' => $request->input('name'),
+                    'species' => $request->input('species'),
+                    'color' => $request->input('color'),
+                    'age' => $request->input('age'),
+                    'discovery_place' => $request->input('discoveryPlace'),
+                    'description' => $request->input('description'),
+            ]);
+            return redirect("/careman/animals")->with('success', true)->with('message', 'Pet was successfully edited');
+        }
+    }
+
 }

@@ -6,8 +6,10 @@
     </head>
     <section class="container-fluid">
         @foreach($result as $pet)
-        <div class="container py-5">
+        @include('alertbox')
+        <div class="container py-2">
             <div class="row">
+                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-3"><button class="btn border-0"><h4 title="back to animals" style="margin: 0"><a href="/careman/animals" style="color: black"><i class="fa-solid fa-arrow-left"></i></a></h4></button>Back To Pets List</h3>
                 <div class="col-lg-4">
                     <div class="card mb-4">
                         <div class="card-body text-center">
