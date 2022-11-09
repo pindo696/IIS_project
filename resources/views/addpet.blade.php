@@ -12,8 +12,9 @@
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-3"><button class="btn border-0"><h4 title="back to animals" style="margin: 0"><a href="/careman/animals" style="color: black"><i class="fa-solid fa-arrow-left"></i></a></h4></button>Add Pet</h3>
-                                <form action="/careman/animals/addpet/add" method="POST">
+                                <form action="/careman/animals/addpet/add" method="POST" enctype="multipart/form-data">
                                     @csrf
+                                    @method('POST')
                                     <div class="row">
                                         <div class="col-md-6 mb-4">
 
@@ -103,6 +104,9 @@
                                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
                                                    value="male" />
                                             <label class="form-check-label" for="maleGender">Male</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="file" name="image">
                                         </div>
                                     </div>
                                     <div class="mt-4 pt-2">

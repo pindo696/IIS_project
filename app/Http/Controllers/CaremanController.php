@@ -49,8 +49,4 @@ class CaremanController extends Controller{
         dd($id);
     }
 
-    public function showPetDetail(Request $request){
-        $result = app()->call('App\Http\Controllers\AnimalController@getPetDetail',['id' => $request]);
-        return view('pet-detail', compact('result', 'result'));
-    }
 }

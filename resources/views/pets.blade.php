@@ -3,10 +3,6 @@
     @include('caremanheader')
     <head>
         <script>
-
-
-
-
         </script>
         <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
         <link href="{{asset('css/all.css')}}" rel="stylesheet">
@@ -56,7 +52,4 @@
                 </div>
             </div>
         </div>
-
-
-
 @endsection

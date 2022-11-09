@@ -24,6 +24,13 @@ class AnimalController{
 
         }else {
             $request['discoveryDate'] = $date->format('Y-m-d');
+            $filename = NULL;
+            if($request->hasFile('image')){
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time().'.'.$extension;
+                $file->move(base_path('public\uploads\animal_images\\'), $filename);
+            }
 
             $animal = Animal::create([
                 'name' => $request->input('name'),
@@ -34,7 +41,7 @@ class AnimalController{
                 'age' => $request->input('age'),
                 'description' => $request->input('description'),
                 'gender' => $request->input('inlineRadioOptions'),
-
+                'photo_path' => $filename,
             ]);
             return redirect("/careman/animals")->with('success', true)->with('message', 'Pet was successfully added');
         }
@@ -49,6 +56,16 @@ class AnimalController{
         //$result = DB::table('animals')->where('animal_id', $id)->get();
         $result = DB::select('SELECT * FROM animals WHERE animals.animal_id LIKE :id', ['id' => $id->animal_id]);
         return $result;
+    }
+
+    public function showPetDetail(Request $request){
+        $result = app()->call('App\Http\Controllers\AnimalController@getPetDetail',['id' => $request]);
+        return view('pet-detail', compact('result', 'result'));
+    }
+
+    public function showPetEdit(Request $request){
+        $result = app()->call('App\Http\Controllers\AnimalController@getPetDetail',['id' => $request]);
+        return view('pet-edit', compact('result', 'result'));
     }
 
 }
