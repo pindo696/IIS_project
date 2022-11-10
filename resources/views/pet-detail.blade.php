@@ -32,6 +32,12 @@
                                         <input type="hidden" id="animal_id" name="animal_id" value="{{$pet->animal_id}}">
                                         <button type="submit" class="btn btn-outline-primary ms-1">Schedule</button>
                                     </form>
+                                    <form action="/careman/animals/pet-edit/delete" method="POST">
+                                        @csrf
+                                        @method('POST')
+                                        <input type="hidden" id="animal_id" name="animal_id" value="{{$pet->animal_id}}">
+                                        <button type="submit" class="btn btn-outline-danger ms-1">Delete</button>
+                                    </form>
                                 @else
                                     <form action="/careman/animals/pet-schedule" method="POST">
                                         @csrf

@@ -8,6 +8,7 @@
         <link href="{{asset('css/all.css')}}" rel="stylesheet">
     </head>
     @include('successbox')
+    @include('errorbox')
     <div class="row justify-content-center">
         <a class="btn w-25 mb-3 border-warning justify-content-center d-flex text-center" href="/careman/animals/addpet" style="background-color: #ffffba">Add pet</a>
     </div>

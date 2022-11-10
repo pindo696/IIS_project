@@ -97,6 +97,7 @@ class AnimalController{
                     'species' => $request->input('species'),
                     'color' => $request->input('color'),
                     'age' => $request->input('age'),
+                    'discovery_date' => $request->input('discoveryDate'),
                     'discovery_place' => $request->input('discoveryPlace'),
                     'description' => $request->input('description'),
             ]);
@@ -104,4 +105,15 @@ class AnimalController{
         }
     }
 
+    public function deletePet(Request $request){
+        $n_rows = DB::table('animals')
+            -> where('animal_id', 'like', $request->animal_id)
+            -> delete();
+        if($n_rows > 0){
+            return redirect("/careman/animals")->with('success', true)->with('message', 'Pet was successfully deleted');
+        }else{
+            return redirect("/careman/animals")->with('error', true)->with('message', 'Deleting animal unsuccessful');
+        }
+    }
 }
+
