@@ -18,10 +18,10 @@ return new class extends Migration
             $table->foreign('fk_animal_id')->references('animal_id')->on('animals')->onDelete('cascade');
             $table->unsignedBigInteger('fk_vet_id');
             $table->foreign('fk_vet_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('type');
-            $table->string('description')->nullable();
-            $table->dateTime('from');
-            $table->dateTime('to');
+            $table->string('examination_type');
+            $table->string('examination_description')->nullable();
+            $table->dateTime('examination_from');
+            $table->dateTime('examination_to');
         });
     }
 

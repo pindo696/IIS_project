@@ -14,12 +14,12 @@ class AnimalController{
         if(!($date->isPast())){
             return redirect()->back()
                 ->with('dateError', true)
-                ->with('name', $request->input('name'))
+                ->with('animal_name', $request->input('name'))
                 ->with('species', $request->input('species'))
                 ->with('color', $request->input('color'))
-                ->with('age', $request->input('age'))
+                ->with('animal_age', $request->input('age'))
                 ->with('discoveryPlace', $request->input('discoveryPlace'))
-                ->with('description', $request->input('description'))
+                ->with('animal_description', $request->input('description'))
                 ->with('message','Date is in the future');
 
         }else {
@@ -33,13 +33,13 @@ class AnimalController{
             }
 
             $animal = Animal::create([
-                'name' => $request->input('name'),
+                'animal_name' => $request->input('name'),
                 'species' => $request->input('species'),
                 'discovery_date' => $request->input('discoveryDate'),
                 'discovery_place' => $request->input('discoveryPlace'),
                 'color' => $request->input('color'),
-                'age' => $request->input('age'),
-                'description' => $request->input('description'),
+                'animal_age' => $request->input('age'),
+                'animal_description' => $request->input('description'),
                 'gender' => $request->input('inlineRadioOptions'),
                 'photo_path' => $filename,
             ]);
@@ -49,6 +49,14 @@ class AnimalController{
 
     public function getAllPets() : array{
         $result = DB::select('SELECT * FROM animals ORDER BY animals.discovery_date DESC');
+        return $result;
+    }
+
+    public function getPetExaminations($id) : array{
+        $result = DB::select('SELECT * FROM examinations
+                    RIGHT JOIN animals ON animals.animal_id = examinations.fk_animal_id
+                    LEFT JOIN users ON examinations.fk_vet_id = users.id
+                    WHERE animals.animal_id LIKE :id', ['id' => $id]);
         return $result;
     }
 
@@ -73,12 +81,12 @@ class AnimalController{
         if(!($date->isPast())){
             return redirect()->back()
                 ->with('dateError', true)
-                ->with('name', $request->input('name'))
+                ->with('animal_name', $request->input('name'))
                 ->with('species', $request->input('species'))
                 ->with('color', $request->input('color'))
-                ->with('age', $request->input('age'))
+                ->with('animal_age', $request->input('age'))
                 ->with('discoveryPlace', $request->input('discoveryPlace'))
-                ->with('description', $request->input('description'))
+                ->with('animal_description', $request->input('description'))
                 ->with('message','Date is in the future');
 
         }else {
@@ -93,13 +101,13 @@ class AnimalController{
             $affected = DB::table('animals')
                 -> where('animal_id', $request->animal_id)
                 -> update([
-                    'name' => $request->input('name'),
+                    'animal_name' => $request->input('name'),
                     'species' => $request->input('species'),
                     'color' => $request->input('color'),
-                    'age' => $request->input('age'),
+                    'animal_age' => $request->input('age'),
                     'discovery_date' => $request->input('discoveryDate'),
                     'discovery_place' => $request->input('discoveryPlace'),
-                    'description' => $request->input('description'),
+                    'animal_description' => $request->input('description'),
             ]);
             return redirect("/careman/animals")->with('success', true)->with('message', 'Pet was successfully edited');
         }
@@ -115,5 +123,11 @@ class AnimalController{
             return redirect("/careman/animals")->with('error', true)->with('message', 'Deleting animal unsuccessful');
         }
     }
+
+    public function animalExaminations(Request $request){
+        $result = app()->call('App\Http\Controllers\AnimalController@getPetExaminations', ['id' => $request->animal_id]);
+        return view('pet-examinations', compact('result', 'result'));
+    }
+
 }
 

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('fk_user_id');
             $table->foreign('fk_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('record_type');
-            $table->string('description')->nullable();
-            $table->timestamp('date')->useCurrent();
+            $table->string('medical_description')->nullable();
+            $table->timestamp('medical_date')->useCurrent();
         });
     }
 

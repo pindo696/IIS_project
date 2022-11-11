@@ -29,7 +29,7 @@
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="name">Name *</label>
-                                                <input value="{{$pet->name}}" type="text" name="name" id="name" class="form-control form-control-lg" required/>
+                                                <input value="{{$pet->animal_name}}" type="text" name="name" id="name" class="form-control form-control-lg" required/>
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4">
@@ -72,7 +72,7 @@
                                         <div class="col-md-3 mb-4 pt-2">
                                             <div class="form-outline">
                                                 <label class="form-label" for="age">Age</label>
-                                                <input value="{{$pet->age}}" placeholder="years" name="age" type="number" min="0" max="150" id="age" class="form-control form-control-lg" />
+                                                <input value="{{$pet->animal_age}}" placeholder="years" name="age" type="number" min="0" max="150" id="age" class="form-control form-control-lg" />
                                             </div>
                                         </div>
                                     </div>
@@ -80,7 +80,7 @@
                                         <div class="col-md-12 mb-4 pt-2">
                                             <div class="form-outline">
                                                 <label class="form-label" for="age">Description</label>
-                                                <input value="{{$pet->description}}" type="text" name="description" id="description" class="form-control form-control-lg" />
+                                                <input value="{{$pet->animal_description}}" type="text" name="description" id="description" class="form-control form-control-lg" />
                                             </div>
                                         </div>
                                     </div>

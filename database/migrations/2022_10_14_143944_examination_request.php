@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('fk_careman_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('fk_animal_id');
             $table->foreign('fk_animal_id')->references('animal_id')->on('animals')->onDelete('cascade');
-            $table->string('description')->nullable();
+            $table->string('ex_request_description')->nullable();
         });
     }
 

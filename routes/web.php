@@ -48,7 +48,7 @@ Route::middleware(['auth', 'careman'])->group( function (){
     Route::post('/careman/animals/pet-schedule', [App\Http\Controllers\AnimalController::class, 'showPetDetail']);
     Route::post('/careman/animals/pet-edit/edit', [App\Http\Controllers\AnimalController::class, 'editPet']);
     Route::post('/careman/animals/pet-edit/delete', [App\Http\Controllers\AnimalController::class, 'deletePet']);
-    // Route::post('/careman/animals/pet-edit/delete', 'App\Http\Controllers\AnimalController@deletePet');
+    Route::post('/careman/animals/pet-detail/examinations', [App\Http\Controllers\AnimalController::class, 'animalExaminations']);
 });
 
 Auth::routes();

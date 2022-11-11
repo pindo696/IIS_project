@@ -15,7 +15,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12 ">
             <div class="card">
-                <div class="card-header text-center">{{ __('Pets List') }}</div>
+                    <div class="card-header text-center">
+                        <div class="col-md-12"> {{ __('Pets List') }} </div>
+                    </div>
                 <div class="card-body">
                     <table class="table text-center">
                         <thead class="bg-white">
@@ -31,11 +33,11 @@
                         <tbody>
                         @foreach($result as $pet)
                          <tr class="alert text-center clickable" role="alert"><tr>
-                                <td>{{$pet->name}}</a></td>
+                                <td>{{$pet->animal_name}}</a></td>
                                 <td>{{$pet->species}}</td>
                                 <td>{{$pet->discovery_date}}</td>
                                 <td>{{$pet->discovery_place}}</td>
-                                <td>{{$pet->age}}</td>
+                                <td>{{$pet->animal_age}}</td>
                                 <td>
                                     <form action="/careman/animals/pet-detail" method="POST">
                                         @csrf

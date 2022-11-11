@@ -10,12 +10,12 @@
         <div class="container py-2">
             <div class="row">
                     <h3 class="mb-4 pb-2 pb-md-0 mb-md-3"><button class="btn border-0"><h4 title="back to animals" style="margin: 0"><a href="/careman/animals" style="color: black"><i class="fa-solid fa-arrow-left"></i></a></h4></button>Back To Pets List</h3>
-                <div class="col-lg-4">
+                <div class="col-lg-5">
                     <div class="card mb-4">
                         <div class="card-body text-center">
                             <img src = "{{asset('public/uploads/animal_images/'.$pet->photo_path)}}"
                                  alt = "Pet photo" height = "250" width = "270" />
-                            <h5 class="my-3">{{$pet->name}}</h5>
+                            <h5 class="my-3">{{$pet->animal_name}}</h5>
                             <p class="text-muted mb-1">posledné očkovanie</p>
                             <p class="text-muted mb-4">nejaký ďalší medical info alebo či je zviera free for walk</p>
                             <div class="d-flex justify-content-center mb-2">
@@ -31,6 +31,12 @@
                                         @method('POST')
                                         <input type="hidden" id="animal_id" name="animal_id" value="{{$pet->animal_id}}">
                                         <button type="submit" class="btn btn-outline-primary ms-1">Schedule</button>
+                                    </form>
+                                    <form action="/careman/animals/pet-detail/examinations" method="POST">
+                                        @csrf
+                                        @method('POST')
+                                        <input type="hidden" id="animal_id" name="animal_id" value="{{$pet->animal_id}}">
+                                        <button type="submit" class="btn btn-outline-success ms-1">Examinations</button>
                                     </form>
                                     <form action="/careman/animals/pet-edit/delete" method="POST">
                                         @csrf
@@ -50,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-7">
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="row">
@@ -58,7 +64,7 @@
                                     <p class="mb-0">Name</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0">{{$pet->name}}</p>
+                                    <p class="text-muted mb-0">{{$pet->animal_name}}</p>
                                 </div>
                             </div>
                             <hr>
@@ -85,7 +91,7 @@
                                     <p class="mb-0">Age (years)</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0">{{$pet->age}}</p>
+                                    <p class="text-muted mb-0">{{$pet->animal_age}}</p>
                                 </div>
                             </div>
                             <hr>
@@ -124,7 +130,7 @@
                                     <p class="mb-0">Description</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0">{{$pet->description}}</p>
+                                    <p class="text-muted mb-0">{{$pet->animal_description}}</p>
                                 </div>
                             </div>
                             </hr>

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreign('fk_volunteer_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('fk_animal_id');
             $table->foreign('fk_animal_id')->references('animal_id')->on('animals')->onDelete('cascade');
-            $table->dateTime('from');
-            $table->dateTime('to');
+            $table->dateTime('schedule_from');
+            $table->dateTime('schedule_to');
         });
     }
 
