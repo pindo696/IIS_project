@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AnimalController{
+
     public function addPet(Request $request){
 
         $date = Carbon::parse($request->discoveryDate);
@@ -56,7 +57,7 @@ class AnimalController{
         $result = DB::select('SELECT * FROM examinations
                     RIGHT JOIN animals ON animals.animal_id = examinations.fk_animal_id
                     LEFT JOIN users ON examinations.fk_vet_id = users.id
-                    WHERE animals.animal_id LIKE :id', ['id' => $id]);
+                    WHERE animals.animal_id LIKE :id ORDER BY examinations.examination_from DESC', ['id' => $id]);
         return $result;
     }
 
@@ -67,11 +68,14 @@ class AnimalController{
     }
 
     public function showPetDetail(Request $request){
+        if(!$request->isMethod('post')) return redirect('/careman/animals');
         $result = app()->call('App\Http\Controllers\AnimalController@getPetDetail',['id' => $request]);
         return view('pet-detail', compact('result', 'result'));
+
     }
 
     public function showPetEdit(Request $request){
+        if(!$request->isMethod('post')) return redirect('/careman/animals');
         $result = app()->call('App\Http\Controllers\AnimalController@getPetDetail',['id' => $request]);
         return view('pet-edit', compact('result', 'result'));
     }
@@ -125,6 +129,7 @@ class AnimalController{
     }
 
     public function animalExaminations(Request $request){
+        if(!$request->isMethod('post')) return redirect('/careman/animals');
         $result = app()->call('App\Http\Controllers\AnimalController@getPetExaminations', ['id' => $request->animal_id]);
         return view('pet-examinations', compact('result', 'result'));
     }
