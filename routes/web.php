@@ -51,6 +51,7 @@ Route::middleware(['auth', 'careman'])->group( function (){
     Route::any('/careman/animals/pet-detail/examinations', [App\Http\Controllers\AnimalController::class, 'animalExaminations']);
     Route::any('/careman/animals/request-examination', [App\Http\Controllers\ExaminationController::class, 'requestExamination']);
     Route::any('/careman/animals/examination-detail', [App\Http\Controllers\ExaminationController::class, 'getAllPetExaminations']);
+    Route::any('/careman/animals/pet-edit/request-examination/send', [App\Http\Controllers\ExaminationController::class, 'createExamination']);
 
 });
 

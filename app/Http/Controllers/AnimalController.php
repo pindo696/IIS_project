@@ -63,7 +63,7 @@ class AnimalController{
 
     public function getPetDetail($id) : array{
         //$result = DB::table('animals')->where('animal_id', $id)->get();
-        $result = DB::select('SELECT * FROM animals WHERE animals.animal_id LIKE :id', ['id' => $id->animal_id]);
+        $result = DB::select('SELECT * FROM animals LEFT JOIN examinations ON animals.animal_id = examinations.fk_animal_id WHERE animals.animal_id LIKE :id', ['id' => $id->animal_id]);
         return $result;
     }
 

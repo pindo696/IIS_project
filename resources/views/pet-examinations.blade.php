@@ -35,6 +35,8 @@
                                         @method('POST')
                                         <input type="hidden" id="animal_id" name="animal_id"
                                                value="{{$result[0]->animal_id}}">
+                                        <input type="hidden" id="animal_name" name="animal_name"
+                                               value="{{$result[0]->animal_name}}">
                                         <button type="submit" class="btn btn-outline-success ms-1">Request
                                             Examination
                                         </button>
