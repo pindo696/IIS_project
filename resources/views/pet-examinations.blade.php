@@ -1,9 +1,10 @@
+<head>
+    <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
+    <link href="{{asset('css/all.css')}}" rel="stylesheet">
+
+</head>
 @extends('layouts.app')
 @section('content')
-    <head>
-        <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
-        <link href="{{asset('css/all.css')}}" rel="stylesheet">
-    </head>
     <section class="container-fluid">
         @include('alertbox')
         <div class="container py-2">
@@ -25,6 +26,7 @@
                             <img src="{{asset('public/uploads/animal_images/'.$result[0]->photo_path)}}"
                                  alt="Pet photo" height="250" width="270"/>
                             <h5 class="my-3">{{$result[0]->animal_name}}</h5>
+
                             <p class="text-muted mb-1">posledné očkovanie</p>
                             <p class="text-muted mb-4">nejaký ďalší medical info alebo či je zviera free for
                                 walk</p>
@@ -40,11 +42,11 @@
                                         <button type="submit" class="btn btn-outline-success ms-1">Request
                                             Examination
                                         </button>
+                                    </form>
                                 @endif
                             </div>
                         </div>
                     </div>
-
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="row">
@@ -127,8 +129,6 @@
 
                 </div>
                 {{-----------------------------------------  EXAMINATION PART -----------------------------------------------------}}
-
-
                 <div class="col-lg-8">
                     <div class="card mb-4">
                         <div class="card-header">
@@ -145,62 +145,83 @@
                                 <div class="col-sm-2">
                                     <b>Status</b>
                                 </div>
-                                <div class="col-sm-1 text-center">
-                                    <b>Action</b>
-                                </div>
                             </div>
                         </div>
+                        <div class="card-body" style="padding: 0px">
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
 
+                                @php ($style = '')
+                                @foreach($result as $data)
+                                    @if($data->examination_id)
+                                        @if($data->examination_status == "requested")
+                                            @php ($style = 'text-orange')
+                                        @endif
+                                        @if($data->examination_status == "done")
+                                            @php ($style = 'text-success')
+                                        @endif
+                                        @if($data->examination_status == "planned")
+                                            @php ($style = 'text-primary')
+                                        @endif
 
-                        <div class="card-body">
-                            @php ($style = '')
-                            @foreach($result as $data)
-                                @if($data->examination_id)
-                                    @if($data->examination_status == "requested")
-                                        @php ($style = 'text-orange')
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header"  id="flush-{{$data->examination_id}}">
+                                                <button style="background-color: white" class="accordion-button collapsed shadow-none" type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#flush-collapse{{$data->examination_id}}"
+                                                        aria-controls="flush-collapse{{$data->examination_id}}">
+                                                    <div class="col-sm-3">
+                                                        {{$data->examination_from}}
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        {{$data->examination_type}}
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        {{$data->name}}
+                                                    </div>
+                                                    <div class="col-sm-2 {{$style}}">
+                                                        {{$data->examination_status}}
+                                                    </div>
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapse{{$data->examination_id}}"
+                                                 class="ccordion-collapse collapse"
+                                                 aria-labelledby="flush-{{$data->examination_id}}"
+                                                 data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    @if($data->examination_status == "requested")
+                                                        <div class="row align-middle">
+                                                            <div class="col-sm-11">
+                                                                {{$data->examination_description}}
+                                                            </div>
+                                                            <div class="col-sm-1 d-flex justify-content-end">
+                                                                <form action="/careman/examination/examination-request/delete" method="POST">
+                                                                    @csrf
+                                                                    @method('POST')
+                                                                    <input type="hidden" id="animal_id" name="animal_id"
+                                                                           value="{{$result[0]->animal_id}}">
+                                                                    <input type="hidden" name="examination_id" value="{{$data->examination_id}}">
+                                                                    <button title="Delete examination" type="submit" class="btn text-danger fa-solid fa-trash-can"></button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        @else
+                                                            {{$data->examination_description}}
+                                                        @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="row">
+                                            <b class="text-danger text-center">No records yet!</b>
+                                        </div>
                                     @endif
-                                    @if($data->examination_status == "done")
-                                        @php ($style = 'text-success')
-                                    @endif
-                                    @if($data->examination_status == "planned")
-                                        @php ($style = 'text-primary')
-                                    @endif
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                           {{$data->examination_from}}
-                                        </div>
-                                        <div class="col-sm-3">
-                                            {{$data->examination_type}}
-                                        </div>
-                                        <div class="col-sm-3">
-                                            {{$data->name}}
-                                        </div>
-                                        <div class="col-sm-2 {{$style}}">
-                                            {{$data->examination_status}}
-                                        </div>
-                                        <div class="col-sm-1 text-center">
-                                            <form action="/careman/animals/examination-detail" method="POST">
-                                                @csrf
-                                                @method('POST')
-                                                <input type="hidden" id="animal_id" name="animal_id"
-                                                       value="{{$data->animal_id}}">
-                                                <button title="show" class="btn text-primary fa-solid fa-eye"></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                @else
-                                    <div class="row">
-                                        <b class="text-danger text-center">No records yet!</b>
-                                    </div>
-                                @endif
-                            @endforeach
+                                @endforeach
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 @endsection
 

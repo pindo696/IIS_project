@@ -53,7 +53,7 @@
                                     <div class="col-md-12 mb-0 pt-0">
                                         <div class="form-outline">
                                             <label class="form-label" for="description">Description</label>
-                                            <textarea class="form-control" name="description" aria-label="With textarea"></textarea>
+                                            <textarea class="form-control" name="examinationDescription" aria-label="With textarea"></textarea>
                                         </div>
                                     </div>
                                 </div>
