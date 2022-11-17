@@ -23,8 +23,9 @@ class ExaminationController extends Controller
 
     public function deleteRequest(Request $request){
         if(!$request->isMethod('post')) return redirect('/careman/animals');
-        //DB::select("DELETE FROM examinations WHERE examination_id LIKE :id", ['id' => $request->examination_id]);
-        app()->call('App\Http\Controllers\AnimalController@animalExaminations');
+        DB::select("DELETE FROM examinations WHERE examination_id LIKE :id", ['id' => $request->examination_id]);
+        $result = app()->call('App\Http\Controllers\AnimalController@getPetExaminations', ['id' => $request->animal_id]);
+        return view('pet-examinations', compact('result', 'result'));
     }
 
     public function requestExamination(Request $request){
