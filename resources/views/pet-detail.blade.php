@@ -40,6 +40,8 @@
                                     echo '<p class="text-muted mb-1">'.'Posledné očkovanie: '.substr($last->examination_from, 0 , 10).'</p>';
                                 }
                             ?>
+                                <p class="text-muted mb-4">nejaký ďalší medical info alebo či je zviera free for
+                                    walk</p>
                             <div class="d-flex justify-content-center mb-2">
                                 @if(Auth::user()->role == "admin" || Auth::user()->role == "careman")
                                     <form action="/careman/animals/pet-edit/" method="POST">

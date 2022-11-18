@@ -27,10 +27,25 @@
                                 <img height="250" width="270" class="img-thumbnail border-0 shadow-none" src={{asset('storage/' . $result[0]->photo_path)}} alt="PetPicture"/>
                             @endif
                             <h5 class="my-3">{{$result[0]->animal_name}}</h5>
+                                <?php
+                                //  $last = $result[0]->examination_from;
+                                $last = $result[0];
+                                foreach($result as $data) {
+                                    if ($data->examination_type == 'Očkovanie' && $data->examination_status == 'done') {
+                                        $dateTimestamp1 = strtotime($data->examination_from);
+                                        $dateTimestamp2 = strtotime($last->examination_from);
+                                        if ($dateTimestamp1 >= $dateTimestamp2){
+                                            $last = $data;
+                                        }
+                                    }
+                                }
+                                if($last->examination_type != 'Očkovanie'){
+                                    echo '<p class="text-muted mb-1">Bez očkovania</p>';
+                                }else{
+                                    echo '<p class="text-muted mb-1">'.'Posledné očkovanie: '.substr($last->examination_from, 0 , 10).'</p>';
+                                }
+                                ?>
 
-                            <p class="text-muted mb-1">posledné očkovanie</p>
-                            <p class="text-muted mb-4">nejaký ďalší medical info alebo či je zviera free for
-                                walk</p>
                             <div class="d-flex justify-content-center mb-2">
                                 @if(Auth::user()->role == "admin" || Auth::user()->role == "careman")
                                     <form action="/careman/animals/request-examination/" method="POST">
