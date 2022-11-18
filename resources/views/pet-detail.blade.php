@@ -18,8 +18,9 @@
                 <div class="col-lg-5">
                     <div class="card mb-4">
                         <div class="card-body text-center">
-                            <img src="{{asset('public/uploads/animal_images/'.$result[0]->photo_path)}}"
-                                 alt="Pet photo" height="250" width="270"/>
+                            @if($result[0]->photo_path)
+                                <img height="250" width="270" class="img-thumbnail border-0 shadow-none" src={{asset('storage/' . $result[0]->photo_path)}} alt="PetPicture"/>
+                            @endif
                             <h5 class="my-3">{{$result[0]->animal_name}}</h5>
                             <?php
                               //  $last = $result[0]->examination_from;
