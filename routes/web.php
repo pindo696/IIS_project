@@ -59,7 +59,8 @@ Route::middleware(['auth', 'careman'])->group( function (){
 
 
 });
-
+// Single pet simple detail
+Route::get('/animal/{id}', [AnimalController::class, 'show']);
 Auth::routes();
 
 

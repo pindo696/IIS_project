@@ -12,7 +12,10 @@ class Animal extends Model
     use HasFactory;
 
     protected $fillable = ['animal_name', 'species', 'discovery_date', 'discovery_place', 'color', 'animal_age', 'animal_description', 'gender', 'photo_path'];
-
+    public static function getbyid($id){
+        return  DB::select('SELECT * FROM animals WHERE animal_id LIKE :id', ['id' => $id]);
+    }
+    
     public function db_addPet($request){
         $file = NULL;
         if($request->hasFile('image')){

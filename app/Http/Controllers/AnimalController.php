@@ -29,17 +29,18 @@ class AnimalController{
         }
     }
 
-    // Show all listings
+    // Show all pets
     public function index() {
         return view('list_animals', ['animals' => Animal::latest()->paginate(9)]);
     }
 
-    //Show single listing
-    //public function show(Animal $animal) {
-    //    return view('listings.show', [
-    //        'listing' => $listing
-    //    ]);
-    //}
+    //Show single pet
+    public function show($id) {
+        $animal = Animal::getbyid($id);
+        return view('pet_simple_detail', [
+            'animal' => $animal
+        ]);
+    }
 
     public function getAllPets() : array{
         return app()->call('App\Models\Animal@db_getAllPets');
