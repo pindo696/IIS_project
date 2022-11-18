@@ -4,6 +4,8 @@ use App\Models\Animal;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\CaremanController;
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +18,9 @@ use App\Http\Controllers\CaremanController;
 |
 */
 
-Route::get('/', function(){
-    return view('list_animals', [
-        'animals' => Animal::all()
-    ]);
-});
+Route::get('/', [AnimalController::class, 'index']);
+
+Route::get('/about', [Controller::class, 'about']);
 
 Route::get('/unauth', [App\Http\Controllers\VolunteerController::class, 'unauth'])->name('unauth');
 Route::get('/support', [App\Http\Controllers\VolunteerController::class, 'support'])->name('support');

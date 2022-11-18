@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -20,9 +20,18 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a href="{{ url('/') }}">
+        
+                <img style="height: 50px; max-width: 70px;"class="img-thumbnail rounded-circle mx-auto d-block" src={{asset("images/pawlogo.png")}} alt="Logo"/>
                 </a>
+                <a style="padding-left: 1rem;" class="navbar-brand" href="{{ url('/') }}">
+                    Animal Shelter of Gray Paw
+                </a>
+
+                <ul class="list-group list-group-horizontal">
+                    <a style="text-decoration: none;" href="{{ url('/') }}"><li style="margin-right: 1rem; color: rgb(47, 103, 193);"class="list-group-item list-group-item-info">Home</li></a>
+                    <a style=" text-decoration: none;" href="{{ url('/about') }}"><li style="margin-right: 1rem; color: rgb(47, 103, 193);"class="list-group-item list-group-item-info">About</li></a>
+                </ul>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -91,6 +100,7 @@
         <main class="py-4">
             @yield('content')
         </main>
+        
     </div>
 </body>
 </html>
