@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -44,4 +45,26 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function db_changeUserConfirmationToAccepted($id){
+        DB::table('users')->where('id', $id)->update(array('confirmation'=>'accepted'));
+    }
+
+    public function db_changeUserConfirmationToDeclined($id){
+        DB::table('users')->where('id', $id)->update(array('confirmation'=>'declined'));
+    }
+
+    public function db_changeUserConfirmationToBanned($id){
+        DB::table('users')->where('id', $id)->update(array('confirmation'=>'banned'));
+    }
+
+    public function db_deleteUser($id){
+        DB::table('users')->delete($id);
+    }
+
+    public function db_getVolunteers(){
+        $result = DB::table('users')
+            -> where('role', 'like', 'volunteer') -> orderByDesc('confirmation')
+            ->get();
+        return $result;
+    }
 }

@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class CaremanController extends Controller{
     function index(){
-        $result = DB::table('users') -> where('role', 'like', 'volunteer') -> orderByDesc('confirmation')
-            ->get();
+        $result = app()->call('App\Models\Careman@getVolunteers');
         return view('careman', compact('result', 'result'));
     }
 
@@ -24,25 +23,21 @@ class CaremanController extends Controller{
     }
 
     public function acceptVolunteer(Request $request){
-        DB::table('users')->where('id', $request->data_id)->update(array('confirmation'=>'accepted'));
+        app()->call('App\Models\Careman@acceptVolunteer');
         return redirect('/careman/requests');
     }
 
     public function declineVolunteer(Request $request){
-        DB::table('users')->where('id', $request->data_id)->update(array('confirmation'=>'declined'));
+        app()->call('App\Models\Careman@declineVolunteer');
         return redirect('/careman/requests');
     }
     public function banVolunteer(Request $request){
-        DB::table('users')->where('id', $request->data_id)->update(array('confirmation'=>'banned'));
+        app()->call('App\Models\Careman@banVolunteer');
         return redirect('/careman/requests');
     }
     public function deleteVolunteer(Request $request){
-        DB::table('users')->delete($request->data_id);
+        app()->call('App\Models\Careman@deleteVolunteer');
         return redirect('/careman/requests');
-    }
-
-    public function update(Request $request, $id){
-
     }
 
     public function edit($id){
