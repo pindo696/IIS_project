@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Animal;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\CaremanController;
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +16,10 @@ use App\Http\Controllers\CaremanController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function(){
+    return view('list_animals', [
+        'animals' => Animal::all()
+    ]);
 });
 
 Route::get('/unauth', [App\Http\Controllers\VolunteerController::class, 'unauth'])->name('unauth');

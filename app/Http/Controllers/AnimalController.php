@@ -27,10 +27,12 @@ class AnimalController{
             $request['discoveryDate'] = $date->format('Y-m-d');
             $filename = NULL;
             if($request->hasFile('image')){
-                $file = $request->file('image');
-                $extension = $file->getClientOriginalExtension();
-                $filename = time().'.'.$extension;
-                $file->move(base_path('public\uploads\animal_images\\'), $filename);
+                //uklada do storage/app/public s unikatnym pregenerovanym nazvom
+                $file = $request->file('image')->store('animal_images', 'public');
+               // $file = $request->file('image');
+                //$extension = $file->getClientOriginalExtension();
+               // $filename = time().'.'.$extension;
+               // $file->move(base_path('public\uploads\animal_images\\'), $filename);
             }
 
             $animal = Animal::create([
@@ -42,7 +44,8 @@ class AnimalController{
                 'animal_age' => $request->input('age'),
                 'animal_description' => $request->input('description'),
                 'gender' => $request->input('inlineRadioOptions'),
-                'photo_path' => $filename,
+                //'photo_path' => $filename,
+                'photo_path' => $file,
             ]);
             return redirect("/careman/animals")->with('success', true)->with('message', 'Pet was successfully added');
         }
