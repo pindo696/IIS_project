@@ -110,7 +110,7 @@
                             </div>
                         </div>
                         <hr class="mt-2">
-                        @foreach($result['reservations'] as $data)
+                        @foreach($result['reservations']['upcomming'] as $data)
                             <div class="row mt-2 text-center">
                                 <div class="col-sm-2 p-2">
                                     {{$data->reservation_from}}
@@ -119,7 +119,12 @@
                                     {{$data->reservation_to}}
                                 </div>
                                 <div class="col-sm-3 p-2">
-                                    {{$data->animal_name}}
+                                    <form class="d-inline" action="/careman/animals/pet-detail" method="POST">
+                                        @csrf
+                                        @method('POST')
+                                        <input type="hidden" name="animal_id" value="{{$data->animal_id}}">
+                                        <button type="submit" class="btn btn-link p-0">{{$data->animal_name}}</button>
+                                    </form>
                                 </div>
                                 <div class="col-sm-3 p-2">
                                     {{$data->name." ".$data->surname}}
@@ -130,13 +135,45 @@
                                             @csrf
                                             @method('POST')
                                             <input type="hidden" name="request_id" value="{{$data->reservation_id}}">
-                                            <button title="Accept volunteer" type="submit" class="btn text-success fa-solid fa-check"></button>
+                                            <button title="Accept walk" type="submit" class="btn text-success fa-solid fa-check"></button>
                                         </form>
                                         <form class="d-inline" action="/careman/declineWalk/" method="POST">
                                             @csrf
                                             @method('POST')
                                             <input type="hidden" name="request_id" value="{{$data->reservation_id}}">
-                                            <button title="Decline volunteer" type="submit" class="btn text-danger fa-solid fa-xmark"></button>
+                                            <button title="Decline walk" type="submit" class="btn text-danger fa-solid fa-xmark"></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                        <hr>
+                        @foreach($result['reservations']['past'] as $data)
+                            <div class="row mt-2 text-center">
+                                <div class="col-sm-2 p-2">
+                                    {{$data->reservation_from}}
+                                </div>
+                                <div class="col-sm-2 p-2">
+                                    {{$data->reservation_to}}
+                                </div>
+                                <div class="col-sm-3 p-2">
+                                    <form class="d-inline" action="/careman/animals/pet-detail" method="POST">
+                                        @csrf
+                                        @method('POST')
+                                        <input type="hidden" name="animal_id" value="{{$data->animal_id}}">
+                                        <button type="submit" class="btn btn-link p-0">{{$data->animal_name}}</button>
+                                    </form>
+                                </div>
+                                <div class="col-sm-3 p-2">
+                                    {{$data->name." ".$data->surname}}
+                                </div>
+                                <div class="col-sm-2 p-2">
+                                    <div class="d-inline-block">
+                                        <form class="d-inline" action="/careman/deleteWalk/" method="POST">
+                                            @csrf
+                                            @method('POST')
+                                            <input type="hidden" name="request_id" value="{{$data->reservation_id}}">
+                                            <button title="Permanently delete from pet history" type="submit" class="btn text-danger fa-solid fa-trash-can"></button>
                                         </form>
                                     </div>
                                 </div>

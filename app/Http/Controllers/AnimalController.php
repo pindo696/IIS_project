@@ -88,6 +88,7 @@ class AnimalController{
     }
 
     public function deletePet(Request $request){
+        if(!$request->isMethod('post')) return redirect('/careman/animals');
         $n_rows = app()->call('App\Models\Animal@db_deletePet');
         if($n_rows > 0){
             return redirect("/careman/animals")->with('success', true)->with('message', 'Pet was successfully deleted');
@@ -100,6 +101,12 @@ class AnimalController{
         if(!$request->isMethod('post')) return redirect('/careman/animals');
         $result = app()->call('App\Http\Controllers\AnimalController@getPetExaminations', ['id' => $request->animal_id]);
         return view('pet-examinations', compact('result', 'result'));
+    }
+
+    public function petSchedule(Request $request){
+        if(!$request->isMethod('post')) return redirect('/careman/animals');
+        $result = app()->call('App\Models\Reservation@db_getPetReservations', ['id' => $request->animal_id]);
+        return view('pet-schedule', compact('result', 'result'));
     }
 
 }

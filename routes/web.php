@@ -58,6 +58,7 @@ Route::middleware(['auth', 'careman'])->group( function (){
     Route::any('/careman/examination/examination-request/delete', [App\Http\Controllers\ExaminationController::class, 'deleteRequest']);
     Route::post('/careman/declineWalk/', [App\Http\Controllers\ReservationController::class, 'declineWalk']);
     Route::post('/careman/acceptWalk/', [App\Http\Controllers\ReservationController::class, 'acceptWalk']);
+    Route::any('/careman/animals/pet-schedule/', [App\Http\Controllers\AnimalController::class, 'petSchedule']);
 
 });
 // Single pet simple detail

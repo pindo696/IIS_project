@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReservationController extends Controller{
     public function getAllReservations(){
@@ -18,4 +19,5 @@ class ReservationController extends Controller{
         app()->call('App\Models\Reservation@db_acceptWalk', ['id' => $request->request_id]);
         return redirect('/careman/requests');
     }
+
 }
