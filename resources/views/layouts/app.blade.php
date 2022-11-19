@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Gray Paw | Animal shelter</title>
     
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -22,13 +22,13 @@
             <div class="container">
                 <a href="{{ url('/') }}">
         
-                <img style="height: 50px; max-width: 70px;"class="img-thumbnail rounded-circle mx-auto d-block" src={{asset("images/pawlogo.png")}} alt="Logo"/>
+                <img style="height: 50px; max-width: 70px;"class="img-thumbnail rounded-circle mx-auto d-block hover-overlay ripple shadow-1-strong " src={{asset("images/pawlogo.png")}} alt="Logo"/>
                 </a>
-                <a style="padding-left: 1rem;" class="navbar-brand" href="{{ url('/') }}">
+                <a style="padding-left: 1rem;" class="navbar-brand " href="{{ url('/') }}">
                     Animal Shelter of Gray Paw
                 </a>
 
-                <ul class="list-group list-group-horizontal">
+                <ul class="list-group list-group-horizontal flex-reverse">
                     <a style="text-decoration: none;" href="{{ url('/') }}"><li style="margin-right: 1rem; color: rgb(47, 103, 193);"class="list-group-item list-group-item-info">Home</li></a>
                     <a style=" text-decoration: none;" href="{{ url('/about') }}"><li style="margin-right: 1rem; color: rgb(47, 103, 193);"class="list-group-item list-group-item-info">About</li></a>
                 </ul>
