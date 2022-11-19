@@ -22,7 +22,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($result as $data)
+                            @foreach($result['volunteers'] as $data)
                                 @php ($style = '#FFFFFF')
                             @if($data->confirmation == 'waiting')
                                 @php ($style = 'text-orange')
@@ -92,7 +92,43 @@
                 <div class="card">
                     <div class="card-header text-center">{{ __('Requests for walk') }}</div>
                     <div class="card-body">
-
+                        <div class="row">
+                            <div class="col-sm-2 text-center mt-2" style="font-weight: bold">
+                                From
+                            </div>
+                            <div class="col-sm-2 text-center mt-2" style="font-weight: bold">
+                                To
+                            </div>
+                            <div class="col-sm-3 text-center mt-2" style="font-weight: bold">
+                                Animal
+                            </div>
+                            <div class="col-sm-3 text-center mt-2" style="font-weight: bold">
+                                Requested by
+                            </div>
+                            <div class="col-sm-2 text-center mt-2" style="font-weight: bold">
+                                Action
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        @foreach($result['reservations'] as $data)
+                            <div class="row mt-2 text-center">
+                                <div class="col-sm-2 p-2">
+                                    {{$data->reservation_from}}
+                                </div>
+                                <div class="col-sm-2 p-2">
+                                    {{$data->reservation_to}}
+                                </div>
+                                <div class="col-sm-3 p-2">
+                                    {{$data->animal_name}}
+                                </div>
+                                <div class="col-sm-3 p-2">
+                                    {{$data->name}}
+                                </div>
+                                <div class="col-sm-2 p-2">
+                                    action
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

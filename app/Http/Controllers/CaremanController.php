@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\DB;
 
 class CaremanController extends Controller{
     function index(){
-        $result = app()->call('App\Models\Careman@getVolunteers');
-        return view('careman', compact('result', 'result'));
+        $result['volunteers'] = app()->call('App\Models\Careman@getVolunteers');
+        $result['reservations'] = app()->call('App\Http\Controllers\ReservationController@getAllReservations');
+        return view('careman', ['result' => $result]);
     }
 
     function pets(){
