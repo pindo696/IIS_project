@@ -38,7 +38,7 @@
                     <table class="table text-center">
                         <thead class="bg-white">
                             <tr>
-                            <th>Requester Name</th>
+                            <th>Applicant</th>
                             <th>Animal ID</th>
                             <th>Animal Name</th>
                             <th>Species</th>
