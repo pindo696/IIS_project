@@ -13,11 +13,19 @@ class Reservation extends Model{
     }
 
     public function db_getAllReservationsJoinAnimalsJoinUsers(){
-        $result = DB::select("SELECT reservations.reservation_from, reservations.reservation_to, animals.animal_name, users.name
+        $result = DB::select("SELECT reservations.reservation_id, reservations.reservation_from, reservations.reservation_to, animals.animal_name, users.name, users.surname
                             FROM reservations
                             RIGHT JOIN animals ON reservations.fk_animal_id = animals.animal_id
                             RIGHT JOIN users ON reservations.fk_volunteer_id = users.id WHERE users.role LIKE 'volunteer' AND reservations.reservation_id NOT LIKE 'null'");
         return $result;
+    }
+
+    public function db_declineWalk($id){
+        dd($id);
+    }
+
+    public function db_acceptWalk($id){
+        dd($id);
     }
 
 }

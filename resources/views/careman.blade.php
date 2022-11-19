@@ -66,18 +66,18 @@
                                             </form>
                                         @else
                                             <div class="d-inline-block">
-                                            <form class="d-inline" action="/careman/acceptVolunteer/" method="POST">
-                                                @csrf
-                                                @method('POST')
-                                                <input type="hidden" id="data_id" name="data_id" value="{{$data->id}}">
-                                                <button title="Accept volunteer" type="submit" class="btn text-success fa-solid fa-check"></button>
-                                            </form>
-                                            <form class="d-inline" action="/careman/declineVolunteer/" method="POST">
-                                                @csrf
-                                                @method('POST')
-                                                <input type="hidden" id="data_id" name="data_id" value="{{$data->id}}">
-                                                <button title="Decline volunteer" type="submit" class="btn text-danger fa-solid fa-xmark"></button>
-                                            </form>
+                                                <form class="d-inline" action="/careman/acceptVolunteer/" method="POST">
+                                                    @csrf
+                                                    @method('POST')
+                                                    <input type="hidden" id="data_id" name="data_id" value="{{$data->id}}">
+                                                    <button title="Accept volunteer" type="submit" class="btn text-success fa-solid fa-check"></button>
+                                                </form>
+                                                <form class="d-inline" action="/careman/declineVolunteer/" method="POST">
+                                                    @csrf
+                                                    @method('POST')
+                                                    <input type="hidden" id="data_id" name="data_id" value="{{$data->id}}">
+                                                    <button title="Decline volunteer" type="submit" class="btn text-danger fa-solid fa-xmark"></button>
+                                                </form>
                                             </div>
                                         @endif
                                     </td>
@@ -122,10 +122,23 @@
                                     {{$data->animal_name}}
                                 </div>
                                 <div class="col-sm-3 p-2">
-                                    {{$data->name}}
+                                    {{$data->name." ".$data->surname}}
                                 </div>
                                 <div class="col-sm-2 p-2">
-                                    action
+                                    <div class="d-inline-block">
+                                        <form class="d-inline" action="/careman/acceptWalk/" method="POST">
+                                            @csrf
+                                            @method('POST')
+                                            <input type="hidden" name="request_id" value="{{$data->reservation_id}}">
+                                            <button title="Accept volunteer" type="submit" class="btn text-success fa-solid fa-check"></button>
+                                        </form>
+                                        <form class="d-inline" action="/careman/declineWalk/" method="POST">
+                                            @csrf
+                                            @method('POST')
+                                            <input type="hidden" name="request_id" value="{{$data->reservation_id}}">
+                                            <button title="Decline volunteer" type="submit" class="btn text-danger fa-solid fa-xmark"></button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
