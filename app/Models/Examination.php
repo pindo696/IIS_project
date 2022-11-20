@@ -13,12 +13,24 @@ class Examination extends Model
 
     protected $fillable = ['fk_animal_id', 'fk_requested_by_careman_id', 'fk_vet_id', 'examination_status', 'examination_type', 'examination_description', 'examination_from', 'examination_to'];
 
+    public function db_getAllPetExaminationsAndRecords(){
+        $examinations= DB::select("SELECT * FROM examinations JOIN users ON examinations.fk_requested_by_careman_id = users.id JOIN animals ON examinations.fk_animal_id=animals.animal_id");
+        $records = DB::select("SELECT * FROM animals");
+        return [
+            'examinations' =>$examinations,
+            'records' => $records
+        ];
+    }
+
     public function db_getAllPetExaminations(Request $request){
         return DB::select("SELECT * FROM examinations WHERE examination_id LIKE :id ", ['id' => $request->examination_id]);
     }
 
-    public function db_getPetExaminationByPetId($id){
-        return DB::select("SELECT * FROM examinations WHERE fk_animal_id LIKE :id", ['id' => $id]);
+    public function db_getPetExaminationById($id){
+        $examination = DB::select("SELECT * FROM examinations JOIN animals ON examinations.fk_animal_id=animals.animal_id WHERE examination_id=$id");
+        return [
+            'examination' => $examination
+        ];
     }
 
     public function db_deleteRequest(Request $request){

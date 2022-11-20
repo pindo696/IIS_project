@@ -8,8 +8,6 @@
         
         @include('alertbox')
 
-
-
         <div class="container py-2">
             <div class="row">
                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-3">
@@ -103,7 +101,7 @@
                         </div>
                     </div>
                 </div>
-                {{--                @endforeach--}}
+
             </div>
         </div>
         </div>

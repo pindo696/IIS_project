@@ -7,6 +7,7 @@ use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CaremanController;
+use App\Http\Controllers\VetController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,7 +35,9 @@ Route::middleware(['auth', 'volunteer'])->group( function (){
 });
 
 Route::middleware(['auth', 'vet'])->group( function (){
-    Route::get('/vet', [App\Http\Controllers\VetController::class, 'index'])->name('vet');
+    Route::get('/vet', [VetController::class, 'getPetExaminationsAndRecords'])->name('vet');
+    Route::post('/vet/request/{id}', [VetController::class, 'getRequestDetailed'])->name('vet');
+    Route::post('/vet/records/animal/{id}', [VetController::class, 'getAnimalRecordDetailed'])->name('vet');
 });
 
 Route::middleware(['auth', 'careman'])->group( function (){

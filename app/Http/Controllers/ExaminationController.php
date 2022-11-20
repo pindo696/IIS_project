@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class ExaminationController extends Controller
-{
+{   
+    
     public function getAllPetExaminations(Request $request){
         if(!$request->isMethod('post')) return redirect('/careman/animals');
         $result = app()->call('App\Models\ControllersExaminations@db_getPetExaminations');
