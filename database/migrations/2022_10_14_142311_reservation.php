@@ -21,6 +21,8 @@ return new class extends Migration
             $table->dateTime('reservation_from');
             $table->dateTime('reservation_to');
             $table->boolean('approved')->default(false);
+            // after careman accepts request, fk_approved_by will be filled
+            $table->foreignId('fk_approved_by_id')->nullable()->constrained('users')->onDelete('cascade');
         });
     }
 

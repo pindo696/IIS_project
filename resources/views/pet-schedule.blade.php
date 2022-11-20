@@ -1,8 +1,22 @@
 @extends('layouts.app')
 @section('content')
-
+    <head>
+        <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
+        <link href="{{asset('css/all.css')}}" rel="stylesheet">
+    </head>
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <form action="/careman/animals/pet-detail" method="POST">
+                <h3 class="mb-4 pb-2 pb-md-0 mb-md-3">
+                    <button type="submit" class="btn border-0"><h4 title="back to animals" style="margin: 0">
+                            @csrf
+                            @method('POST')
+                            <input type="hidden" id="animal_id" name="animal_id" value="{{$result['animal']}}">
+                            <a style="color: black"><i class="fa-solid fa-arrow-left"></i></a>
+                        </h4></button>
+                    Back To Pet
+                </h3>
+            </form>
             <div class="card">
                 <div class="card-header text-center">
                     <div class="col-md-12"> {{ __('Pet Schedule') }} </div>

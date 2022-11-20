@@ -11,7 +11,7 @@ class Examination extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fk_animal_id', 'fk_requested_by_careman_id', 'fk_vet_id', 'examination_status', 'examination_type', 'examination_description', 'examination_from', 'examination_to'];
+    protected $fillable = ['fk_animal_id', 'fk_requested_by_careman_id', 'fk_vet_id', 'examination_status', 'examination_type', 'examination_description', 'examination_from', 'examination_to', 'fk_approved_by_id'];
 
     public function db_getAllPetExaminationsAndRecords(){
         $examinations= DB::select("SELECT * FROM examinations JOIN users ON examinations.fk_requested_by_careman_id = users.id JOIN animals ON examinations.fk_animal_id=animals.animal_id");
@@ -22,7 +22,7 @@ class Examination extends Model
         ];
     }
 
-    
+
     public function db_getAnimalRecordsDetailed($id){
         $records = DB::select("SELECT * FROM examinations JOIN animals ON examinations.fk_animal_id=animals.animal_id JOIN users ON examinations.fk_vet_id=users.id WHERE fk_animal_id=$id");
         return [

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use http\Env\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -35,12 +36,14 @@ class Reservation extends Model{
         return $result;
     }
 
-    public function db_declineWalk($id){
-        DB::table('reservations')->where('reservation_id', $id)->delete();
+    public function db_declineWalk($userID, $id){
+        DB::table('reservations')->where('reservation_id', $id)->update(array('approved'=>'-1'));
+        DB::table('reservations')->where('reservation_id', $id)->update(array('fk_approved_by_id' => $userID));
     }
 
-    public function db_acceptWalk($id){
+    public function db_acceptWalk($userID, $id){
         DB::table('reservations')->where('reservation_id', $id)->update(array('approved'=>'1'));
+        DB::table('reservations')->where('reservation_id', $id)->update(array('fk_approved_by_id' => $userID));
     }
 
     public function db_getPetReservations($id){
@@ -51,6 +54,7 @@ class Reservation extends Model{
         $result['upcomming']= DB::select("SELECT reservations.reservation_from, reservations.reservation_to, users.name, users.surname FROM reservations
                             JOIN users ON users.id = reservations.fk_volunteer_id
                             WHERE reservations.reservation_from >= :date AND fk_animal_id LIKE :id", ['date'=> $actual_date, 'id' => $id]);
+        $result['animal'] = $id;
         return $result;
     }
 
