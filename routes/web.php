@@ -32,6 +32,7 @@ Route::middleware(['auth', 'admin'])->group( function (){
 
 Route::middleware(['auth', 'volunteer'])->group( function (){
     Route::get('/volunteer', [App\Http\Controllers\VolunteerController::class, 'index'])->name('volunteer');
+    Route::any('/volunteer/history', [App\Http\Controllers\VolunteerController::class, 'getVolunteerHistory']);
 });
 
 Route::middleware(['auth', 'vet'])->group( function (){

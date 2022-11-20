@@ -24,29 +24,26 @@
                 <div class="card-body">
                     <div class="card-body pt-1">
                         <div class="row">
-                            <div class="col-sm-3 text-center mt-0" style="font-weight: bold">
+                            <div class="col-sm-4 text-center mt-0" style="font-weight: bold">
                                 From
                             </div>
-                            <div class="col-sm-3 text-center mt-0" style="font-weight: bold">
+                            <div class="col-sm-4 text-center mt-0" style="font-weight: bold">
                                 To
                             </div>
-                            <div class="col-sm-3 text-center mt-0" style="font-weight: bold">
+                            <div class="col-sm-4 text-center mt-0" style="font-weight: bold">
                                 Volunteer
-                            </div>
-                            <div class="col-sm-3 text-center mt-0" style="font-weight: bold">
-                                Approved by
                             </div>
                         </div>
                         <hr>
-                        @foreach($result['upcomming'] as $data)
+                        @foreach($result['upcomming'] as $key=>$data)
                             <div class="row">
-                                <div class="col-sm-3 text-center mt-2">
+                                <div class="col-sm-4 text-center mt-2">
                                     {{$data->reservation_from}}
                                 </div>
-                                <div class="col-sm-3 text-center mt-2">
+                                <div class="col-sm-4 text-center mt-2">
                                     {{$data->reservation_to}}
                                 </div>
-                                <div class="col-sm-3 text-center mt-2">
+                                <div class="col-sm-4 text-center mt-2">
                                     {{$data->name." ".$data->surname}}
                                 </div>
                             </div>
@@ -54,13 +51,13 @@
                         <hr>
                         @foreach($result['past'] as $data)
                             <div class="row">
-                                <div class="col-sm-3 text-center mt-2">
+                                <div class="col-sm-4 text-center mt-2">
                                     {{$data->reservation_from}}
                                 </div>
-                                <div class="col-sm-3 text-center mt-2">
+                                <div class="col-sm-4 text-center mt-2">
                                     {{$data->reservation_to}}
                                 </div>
-                                <div class="col-sm-3 text-center mt-2">
+                                <div class="col-sm-4 text-center mt-2">
                                     {{$data->name." ".$data->surname}}
                                 </div>
                             </div>
