@@ -22,6 +22,14 @@ class Examination extends Model
         ];
     }
 
+    
+    public function db_getAnimalRecordsDetailed($id){
+        $records = DB::select("SELECT * FROM examinations JOIN animals ON examinations.fk_animal_id=animals.animal_id JOIN users ON examinations.fk_vet_id=users.id WHERE fk_animal_id=$id");
+        return [
+            'records' => $records
+        ];
+    }
+
     public function db_getAllPetExaminations(Request $request){
         return DB::select("SELECT * FROM examinations WHERE examination_id LIKE :id ", ['id' => $request->examination_id]);
     }

@@ -37,7 +37,7 @@ Route::middleware(['auth', 'volunteer'])->group( function (){
 Route::middleware(['auth', 'vet'])->group( function (){
     Route::get('/vet', [VetController::class, 'getPetExaminationsAndRecords'])->name('vet');
     Route::post('/vet/request/{id}', [VetController::class, 'getRequestDetailed'])->name('vet');
-    Route::post('/vet/records/animal/{id}', [VetController::class, 'getAnimalRecordDetailed'])->name('vet');
+    Route::post('/vet/records/animal/{id}', [VetController::class, 'getAnimalRecordsDetailed'])->name('vet');
 });
 
 Route::middleware(['auth', 'careman'])->group( function (){

@@ -83,10 +83,10 @@
                             @foreach ($records as $record)
                             
                                 <tr style="vertical-align: middle;" class="alert text-center" role="alert">
-                                <td>{{$record->record_type}}</td>
+                                <td>{{$record->examination_type}}</td>
                                 <td>{{$record->name . " " . $record->surname}}</td>
-                                <td>{{$record->medical_date}}</td>
-                                <td>{{$record->medical_description}}</td>
+                                <td>{{$record->examination_from . " - " . $record->examination_to}}</td>
+                                <td>{{$record->examination_description}}</td>
                             {{--
                                 <td class="{{$style}}">{{$examination->examination_status}}</td>
                                 <td>  

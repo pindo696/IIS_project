@@ -19,8 +19,8 @@ class VetController{
     
     }
 
-    public function getAnimalRecordDetailed($id){
-        return view('vet_animal_record', app()->call('App\Models\Medical_Records@db_getAnimalRecordDetailed', ['id' => $id]));
+    public function getAnimalRecordsDetailed($id){
+        return view('vet_animal_record', app()->call('App\Models\Examination@db_getAnimalRecordsDetailed', ['id' => $id]));
     }
     
 }
