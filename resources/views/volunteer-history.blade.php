@@ -19,7 +19,6 @@
                     <th scope="col">Species</th>
                     <th scope="col">Age</th>
                     <th scope="col">Status</th>
-
                 </tr>
                 </thead>
                 <tbody>
@@ -28,7 +27,14 @@
                         <th scope="row">{{$data->reservation_id}}</th>
                         <td>{{$data->reservation_from}}</td>
                         <td>{{$data->reservation_to}}</td>
-                        <td>{{$data->animal_name}}</td>
+                        <td>
+                            <form class="d-inline" action="/volunteer/pet-detail" method="POST">
+                                @csrf
+                                @method('POST')
+                                <input type="hidden" name="animal_id" value="{{$data->animal_id}}">
+                                <button type="submit" class="btn btn-link p-0">{{$data->animal_name}}</button>
+                            </form>
+                        </td>
                         <td>{{$data->species}}</td>
                         <td>{{$data->animal_age}}</td>
                         @if($data->approved == -1)
@@ -42,7 +48,7 @@
                         @endif
                     </tr>
                 @endforeach
-                <tr style="padding: 1px; background: dimgray">
+                <tr style="background: dimgray">
                     <td style="padding: 3px;" ></td>
                     <td style="padding: 3px;"></td>
                     <td style="padding: 3px;"></td>
@@ -51,13 +57,19 @@
                     <td style="padding: 3px;"></td>
                     <td style="padding: 3px;"></td>
                 </tr>
-
                 @foreach($result['past'] as $data)
                     <tr>
                         <th scope="row">{{$data->reservation_id}}</th>
                         <td>{{$data->reservation_from}}</td>
                         <td>{{$data->reservation_to}}</td>
-                        <td>{{$data->animal_name}}</td>
+                        <td>
+                            <form class="d-inline" action="/volunteer/pet-detail" method="POST">
+                                @csrf
+                                @method('POST')
+                                <input type="hidden" name="animal_id" value="{{$data->animal_id}}">
+                                <button type="submit" class="btn btn-link p-0">{{$data->animal_name}}</button>
+                            </form>
+                        </td>
                         <td>{{$data->species}}</td>
                         <td>{{$data->animal_age}}</td>
                         @if($data->approved == -1)

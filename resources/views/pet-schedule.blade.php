@@ -6,6 +6,7 @@
     </head>
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @if(Auth::user()->role == "admin" || Auth::user()->role == "careman")
             <form action="/careman/animals/pet-detail" method="POST">
                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-3">
                     <button type="submit" class="btn border-0"><h4 title="back to animals" style="margin: 0">
@@ -17,6 +18,7 @@
                     Back To Pet
                 </h3>
             </form>
+            @endif
             <div class="card">
                 <div class="card-header text-center">
                     <div class="col-md-12"> {{ __('Pet Schedule') }} </div>
@@ -31,7 +33,7 @@
                                 To
                             </div>
                             <div class="col-sm-4 text-center mt-0" style="font-weight: bold">
-                                Volunteer
+                               Reserved by volunteer
                             </div>
                         </div>
                         <hr>

@@ -58,7 +58,6 @@ class AnimalController{
         if(!$request->isMethod('post')) return redirect('/careman/animals');
         $result = app()->call('App\Http\Controllers\AnimalController@getPetDetail',['id' => $request]);
         return view('pet-detail', compact('result', 'result'));
-
     }
 
     public function showPetEdit(Request $request){

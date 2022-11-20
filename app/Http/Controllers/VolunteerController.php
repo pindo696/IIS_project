@@ -22,4 +22,16 @@ class VolunteerController extends Controller
         return view('volunteer-history', compact('result', 'result'));
     }
 
+    public function petDetail(Request $request){
+        if(!$request->isMethod('post')) return redirect('/volunteer');
+        $result = app()->call('App\Http\Controllers\AnimalController@getPetDetail',['id' => $request]);
+        return view('pet-detail', compact('result', 'result'));
+    }
+
+    public function petSchedule(Request $request){
+        if(!$request->isMethod('post')) return redirect('/volunteer');
+        $result = app()->call('App\Models\Reservation@db_getPetReservations', ['id' => $request->animal_id]);
+        return view('pet-schedule', compact('result', 'result'));
+    }
+
 }

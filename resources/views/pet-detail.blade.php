@@ -73,7 +73,7 @@
                                         <button type="submit" class="btn btn-outline-danger ms-1">Delete</button>
                                     </form>
                                 @else
-                                    <form action="/careman/animals/pet-schedule" method="POST">
+                                    <form action="/volunteer/pet-schedule" method="POST">
                                         @csrf
                                         @method('POST')
                                         <input type="hidden" id="animal_id" name="animal_id"
