@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('reservation_status')->default("listed");
             // after careman accepts request, fk_approved_by will be filled
             $table->foreignId('fk_approved_by_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

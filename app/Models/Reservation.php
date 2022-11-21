@@ -10,6 +10,9 @@ use Carbon\Carbon;
 
 class Reservation extends Model{
     use HasFactory;
+
+    protected $fillable = ['fk_animal_id', 'reservation_from', 'reservation_to', 'timestamp'];
+
     public function db_getAllReservations(){
         return DB::select('SELECT * FROM reservations');
     }
@@ -19,20 +22,19 @@ class Reservation extends Model{
         // shows upcomming REQUESTED pet schedules
         $result['upcomming'] = DB::select("SELECT reservations.reservation_id, reservations.reservation_from, reservations.reservation_to, animals.animal_id, animals.animal_name, users.name, users.surname
                             FROM reservations
-                            RIGHT JOIN animals ON reservations.fk_animal_id = animals.animal_id
-                            RIGHT JOIN users ON reservations.fk_taken_by_volunteer_id = users.id
-                            WHERE users.role LIKE 'volunteer'
-                            AND reservations.reservation_status LIKE 'requested'
-                            AND reservations.reservation_id NOT LIKE 'null'
-                            AND reservations.reservation_from > :date", ['date' => $actual_date]);
+                            LEFT JOIN animals ON reservations.fk_animal_id = animals.animal_id
+                            LEFT JOIN users ON reservations.fk_taken_by_volunteer_id = users.id
+                            WHERE reservations.reservation_status LIKE 'requested'
+                            AND reservations.reservation_from > :date ORDER BY reservation_from DESC", ['date' => $actual_date]);
+        //dd($actual_date, $result);
+        //dd($result['upcomming'][0]->reservation_from > $actual_date);
         // shows past NOT REQUESTED pet schedules
+
         $result['past'] = DB::select("SELECT reservations.reservation_id, reservations.reservation_from, reservations.reservation_to, animals.animal_id, animals.animal_name, users.name, users.surname
                             FROM reservations
-                            RIGHT JOIN animals ON reservations.fk_animal_id = animals.animal_id
-                            RIGHT JOIN users ON reservations.fk_taken_by_volunteer_id = users.id
-                            WHERE users.role LIKE 'volunteer'
-                            AND reservations.reservation_id NOT LIKE 'null'
-                            AND reservations.reservation_from <= :date
+                            LEFT JOIN animals ON reservations.fk_animal_id = animals.animal_id
+                            LEFT JOIN users ON reservations.fk_taken_by_volunteer_id = users.id
+                            WHERE reservations.reservation_from <= :date
                             AND reservations.reservation_status LIKE 'listed'
                             LIMIT 6", ['date' => $actual_date]);
         return $result;

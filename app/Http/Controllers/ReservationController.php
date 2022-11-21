@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -56,11 +57,29 @@ class ReservationController extends Controller{
                 ->with('message', 'Invalid dates. Dates may be flipped.');
         }
 //        $format = Carbon::createFromFormat('Y-m-d H:i:s', $date_from);
-//        $start_date = Carbon::createFromDate()
-//        $start_time =
-//        $end_date =
-//        $end_time =
-        dd($animal_id, $date_from, $date_to);
+//        $start_date = Carbon::createFromDate($format->year, $format->month, $format->day);
+//        $start_time = Carbon::createFromTime($format->hour, $format->minute, $format->second);
+        $format = strtotime($date_from);
+        $start_date = date('Y-m-d', $format);
+        $start_time = date('H:m:s', $format);
+        $format = strtotime($date_to);
+        $end_date = date('Y-m-d', $format);
+        $end_time = date('H:m:s', $format);
+
+        $start_time = $request->input('timeFrom');
+        $end_time = $request->input('timeTo');
+
+        //dd($start_date, $start_time, $end_date, $end_time);
+
+        $start = $start_date . ' ' . $start_time . ':00';
+        $end = $end_date . ' ' . $end_time . ':00';
+
+        $reservation = Reservation::create([
+            'fk_animal_id' => $request->input('animal_id'),
+            'reservation_from' => $start,
+            'reservation_to' => $end,
+        ]);
+        return redirect("/careman/animals")->with('success', true)->with('message', 'Schedule item for pet was created');
     }
 
 }

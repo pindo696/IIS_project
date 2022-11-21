@@ -16,37 +16,34 @@
                                 @csrf
                                 @method('POST')
                                 <input type="hidden" name="animal_id" value="{{$result}}">
-                                @if(Session::has('dateError'))
                                 <div class="row">
                                     <div class="col-md-6 mb-4 d-flex align-items-center">
                                         <div class="form-outline datepicker w-100">
-                                            <label for="dateFrom" class="form-label">Date from</label>
-                                            <input type="date" placeholder="dd-mm-yyyy" min="01.01.1900" name="dateFrom" class="form-control form-control-lg is-invalid" data-date-format='d-m-Y'/>
+                                            <label for="dateFrom" class="form-label">Date from* </label>
+                                            <input type="date" placeholder="dd-mm-yyyy" min="01.01.1900" name="dateFrom" class="form-control form-control-lg" data-date-format='d-m-Y'/>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4 d-flex align-items-center">
                                         <div class="form-outline datepicker w-100">
-                                            <label for="dateTo" class="form-label">Date to</label>
-                                            <input type="date" placeholder="dd-mm-yyyy" min="01.01.1900" name="dateTo" class="form-control form-control-lg is-invalid" data-date-format='d-m-Y'/>
+                                            <label for="timeFrom" class="form-label">Time from*</label>
+                                            <input type="time" class="form-control form-control-lg" name="timeFrom" min="06:00" max="18:00" required>
                                         </div>
                                     </div>
                                 </div>
-                                @else
-                                    <div class="row">
-                                        <div class="col-md-6 mb-4 d-flex align-items-center">
-                                            <div class="form-outline datepicker w-100">
-                                                <label for="dateFrom" class="form-label">Date from *</label>
-                                                <input type="date" placeholder="dd-mm-yyyy" min="01.01.1900" name="dateFrom" class="form-control form-control-lg" data-date-format='d-m-Y'/>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-4 d-flex align-items-center">
-                                            <div class="form-outline datepicker w-100">
-                                                <label for="dateTo" class="form-label">Date to *</label>
-                                                <input type="date" placeholder="dd-mm-yyyy" min="01.01.1900" name="dateTo" class="form-control form-control-lg" data-date-format='d-m-Y'/>
-                                            </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4 d-flex align-items-center">
+                                        <div class="form-outline datepicker w-100">
+                                            <label for="dateTo" class="form-label">Date to*</label>
+                                            <input type="date" placeholder="dd-mm-yyyy" min="01.01.1900" name="dateTo" class="form-control form-control-lg " data-date-format='d-m-Y'/>
                                         </div>
                                     </div>
-                                @endif
+                                    <div class="col-md-6 mb-4 d-flex align-items-center">
+                                        <div class="form-outline timepicker w-100">
+                                            <label for="timeTo" class="form-label">Time to*</label>
+                                            <input type="time" class="form-control form-control-lg" name="timeTo" min="06:00" max="18:00" required>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-lg-12 text-center mt-4 pt-2">
                                         <input class="btn btn-info btn-lg" type="submit" value="Create schedule item"/>
