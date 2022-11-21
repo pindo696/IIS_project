@@ -1,6 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
+
+<head>
+    <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
+    <link href="{{asset('css/all.css')}}" rel="stylesheet">
+</head>
+<div style="width: 80%; margin: auto;" class="input-group">
+    <form style="width:100%; margin-left: 5%;" action="/" method="GET">
+        <div class="form-outline">
+          <input style="width:90%; margin: auto;" type="text" name="search" class=""
+            placeholder="Search animals by name, species, age, color, gender or finding location" />
+          
+        <button style="width:5%; height: 2rem; margin: auto;"type="submit" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i></button>
+  
+        </div>
+    </form>
+</div>
 <div class="container">
 
     @unless (count($animals) == 0)
@@ -27,7 +43,8 @@
     </div>
 
     @else  
-    <p>No animals are currently in the shelter.</p>
+    <h1 class="font-weight-bold d-flex justify-content-center" style="margin-top: 4rem;">Wow, so empty...</h1>
+    <h3 class="font-weight-light d-flex justify-content-center" style="margin-top: 4rem;">No results found.</h3>
     @endunless
     <div style="width: 80%; margin: auto;">
         {!! $animals->links('pagination::bootstrap-5'); !!}

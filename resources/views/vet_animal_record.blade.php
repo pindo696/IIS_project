@@ -69,24 +69,43 @@
         <div class="card">
             <div class="card-header text-center">{{ __('Animal medical records') }}</div>
                 <div class="card-body">
+                    
                     <table class="table text-center">
                         <thead class="bg-white">
                             <tr style="vertical-align: middle;">
+                            <th>Doctor</th>
                             <th>Record type</th>
-                            <th>Performed by</th>
-                            <th>Date and Time</th>
+                            <th>From</th>
+                            <th>To</th>
                             <th>Description</th>
+                            <th>Status</th>
+                            <th>Update</th>
                             </tr>
                         </thead>
                         <tbody>
-            
-                            @foreach ($records as $record)
                             
+                            @foreach ($records as $record)
+                            <form action="/vet/record/savechange" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" id="request_id" name="request_id" value="{{$record->examination_id}}">
                                 <tr style="vertical-align: middle;" class="alert text-center" role="alert">
-                                <td>{{$record->examination_type}}</td>
                                 <td>{{$record->name . " " . $record->surname}}</td>
-                                <td>{{$record->examination_from . " - " . $record->examination_to}}</td>
-                                <td>{{$record->examination_description}}</td>
+                                <td><input style="text-align: center;"value="{{$record->examination_type}}" type="text" name="examination_t" id="examination_t" class="form-control form-control-sm" required/></td>
+                                <td><input value="{{$record->examination_from}}" type="datetime-local" placeholder="DD-MM-YYYY" min="01-01-1900T08:30" name="examination_fr" class="form-control form-control-sm" id="examination_fr" data-date-format='d-m-Y'/></td>
+                                <td><input value="{{$record->examination_to}}" type="datetime-local" placeholder="DD-MM-YYYY" min="01-01-1900T08:30" name="examination_to" class="form-control form-control-sm" id="examination_to" data-date-format='d-m-Y'/></td>
+                                
+                                <td><textarea  maxlength="255" name="examination_desc" id="examination_desc" class="form-control form-control-sm" rows="1" required>{{$record->examination_description}}</textarea>
+                                </td>
+                                <td>
+                                    <select class="form-control form-control-sm" id="status" name="status">
+                                        <option value="requested" @if($record->examination_status == "requested") selected="selected" @endif>requested</option>
+                                        <option value="planned" @if($record->examination_status == "planned") selected="selected" @endif>planned</option>
+                                        <option value="done" @if($record->examination_status == "done") selected="selected" @endif>done</option>
+                                    </select>
+                                </td>
+                                <td><button type="submit" class="btn text-success fa-solid fa-check"></button></td>
+                                
                             {{--
                                 <td class="{{$style}}">{{$examination->examination_status}}</td>
                                 <td>  
@@ -97,10 +116,12 @@
                                     </form>
                                 </td> --}}
                                 </tr>
+                            </form>
                             @endforeach
 
                         </tbody>
                     </table>
+                    
                 </div>
             </div>
         </div>

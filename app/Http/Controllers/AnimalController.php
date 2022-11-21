@@ -31,7 +31,7 @@ class AnimalController{
 
     // Show all pets
     public function index() {
-        return view('list_animals', ['animals' => Animal::latest()->paginate(9)]);
+        return view('list_animals', ['animals' => Animal::latest()->filter(request(['search']))->paginate(9)]);
     }
 
     //Show single pet

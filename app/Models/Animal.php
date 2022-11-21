@@ -16,6 +16,17 @@ class Animal extends Model
         return  DB::select('SELECT * FROM animals WHERE animal_id LIKE :id', ['id' => $id]);
     }
     
+    public function scopeFilter($query, array $filters){
+        if($filters['search'] ?? false){
+            $query->where('animal_name', 'like', '%' . request('search') . '%')
+                  ->orWhere('species', 'like', '%' . request('search') . '%')
+                  ->orWhere('gender', 'like', '%' . request('search') . '%')
+                  ->orWhere('animal_age', 'like', '%' . request('search') . '%')
+                  ->orWhere('color', 'like', '%' . request('search') . '%')
+                  ->orWhere('discovery_place', 'like', '%' . request('search') . '%');
+        }
+    }
+
     public function db_addPet($request){
         $file = NULL;
         if($request->hasFile('image')){

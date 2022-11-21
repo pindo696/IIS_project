@@ -55,4 +55,34 @@ class Examination extends Model
         ]);
     }
 
+    public function db_updateExamination(Request $request){
+        $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
+        $examination = DB::table('examinations')
+            -> where('examination_id', $request->request_id)
+            -> update([
+                'examination_type' => $request->input('examination_t'),
+                'examination_description' => $request->input('examination_desc'),
+                'examination_from' => $request->input('examination_fr'),
+                'examination_to' => $request->input('examination_to'),
+                'updated_at' => $current_date_time,
+                'examination_status' => $request->input('status'),
+            ]);
+        
+    }
+
+    public function db_updateExamination2(Request $request){
+        $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
+        $examination = DB::table('examinations')
+            -> where('examination_id', $request->request_id)
+            -> update([
+                'examination_type' => $request->input('examination_t'),
+                'examination_description' => $request->input('examination_desc'),
+                'examination_from' => $request->input('examination_fr'),
+                'examination_to' => $request->input('examination_to'),
+                'updated_at' => $current_date_time,
+                'examination_status' => $request->input('status'),
+            ]);
+        
+    }
+
 }

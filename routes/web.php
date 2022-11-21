@@ -36,12 +36,14 @@ Route::middleware(['auth', 'volunteer'])->group( function (){
     Route::any('/volunteer/pet-detail', [App\Http\Controllers\VolunteerController::class, 'petDetail']);
     Route::any('/volunteer/pet-schedule', [App\Http\Controllers\VolunteerController::class, 'petSchedule']);
 });
-
 Route::middleware(['auth', 'vet'])->group( function (){
     Route::get('/vet', [VetController::class, 'getPetExaminationsAndRecords'])->name('vet');
+    Route::put('/vet/request/savechange', [VetController::class, 'editExam'])->name('vet');
+    Route::put('/vet/record/savechange', [VetController::class, 'editExam2'])->name('vet');
+    Route::get('/vet/records/animal/{id}', [VetController::class, 'getAnimalRecordsDetailed'])->name('vet');
+    
     Route::post('/vet/request/{id}', [VetController::class, 'getRequestDetailed'])->name('vet');
-    Route::post('/vet/records/animal/{id}', [VetController::class, 'getAnimalRecordsDetailed'])->name('vet');
-});
+    });
 
 Route::middleware(['auth', 'careman'])->group( function (){
     Route::get('/careman/requests', [App\Http\Controllers\CaremanController::class, 'index'])->name('careman');

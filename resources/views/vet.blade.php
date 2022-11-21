@@ -79,7 +79,7 @@
                                 <td>{{$record->species}}</td>
                                 <td>{{$record->animal_age}}</td>
                                 <td>  
-                                    <form action="/vet/records/animal/{{$record->animal_id}}" method="POST">
+                                    <form action="/vet/records/animal/{{$record->animal_id}}" method="GET">
                                         @csrf
                                         <input type="hidden" id="animal_id" name="animal_id" value="{{$record->animal_id}}">
                                         <button title="Show records" class="btn text-primary fa-solid fa-eye"></button>
