@@ -56,7 +56,7 @@
                                         @method('POST')
                                         <input type="hidden" id="animal_id" name="animal_id"
                                                value="{{$result[0]->animal_id}}">
-                                        <button type="submit" class="btn btn-outline-primary ms-1">Schedule</button>
+                                        <button type="submit" class="btn btn-outline-info ms-1">Schedule</button>
                                     </form>
                                     <form action="/careman/animals/pet-detail/examinations" method="POST">
                                         @csrf

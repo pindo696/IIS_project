@@ -15,10 +15,14 @@ class Volunteer extends Model
         $actual_date = Carbon::now();
         $result['upcomming'] = DB::select("SELECT * FROM reservations
                     RIGHT JOIN animals ON reservations.fk_animal_id = animals.animal_id
-                    WHERE reservations.fk_volunteer_id LIKE :id AND reservations.reservation_from > :date", ['id' => $id, 'date'=>$actual_date]);
+                    WHERE reservations.fk_taken_by_volunteer_id LIKE :id
+                    AND reservations.reservation_status NOT LIKE 'listed'
+                    AND reservations.reservation_from > :date", ['id' => $id, 'date'=>$actual_date]);
         $result['past'] = DB::select("SELECT * FROM reservations
                     RIGHT JOIN animals ON reservations.fk_animal_id = animals.animal_id
-                    WHERE reservations.fk_volunteer_id LIKE :id AND reservations.reservation_from <= :date", ['id' => $id, 'date'=>$actual_date]);
+                    WHERE reservations.fk_taken_by_volunteer_id LIKE :id
+                    AND reservations.reservation_status NOT LIKE 'listed'
+                    AND reservations.reservation_from <= :date", ['id' => $id, 'date'=>$actual_date]);
         return $result;
     }
 

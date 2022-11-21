@@ -4,6 +4,7 @@
         <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
         <link href="{{asset('css/all.css')}}" rel="stylesheet">
     </head>
+    <section class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
             @if(Auth::user()->role == "admin" || Auth::user()->role == "careman")
@@ -18,6 +19,20 @@
                     Back To Pet
                 </h3>
             </form>
+                @include('successbox')
+                @include('errorbox')
+                <div class="row">
+                    <div class="col-lg-12 text-center mb-3">
+                        <form action="/careman/animals/createScheduleItem" method="POST">
+                            @csrf
+                            @method('POST')
+                            <button class="btn btn-info" type="submit">
+                                Create schedule item
+                            </button>
+                            <input type="hidden" name="animal_id" value="{{$result['animal']}}">
+                        </form>
+                    </div>
+                </div>
             @endif
             <div class="card">
                 <div class="card-header text-center">
@@ -144,5 +159,5 @@
             </div>
         </div>
     </div>
-
+    </section>
 @endsection
