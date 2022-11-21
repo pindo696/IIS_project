@@ -26,41 +26,116 @@
                 <div class="card-body">
                     <div class="card-body pt-1">
                         <div class="row">
-                            <div class="col-sm-4 text-center mt-0" style="font-weight: bold">
+                            <div class="col-sm-3 text-center mt-0" style="font-weight: bold">
                                 From
                             </div>
-                            <div class="col-sm-4 text-center mt-0" style="font-weight: bold">
+                            <div class="col-sm-3 text-center mt-0" style="font-weight: bold">
                                 To
                             </div>
-                            <div class="col-sm-4 text-center mt-0" style="font-weight: bold">
-                               Reserved by volunteer
+                            <div class="col-sm-2 text-center mt-0" style="font-weight: bold">
+                                Status
+                            </div>
+                            <div class="col-sm-3 text-center mt-0" style="font-weight: bold">
+                               Reserved/Requested by
+                            </div>
+                            <div class="col-sm-1 text-center mt-0" style="font-weight: bold">
+                                Action
                             </div>
                         </div>
                         <hr>
                         @foreach($result['upcomming'] as $key=>$data)
-                            <div class="row">
-                                <div class="col-sm-4 text-center mt-2">
+
+                            @php ($style = '#FFFFFF')
+                            @if($data->reservation_status == 'listed')
+                                @php ($style = 'text-primary')
+                            @endif
+                            @if($data->reservation_status == 'requested')
+                                @php ($style = 'text-orange')
+                            @endif
+                            @if($data->reservation_status == 'declined')
+                                @php ($style = 'text-danger')
+                            @endif
+                            @if($data->reservation_status == 'accepted')
+                                @php ($style = 'text-success')
+                            @endif
+
+                            <div class="row justify-content-center">
+                                <div class="col-sm-3 text-center mt-2">
                                     {{$data->reservation_from}}
                                 </div>
-                                <div class="col-sm-4 text-center mt-2">
+                                <div class="col-sm-3 text-center mt-2">
                                     {{$data->reservation_to}}
                                 </div>
-                                <div class="col-sm-4 text-center mt-2">
+                                <div style="{{$style}}" class="col-sm-2 text-center mt-2">
+                                    {{$data->reservation_status}}
+                                </div>
+                                <div class="col-sm-3 text-center mt-2">
                                     {{$data->name." ".$data->surname}}
+                                </div>
+                                <div class="col-sm-1 text-center mt-2">
+                                    <div class="d-inline-block">
+                                        @if($data->reservation_status == 'requested')
+                                            <form class="d-inline" action="/careman/acceptWalk/" method="POST">
+                                                @csrf
+                                                @method('POST')
+                                                <input type="hidden" id="request_id" name="request_id" value="{{$data->reservation_id}}">
+                                                <button title="Accept walk" type="submit" class="btn text-success fa-solid fa-check"></button>
+                                            </form>
+                                            <form class="d-inline" action="/careman/declineWalk/" method="POST">
+                                                @csrf
+                                                @method('POST')
+                                                <input type="hidden"id="request_id" name="request_id" value="{{$data->reservation_id}}">
+                                                <button title="Decline walk" type="submit" class="btn text-danger fa-solid fa-xmark"></button>
+                                            </form>
+                                    </div>
+                                    @elseif($data->reservation_status == 'listed')
+                                        <form class="d-inline" action="/careman/deleteWalk/" method="POST">
+                                            @csrf
+                                            @method('POST')
+                                            <input type="hidden" id="reservation_id" name="reservation_id" value="{{$data->reservation_id}}">
+                                            <button title="Delete walk" type="submit" class="btn text-danger fa-solid fa-trash-can"></button>
+                                        </form>
+                                    @elseif($data->reservation_status == 'approved')
+                                        <form class="d-inline" action="/careman/declineWalk/" method="POST">
+                                            @csrf
+                                            @method('POST')
+                                            <input type="hidden"id="request_id" name="request_id" value="{{$data->reservation_id}}">
+                                            <button title="Decline walk" type="submit" class="btn text-danger fa-solid fa-xmark"></button>
+                                        </form>
+                                   @endif
                                 </div>
                             </div>
                         @endforeach
                         <hr>
                         @foreach($result['past'] as $data)
+                            @php ($style = '#FFFFFF')
+                            @if($data->reservation_status == 'listed')
+                                @php ($style = 'text-primary')
+                            @endif
+                            @if($data->reservation_status == 'requested')
+                                @php ($style = 'text-orange')
+                            @endif
+                            @if($data->reservation_status == 'declined')
+                                @php ($style = 'text-danger')
+                            @endif
+                            @if($data->reservation_status == 'accepted')
+                                @php ($style = 'text-success')
+                            @endif
                             <div class="row">
-                                <div class="col-sm-4 text-center mt-2">
+                                <div class="col-sm-3 text-center mt-2">
                                     {{$data->reservation_from}}
                                 </div>
-                                <div class="col-sm-4 text-center mt-2">
+                                <div class="col-sm-3 text-center mt-2">
                                     {{$data->reservation_to}}
                                 </div>
-                                <div class="col-sm-4 text-center mt-2">
+                                <div style="{{$style}}" class="col-sm-2 text-center mt-2">
+                                    {{$data->reservation_status}}
+                                </div>
+                                <div class="col-sm-3 text-center mt-2">
                                     {{$data->name." ".$data->surname}}
+                                </div>
+                                <div class="col-sm-1 text-center mt-2">
+                                    <p class="text-muted"> in past </p>
                                 </div>
                             </div>
                         @endforeach

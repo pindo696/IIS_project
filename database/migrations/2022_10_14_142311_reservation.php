@@ -14,13 +14,13 @@ return new class extends Migration
     public function up(){
         Schema::create('reservations', function (Blueprint $table) {
             $table->id('reservation_id');
-            $table->unsignedBigInteger('fk_volunteer_id');
-            $table->foreign('fk_volunteer_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('fk_animal_id');
             $table->foreign('fk_animal_id')->references('animal_id')->on('animals')->onDelete('cascade');
+            // after volunteer requests for reservation, his, id will be filled
+            $table->foreignId('fk_taken_by_volunteer_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->dateTime('reservation_from');
             $table->dateTime('reservation_to');
-            $table->boolean('approved')->default(false);
+            $table->string('reservation_status')->default("listed");
             // after careman accepts request, fk_approved_by will be filled
             $table->foreignId('fk_approved_by_id')->nullable()->constrained('users')->onDelete('cascade');
         });

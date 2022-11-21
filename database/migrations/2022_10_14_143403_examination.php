@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('examination_status')->default('requested');
             $table->string('examination_type');
             $table->string('examination_description')->nullable();
+            $table->string('vet_examination_notes')->nullable();
             $table->dateTime('examination_from')->nullable();
             $table->dateTime('examination_to')->nullable();
             $table->timestamps();

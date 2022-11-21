@@ -41,7 +41,7 @@ Route::middleware(['auth', 'vet'])->group( function (){
     Route::put('/vet/request/savechange', [VetController::class, 'editExam'])->name('vet');
     Route::put('/vet/record/savechange', [VetController::class, 'editExam2'])->name('vet');
     Route::get('/vet/records/animal/{id}', [VetController::class, 'getAnimalRecordsDetailed'])->name('vet');
-    
+
     Route::post('/vet/request/{id}', [VetController::class, 'getRequestDetailed'])->name('vet');
     });
 
@@ -67,6 +67,8 @@ Route::middleware(['auth', 'careman'])->group( function (){
     Route::post('/careman/declineWalk/', [App\Http\Controllers\ReservationController::class, 'declineWalk']);
     Route::post('/careman/acceptWalk/', [App\Http\Controllers\ReservationController::class, 'acceptWalk']);
     Route::any('/careman/animals/pet-schedule/', [App\Http\Controllers\AnimalController::class, 'petSchedule']);
+    Route::any('/careman/deleteWalk/', [App\Http\Controllers\AnimalController::class, 'deleteWalk']);
+
 
 });
 // Single pet simple detail
