@@ -169,12 +169,7 @@
                                 </div>
                                 <div class="col-sm-2 p-2">
                                     <div class="d-inline-block">
-                                        <form class="d-inline" action="/careman/deleteWalk/" method="POST">
-                                            @csrf
-                                            @method('POST')
-                                            <input type="hidden" name="request_id" value="{{$data->reservation_id}}">
-                                            <button title="Permanently delete from pet history" type="submit" class="btn text-danger fa-solid fa-trash-can"></button>
-                                        </form>
+                                        <p class="text-muted">in past</p>
                                     </div>
                                 </div>
                             </div>

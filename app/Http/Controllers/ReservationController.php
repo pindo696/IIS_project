@@ -51,7 +51,7 @@ class ReservationController extends Controller{
                 ->with('error', true)
                 ->with('message', 'Date(s) in past');
         }
-        if($date_from >= $date_to){
+        if($date_from > $date_to){
             return redirect("/careman/animals")
                 ->with('error', true)
                 ->with('message', 'Invalid dates. Dates may be flipped.');
@@ -74,12 +74,22 @@ class ReservationController extends Controller{
         $start = $start_date . ' ' . $start_time . ':00';
         $end = $end_date . ' ' . $end_time . ':00';
 
-        $reservation = Reservation::create([
-            'fk_animal_id' => $request->input('animal_id'),
-            'reservation_from' => $start,
-            'reservation_to' => $end,
-        ]);
-        return redirect("/careman/animals")->with('success', true)->with('message', 'Schedule item for pet was created');
+        $return_val = app()->call('App\Models\Reservation@db_createReservationItem', ['animal_id' => $animal_id, 'start' => $start, 'end'=>$end]);
+        if($return_val){
+            return redirect("/careman/animals")->with('success', true)->with('message', 'Schedule item for pet was created');
+        }else{
+            return redirect("/careman/animals")->with('error', true)->with('message', 'Unable to create schedule item');
+        }
     }
+
+    public function deleteWalk(Request $request){
+        $return_val = app()->call('App\Models\Reservation@db_deleteWalk', ['reservation_id' => $request->reservation_id]);
+        if($return_val){
+            return redirect("/careman/animals")->with('success', true)->with('message', 'Schedule item succesfully deleted from list');
+        }else{
+            return redirect("/careman/animals")->with('error', true)->with('message', 'Unable to delete schedule item');
+        }
+    }
+
 
 }

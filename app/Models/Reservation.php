@@ -17,6 +17,15 @@ class Reservation extends Model{
         return DB::select('SELECT * FROM reservations');
     }
 
+    public function db_createReservationItem($animal_id, $start, $end){
+        $reservation = Reservation::create([
+            'fk_animal_id' => $animal_id,
+            'reservation_from' => $start,
+            'reservation_to' => $end,
+        ]);
+        return $reservation;
+    }
+
     public function db_getAllReservationsJoinAnimalsJoinUsers(){
         $actual_date = Carbon::now();
         // shows upcomming REQUESTED pet schedules
@@ -60,6 +69,10 @@ class Reservation extends Model{
                             WHERE reservations.reservation_from >= :date AND fk_animal_id LIKE :id", ['date'=> $actual_date, 'id' => $id]);
         $result['animal'] = $id;
         return $result;
+    }
+
+    public function db_deleteWalk($reservation_id){
+        return DB::table('reservations')->where('reservation_id', $reservation_id)->delete();
     }
 
 }
