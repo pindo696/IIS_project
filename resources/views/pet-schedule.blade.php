@@ -10,7 +10,7 @@
                 @if(Auth::user()->role == "admin" || Auth::user()->role == "careman")
                     <form action="/careman/animals/pet-detail" method="POST">
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-3">
-                            <button type="submit" class="btn border-0"><h4 title="back to animals" style="margin: 0">
+                            <button type="submit" class="btn border-0"><h4 title="back to pet" style="margin: 0">
                                     @csrf
                                     @method('POST')
                                     <input type="hidden" id="animal_id" name="animal_id" value="{{$result['animal']}}">
