@@ -15,7 +15,7 @@ class Animal extends Model
     public static function getbyid($id){
         return  DB::select('SELECT * FROM animals WHERE animal_id LIKE :id', ['id' => $id]);
     }
-    
+
     public function scopeFilter($query, array $filters){
         if($filters['search'] ?? false){
             $query->where('animal_name', 'like', '%' . request('search') . '%')
@@ -57,6 +57,7 @@ class Animal extends Model
                 ->select('photo_path')
                 ->where('animal_id', $request->animal_id)
                 ->get();
+            $file = $file[0]->photo_path;
         }
         $affected = DB::table('animals')
             -> where('animal_id', $request->animal_id)
