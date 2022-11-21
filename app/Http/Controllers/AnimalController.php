@@ -89,8 +89,10 @@ class AnimalController{
     public function deletePet(Request $request){
         if(!$request->isMethod('post')) return redirect('/careman/animals');
         $n_rows = app()->call('App\Models\Animal@db_deletePet');
-        if($n_rows > 0){
-            return redirect("/careman/animals")->with('success', true)->with('message', 'Pet was successfully deleted');
+        if($n_rows == 1){
+            return redirect("/careman/animals")->with('warning', true)->with('message', 'Pet was successfully deleted');
+        }elseif($n_rows >= 2){
+            return redirect("/careman/animals")->with('error', true)->with('message', 'Multiple pets were deleted');
         }else{
             return redirect("/careman/animals")->with('error', true)->with('message', 'Deleting animal unsuccessful');
         }

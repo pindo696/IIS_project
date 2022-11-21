@@ -8,6 +8,7 @@
         <link href="{{asset('css/all.css')}}" rel="stylesheet">
     </head>
     @include('successbox')
+    @include('warningbox')
     @include('errorbox')
     @include('alertbox')
     <div class="row justify-content-center">
