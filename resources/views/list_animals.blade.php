@@ -9,7 +9,7 @@
 <div style="width: 80%; margin: auto;" class="input-group">
     <form style="width:100%; margin-left: 5%;" action="/" method="GET">
         <div class="form-outline">
-          <input style="width:90%; margin: auto;" type="text" name="search" class=""
+          <input value="{{request('search')}}" style="width:90%; margin: auto;" type="text" name="search" class=""
             placeholder="Search animals by name, species, age, color, gender or finding location" />
           
         <button style="width:5%; height: 2rem; margin: auto;"type="submit" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i></button>
