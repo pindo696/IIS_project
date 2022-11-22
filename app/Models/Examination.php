@@ -61,7 +61,7 @@ class Examination extends Model
         $examination = Examination::create([
             'fk_animal_id' => $request->input('animal_id'),
             'fk_vet_id' => $request->input('doctorID'),
-            'fk_requested_by_careman_id' => 1,  //temporary, just NULL change table
+            'fk_requested_by_careman_id' => $request->input('doctorID'), 
             'examination_status' => $request->input('status'),
             'examination_type' => $request->input('examination_t'),
             'examination_from' => $request->input('examination_fr'),
