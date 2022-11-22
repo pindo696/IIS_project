@@ -43,7 +43,7 @@
                                             <td><input style="text-align: center;"value="{{$user->surname}}" type="text" name="surname" id="surname" class="form-control form-control-sm" required/></td>
                                             <td><input style="text-align: center;"value="{{$user->email}}" type="email" name="email" id="email" class="form-control form-control-sm" required/></td>
                                             <td><input value="{{$user->birth_date}}" type="date" placeholder="DD-MM-YYYY" min="01-01-1900" name="birth_date" class="form-control form-control-sm" id="birth_date" data-date-format='d-m-Y'/></td>
-                                            <td><input style="text-align: center;"value="{{$user->age}}" type="text" name="age" id="age" class="form-control form-control-sm" required/></td>
+                                            <td><input style="text-align: center;"value="{{$user->age}}" type="text" name="age" id="age" class="form-control form-control-sm"/></td>
                                             <td><input style="text-align: center;"value="{{$user->phone}}" type="tel" name="phone" id="phone" class="form-control form-control-sm" required/></td>
                                             
                                             <td>
@@ -115,7 +115,7 @@
                                     <td><input style="text-align: center;"value="" type="text" name="surname" id="surname" class="form-control form-control-sm" required/></td>
                                     <td><input style="text-align: center;"value="" type="email" name="email" id="email" class="form-control form-control-sm" required/></td>
                                     <td><input value="" type="date" placeholder="DD-MM-YYYY" min="01-01-1900" name="birth_date" class="form-control form-control-sm" id="birth_date" data-date-format='d-m-Y'/></td>
-                                    <td><input style="text-align: center;"value="" type="text" name="age" id="age" class="form-control form-control-sm" required/></td>
+                                    <td><input style="text-align: center;"value="" type="text" name="age" id="age" class="form-control form-control-sm"/></td>
                                     <td><input style="text-align: center;"value="" type="tel" name="phone" id="phone" class="form-control form-control-sm" required/></td>
                                     
                                     <td>
@@ -181,10 +181,10 @@
                                         <td><input style="text-align: center;"value="{{$animal->animal_name}}" type="text" name="animal_name" id="animal_name" class="form-control form-control-sm" required/></td>
                                         <td><input style="text-align: center;"value="{{$animal->species}}" type="text" name="species" id="species" class="form-control form-control-sm" required/></td>
                                         <td><input style="text-align: center;"value="{{$animal->color}}" type="text" name="color" id="color" class="form-control form-control-sm" required/></td>
-                                        <td><input style="text-align: center;"value="{{$animal->animal_age}}" type="text" name="animal_age" id="animal_age" class="form-control form-control-sm" required/></td>
+                                        <td><input style="text-align: center;"value="{{$animal->animal_age}}" type="text" name="animal_age" id="animal_age" class="form-control form-control-sm"/></td>
                                         <td><input style="text-align: center;"value="{{$animal->gender}}" type="text" name="gender" id="gender" class="form-control form-control-sm" required/></td>
-                                        <td><textarea maxlength="255" rows="1" style="text-align: center;" type="text-area" name="animal_description" id="animal_description" class="form-control form-control-sm" required>{{$animal->animal_description}}</textarea></td>
-                                        <td><input style="text-align: center;"value="{{$animal->discovery_place}}" type="text" name="discovery_place" id="discovery_place" class="form-control form-control-sm" required/></td>
+                                        <td><textarea maxlength="255" rows="1" style="text-align: center;" type="text-area" name="animal_description" id="animal_description" class="form-control form-control-sm">{{$animal->animal_description}}</textarea></td>
+                                        <td><input style="text-align: center;"value="{{$animal->discovery_place}}" type="text" name="discovery_place" id="discovery_place" class="form-control form-control-sm"/></td>
                                         <td><input value="{{$animal->discovery_date}}" type="date" placeholder="DD-MM-YYYY" min="01-01-1900" name="discovery_date" class="form-control form-control-sm" id="discovery_date" data-date-format='d-m-Y'/></td>
                                             
                                        
