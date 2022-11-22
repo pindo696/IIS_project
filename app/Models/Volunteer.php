@@ -27,12 +27,15 @@ class Volunteer extends Model
     }
 
     public function db_getPetScheduleByVolunteerIDAndAnimalID($animal_id, $volunteer_id){
+        $actual_date = Carbon::now();
         $result['listed'] = DB::select("SELECT * FROM reservations
                         JOIN animals ON animals.animal_id = reservations.fk_animal_id
                         WHERE fk_animal_id LIKE :animal_id
-                        AND reservations.reservation_status LIKE 'listed'", ['animal_id' => $animal_id]);
+                        AND reservations.reservation_from > :date
+                        AND reservations.reservation_status LIKE 'listed'", ['date' => $actual_date, 'animal_id' => $animal_id]);
         $result['taken'] = DB::select("SELECT * FROM reservations
-                        WHERE fk_taken_by_volunteer_id LIKE :user_id", ['user_id' => $volunteer_id]);
+                        WHERE fk_taken_by_volunteer_id LIKE :user_id
+                        AND reservations.reservation_from > :date", ['date' => $actual_date,'user_id' => $volunteer_id]);
         return $result;
     }
 

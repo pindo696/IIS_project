@@ -164,6 +164,70 @@
                     </div>
                 </div>
                 @endif
+                @if(Auth::user()->role == "volunteer" && Auth::user()->confirmation == "accepted")
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <div class="col-md-12"> {{ __('Pet Schedule') }} </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-body pt-1">
+                                    <div class="row">
+                                        <div class="col-sm-3 text-center mt-0" style="font-weight: bold">
+                                            From
+                                        </div>
+                                        <div class="col-sm-3 text-center mt-0" style="font-weight: bold">
+                                            To
+                                        </div>
+                                        <div class="col-sm-3 text-center mt-0" style="font-weight: bold">
+                                            Status
+                                        </div>
+                                        <div class="col-sm-3 text-center mt-0" style="font-weight: bold">
+                                            Action
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row justify-content-center">
+                                        @foreach($result['taken'] as $taken)
+                                            <div class="col-sm-3 text-center mt-2">
+                                                {{$taken->reservation_from}}
+                                            </div>
+                                            <div class="col-sm-3 text-center mt-2">
+                                                {{$taken->reservation_to}}
+                                            </div>
+                                            <div class="col-sm-3 text-center mt-2">
+                                                {{$taken->reservation_status}}
+                                            </div>
+                                            <div class="col-sm-3 text-center mt-2">
+                                                action
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <hr>
+                                    <div class="row justify-content-center">
+                                        @if($result['listed'] == null)
+                                            <b style="text-align: center">No upcomming walk listed for this animal</b>
+                                        @endif
+                                        @foreach($result['listed'] as $listed)
+                                                <div class="col-sm-3 text-center mt-2">
+                                                    {{$listed->reservation_from}}
+                                                </div>
+                                                <div class="col-sm-3 text-center mt-2">
+                                                    {{$listed->reservation_to}}
+                                                </div>
+                                                <div class="col-sm-3 text-center mt-2">
+                                                    {{$listed->reservation_status}}
+                                                </div>
+                                                <div class="col-sm-3 text-center mt-2">
+                                                    action
+                                                </div>
+                                        @endforeach
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                @endif
+
             </div>
         </div>
     </section>
