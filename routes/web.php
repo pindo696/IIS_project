@@ -35,6 +35,7 @@ Route::middleware(['auth', 'volunteer'])->group( function (){
     Route::any('/volunteer/history', [App\Http\Controllers\VolunteerController::class, 'getVolunteerHistory']);
     Route::any('/volunteer/pet-detail', [App\Http\Controllers\VolunteerController::class, 'petDetail']);
     Route::any('/volunteer/pet-schedule', [App\Http\Controllers\VolunteerController::class, 'petSchedule']);
+    Route::any('/volunteer/pet-schedule-volunteer', [App\Http\Controllers\VolunteerController::class, 'showPetSchedule']);
 });
 Route::middleware(['auth', 'vet'])->group( function (){
     Route::get('/vet', [VetController::class, 'getPetExaminationsAndRecords'])->name('vet');

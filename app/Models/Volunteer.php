@@ -26,4 +26,14 @@ class Volunteer extends Model
         return $result;
     }
 
+    public function db_getPetScheduleByVolunteerIDAndAnimalID($animal_id, $volunteer_id){
+        $result['listed'] = DB::select("SELECT * FROM reservations
+                        JOIN animals ON animals.animal_id = reservations.fk_animal_id
+                        WHERE fk_animal_id LIKE :animal_id
+                        AND reservations.reservation_status LIKE 'listed'", ['animal_id' => $animal_id]);
+        $result['taken'] = DB::select("SELECT * FROM reservations
+                        WHERE fk_taken_by_volunteer_id LIKE :user_id", ['user_id' => $volunteer_id]);
+        return $result;
+    }
+
 }

@@ -33,7 +33,7 @@
                             </form>
                         </div>
                     </div>
-                @endif
+
                 <div class="card">
                     <div class="card-header text-center">
                         <div class="col-md-12"> {{ __('Pet Schedule') }} </div>
@@ -163,6 +163,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </section>

@@ -34,4 +34,10 @@ class VolunteerController extends Controller
         return view('pet-schedule', compact('result', 'result'));
     }
 
+    public function showPetSchedule(Request $request){
+        $result = app()->call('App\Models\Volunteer@db_getPetScheduleByVolunteerIDAndAnimalID', ['animal_id' => $request->animal_id, 'volunteer_id' => $request->volunteer_id]);
+
+        return view('pet-schedule', compact('result', 'result'));
+    }
+
 }

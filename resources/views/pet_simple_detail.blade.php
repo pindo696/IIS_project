@@ -5,7 +5,7 @@
     <link href="{{asset('css/all.css')}}" rel="stylesheet">
 </head>
     <section class="container-fluid">
-        
+
         @include('alertbox')
 
         <div class="container py-2">
@@ -17,9 +17,22 @@
                     Back
                 </h3>
                 <div style="height: 300px;" class=" img-fluid m-2 p-1 bg-light">
-                
+
                 <img style="height: 250px; max-width: 300px;"class="img-thumbnail mx-auto d-block" src={{$animal[0]->photo_path ? asset('storage/' . $animal[0]->photo_path) : asset("images/default.png")}} alt="Animal"/>
                 </div>
+                @if(Auth::user() && Auth::user()->role=='volunteer' && Auth::user()->confirmation=='accepted')
+                <div class="row">
+                    <div class="col-xs-12 text-center md-flex justify-content-center mb-4">
+                        <form action="/volunteer/pet-schedule-volunteer" method="POST">
+                            @csrf
+                            @method('POST')
+                            <input type="hidden" name="volunteer_id" value={{Auth::user()->id}}>
+                            <input type="hidden" name="animal_id" value="{{$animal[0]->animal_id}}">
+                            <button class="btn btn-secondary">View pete schedule</button>
+                        </form>
+                    </div>
+                </div>
+                @endif
                 <div class="col-lg-7" style="margin: auto; width: 80%;">
                     <div class="card mb-4" style="text-align: center">
                         <div class="card-body">
