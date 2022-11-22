@@ -35,5 +35,10 @@ class AdminController{
         app()->call('App\Models\Admin@db_updateAnimal', ['request' => $request]);
         return redirect("/admin")->with('success', true)->with('message', 'Successfully updated animal: ' . $request->animal_name . '!');
     }
+    public function create_user(Request $request){
+        if(!$request->isMethod('put')) return redirect('/admin');
+        app()->call('App\Models\Admin@db_createUser', ['request' => $request]);
+        return redirect()->back()->with('success', true)->with('message', 'Successfully created a new user!');
+    }
 }
 

@@ -11,7 +11,7 @@
             
                 @unless(sizeof($users) == 0)
                     <div class="card">
-                        <div class="card-header text-center">{{ __('Users') }}</div>
+                        <div class="card-header text-center">{{ __('Manage Users') }}</div>
                         <div class="card-body">
                                 
                             <table class="table text-center">
@@ -57,8 +57,8 @@
                                         
                                             <td>
                                                 <select class="form-control form-control-sm" id="confirmation" name="confirmation">
-                                                    <option value="waiting" @if($user->examination_status == "waiting") selected="selected" @endif>waiting</option>
-                                                    <option value="accepted" @if($user->examination_status == "accepted") selected="selected" @endif>accepted</option>
+                                                    <option value="waiting" @if($user->confirmation == "waiting") selected="selected" @endif>waiting</option>
+                                                    <option value="accepted" @if($user->confirmation == "accepted") selected="selected" @endif>accepted</option>
                                                 </select>
                                             </td>
                                             <td><button type="submit" class="btn text-success fa-solid fa-check"></button></td>
@@ -86,10 +86,71 @@
                 @endunless
         </div>
 
+        <div class="card mt-5">
+            <div class="card-header pt-2 text-center">{{ __('Create user') }}</div>
+                <div class="card-body">
+                    
+                    <table class="table text-center">
+                        <thead class="bg-white">
+                            <tr style="vertical-align: middle;">
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Email</th>
+                            <th>Date of birth</th>
+                            <th>Age</th>
+                            <th>Phone</th>
+                            <th>Role</th>
+                            <th>Confirmation</th>
+                            <th>Password</th>
+                            <th>Create</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr style="vertical-align: middle;" class="alert text-center" role="alert">
+                                <form action="/admin/create/user" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <td><input style="text-align: center;"value="" type="text" name="name" id="name" class="form-control form-control-sm" required/></td>
+                                    <td><input style="text-align: center;"value="" type="text" name="surname" id="surname" class="form-control form-control-sm" required/></td>
+                                    <td><input style="text-align: center;"value="" type="email" name="email" id="email" class="form-control form-control-sm" required/></td>
+                                    <td><input value="" type="date" placeholder="DD-MM-YYYY" min="01-01-1900" name="birth_date" class="form-control form-control-sm" id="birth_date" data-date-format='d-m-Y'/></td>
+                                    <td><input style="text-align: center;"value="" type="text" name="age" id="age" class="form-control form-control-sm" required/></td>
+                                    <td><input style="text-align: center;"value="" type="tel" name="phone" id="phone" class="form-control form-control-sm" required/></td>
+                                    
+                                    <td>
+                                        <select class="form-control form-control-sm" id="role" name="role">
+                                            <option value="volunteer" selected="selected">volunteer</option>
+                                            <option value="vet">vet</option>
+                                            <option value="careman">careman</option>
+                                            <option value="admin">admin</option>
+                                            </select>
+                                    </td>
+                                
+                                    <td>
+                                        <select class="form-control form-control-sm" id="confirmation" name="confirmation">
+                                            <option value="waiting">waiting</option>
+                                            <option value="accepted" selected="selected">accepted</option>
+                                        </select>
+                                    </td>
+                                    <td><input style="text-align: center;"value="" type="password" name="password" id="password" class="form-control form-control-sm" required/></td>
+                                    
+                                    <td><button type="submit" class="btn text-success fa-solid fa-check"></button></td>
+                                    </form>
+                        
+
+                                </tr>
+                            
+                        </tbody>
+                    </table>
+                    
+                </div>
+        </div>
+
         <div class="col-md-12 mt-4">
             @unless(sizeof($animals) == 0)
                 <div class="card">
-                    <div class="card-header text-center">{{ __('Animals') }}</div>
+                    <div class="card-header text-center">{{ __('Manage Animals') }}</div>
                     <div class="card-body">
                             
                         <table class="table text-center">

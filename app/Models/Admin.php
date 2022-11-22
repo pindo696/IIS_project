@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class Admin extends Model
 {
@@ -60,6 +61,25 @@ class Admin extends Model
                 'updated_at' => $current_date_time,
             ]);
 
+    }
+
+    
+    public function db_createUser(Request $request){
+        $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
+        
+        $examination = User::create([
+            'name' => $request->input('name'),
+            'surname' => $request->input('surname'),
+            'email' => $request->input('email'),
+            'birth_date' => $request->input('birth_date'),
+            'age' => $request->input('age'),
+            'phone' => $request->input('phone'),
+            'role' => $request->input('role'),
+            'confirmation' => $request->input('confirmation'),
+            'updated_at' => $current_date_time,
+            'created_at' => $current_date_time,
+            'password' => Hash::make($request->input('password')),
+        ]);
     }
 
 }
