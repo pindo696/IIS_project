@@ -198,9 +198,14 @@
                                                 {{$taken->reservation_status}}
                                             </div>
                                             <div class="col-sm-3 text-center mt-2">
-                                                cross
-                                                <p>{{$taken->animal_id}}</p>
-                                                <input type="hidden" name="animal_id" value="{{$taken->animal_id}}">
+                                                <form action="/volunteer/cancelTermin" method="POST">
+                                                    @csrf
+                                                    @method('POST')
+                                                    <input type="hidden" name="animal_id" value="{{$taken->animal_id}}">
+                                                    <input type="hidden" name="reservation_id" value="{{$taken->reservation_id}}">
+                                                    <input type="hidden" name="volunteer    _id" value="{{$taken->fk_taken_by_volunteer_id}}">
+                                                    <button title="cancel termin" class="btn btn-outline-danger fa-solid fa-x-cross"> cancel</button>
+                                                </form>
                                             </div>
                                         @endforeach
                                     </div>

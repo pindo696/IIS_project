@@ -1,7 +1,6 @@
 
 @extends('layouts.app')
 @section('content')
-@include('volunteerheader')
 <div class="row justify-content-center">
 
     <div class="col-md-8">
@@ -38,13 +37,13 @@
                         </td>
                         <td>{{$data->species}}</td>
                         <td>{{$data->animal_age}}</td>
-                        @if($data->approved == -1)
+                        @if($data->reservation_status == 'declined')
                             <td style="color: red">declined</td>
                         @endif
-                        @if($data->approved == 0)
+                        @if($data->reservation_status == 'requested')
                             <td style="color: lightseagreen">requested</td>
                         @endif
-                        @if($data->approved == 1)
+                        @if($data->reservation_status == 'approved')
                             <td style="color: green">approved</td>
                         @endif
                     </tr>

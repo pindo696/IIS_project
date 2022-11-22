@@ -36,7 +36,9 @@ Route::middleware(['auth', 'volunteer'])->group( function (){
     Route::any('/volunteer/pet-detail', [App\Http\Controllers\VolunteerController::class, 'petDetail']);
     Route::any('/volunteer/pet-schedule', [App\Http\Controllers\VolunteerController::class, 'petSchedule']);
     Route::any('/volunteer/pet-schedule-volunteer', [App\Http\Controllers\VolunteerController::class, 'showPetSchedule']);
-    Route::any('/volunteer/bookTermin', [App\Http\Controllers\VolunteerController::class, 'bookTermin']);
+    Route::post('/volunteer/bookTermin', [App\Http\Controllers\VolunteerController::class, 'bookTermin']);
+    Route::post('/volunteer/cancelTermin', [App\Http\Controllers\VolunteerController::class, 'cancelTermin']);
+
 });
 Route::middleware(['auth', 'vet'])->group( function (){
     Route::get('/vet', [VetController::class, 'getPetExaminationsAndRecords'])->name('vet');
