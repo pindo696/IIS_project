@@ -39,7 +39,11 @@
                                     @csrf
                                     @method('PUT')
                                     <input type="hidden" id="request_id" name="request_id" value="{{$examination[0]->examination_id}}">
-                                  
+                                    @if($examination[0]->fk_vet_id == NULL)
+                                    <input type="hidden" id="vet_id" name="vet_id" value="{{Auth::id()}}">
+                                    @else
+                                    <input type="hidden" id="vet_id" name="vet_id" value="{{$examination[0]->fk_vet_id}}">
+                                    @endif
                                     <div class="row">
                                         <div class="col-md-12 mb-4">
                                             <div class="form-outline">
@@ -75,6 +79,15 @@
                                         </div>
                                         
                                        
+                                    </div>
+                                    <div class="row">
+                        
+                                        <div class="col-md-12 mb-4">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="vet_examination_notes">Doctor's notes *</label>
+                                                <textarea  maxlength="255" name="vet_examination_notes" id="vet_examination_notes" class="form-control form-control-lg" rows="5" required>{{$examination[0]->vet_examination_notes}}</textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
                                     <div class="col-md-12 mb-4 pt-2">

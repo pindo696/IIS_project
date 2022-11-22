@@ -25,8 +25,10 @@ class Examination extends Model
 
     public function db_getAnimalRecordsDetailed($id){
         $records = DB::select("SELECT * FROM examinations JOIN animals ON examinations.fk_animal_id=animals.animal_id JOIN users ON examinations.fk_vet_id=users.id WHERE fk_animal_id=$id");
+        $pets = DB::select("SELECT * FROM animals WHERE animal_id=$id");
         return [
-            'records' => $records
+            'records' => $records,
+            'pets' => $pets
         ];
     }
 
@@ -55,17 +57,33 @@ class Examination extends Model
         ]);
     }
 
+    public function db_createExaminationRaw(Request $request){
+        $examination = Examination::create([
+            'fk_animal_id' => $request->input('animal_id'),
+            'fk_vet_id' => $request->input('doctorID'),
+            'fk_requested_by_careman_id' => 1,  //temporary, just NULL change table
+            'examination_status' => $request->input('status'),
+            'examination_type' => $request->input('examination_t'),
+            'examination_from' => $request->input('examination_fr'),
+            'examination_to' => $request->input('examination_to'),
+            'vet_examination_notes' => $request->input('vet_examination_notes'),
+        ]);
+    }
+
     public function db_updateExamination(Request $request){
         $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
+        
         $examination = DB::table('examinations')
             -> where('examination_id', $request->request_id)
             -> update([
                 'examination_type' => $request->input('examination_t'),
                 'examination_description' => $request->input('examination_desc'),
+                'vet_examination_notes' => $request->input('vet_examination_notes'),
                 'examination_from' => $request->input('examination_fr'),
                 'examination_to' => $request->input('examination_to'),
                 'updated_at' => $current_date_time,
                 'examination_status' => $request->input('status'),
+                'fk_vet_id' => $request->input('vet_id'),
             ]);
 
     }
@@ -76,12 +94,19 @@ class Examination extends Model
             -> where('examination_id', $request->request_id)
             -> update([
                 'examination_type' => $request->input('examination_t'),
-                'examination_description' => $request->input('examination_desc'),
+                'vet_examination_notes' => $request->input('vet_examination_notes'),
                 'examination_from' => $request->input('examination_fr'),
                 'examination_to' => $request->input('examination_to'),
                 'updated_at' => $current_date_time,
                 'examination_status' => $request->input('status'),
             ]);
+
+    }
+
+    public function db_removeExamination(Request $request){
+        $examination = DB::table('examinations')
+            -> where('examination_id', $request->req_id)
+            -> delete();
 
     }
 

@@ -40,6 +40,8 @@ Route::middleware(['auth', 'vet'])->group( function (){
     Route::get('/vet', [VetController::class, 'getPetExaminationsAndRecords'])->name('vet');
     Route::put('/vet/request/savechange', [VetController::class, 'editExam'])->name('vet');
     Route::put('/vet/record/savechange', [VetController::class, 'editExam2'])->name('vet');
+    Route::put('/vet/record/remove', [VetController::class, 'removeExam'])->name('vet');
+    Route::put('/vet/record/create', [VetController::class, 'createExam'])->name('vet');
     Route::get('/vet/records/animal/{id}', [VetController::class, 'getAnimalRecordsDetailed'])->name('vet');
 
     Route::post('/vet/request/{id}', [VetController::class, 'getRequestDetailed'])->name('vet');

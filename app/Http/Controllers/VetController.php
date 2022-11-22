@@ -20,6 +20,16 @@ class VetController{
         app()->call('App\Models\Examination@db_updateExamination2', ['request' => $request]);
         return redirect()->back()->with('success', true)->with('message', 'Successfully saved changes!');
     }
+    public function removeExam(Request $request){
+        if(!$request->isMethod('put')) return redirect('/vet');
+        app()->call('App\Models\Examination@db_removeExamination', ['request' => $request]);
+        return redirect()->back()->with('success', true)->with('message', 'Successfully removed record!');
+    }
+    public function createExam(Request $request){
+        if(!$request->isMethod('put')) return redirect('/vet');
+        app()->call('App\Models\Examination@db_createExaminationRaw', ['request' => $request]);
+        return redirect()->back()->with('success', true)->with('message', 'Successfully created record!');
+    }
 
     public function getPetExaminationsAndRecords(){
         return view('vet', app()->call('App\Models\Examination@db_getAllPetExaminationsAndRecords'));
