@@ -48,7 +48,7 @@
                                         <div class="col-md-12 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="examination_t">Examination Type *</label>
-                                                <input value="{{$examination[0]->examination_type}}" type="text" name="examination_t" id="examination_t" class="form-control form-control-lg" required/>
+                                                <input value="{{$examination[0]->examination_type}}" type="text" name="examination_t" id="examination_t" class="form-control form-control-lg" required @if($examination[0]->examination_status == "done") disabled @endif/>
                                             </div>
                                         </div>
                                        
@@ -58,7 +58,7 @@
                                         <div class="col-md-12 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="examination_desc">Examination Description *</label>
-                                                <textarea  maxlength="255" name="examination_desc" id="examination_desc" class="form-control form-control-lg" rows="5" required>{{$examination[0]->examination_description}}</textarea>
+                                                <textarea  maxlength="255" name="examination_desc" id="examination_desc" class="form-control form-control-lg" rows="5" required @if($examination[0]->examination_status == "done") disabled @endif>{{$examination[0]->examination_description}}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -67,14 +67,14 @@
                                         <div class="col-md-6 mb-4 d-flex align-items-center">
                                             <div class="form-outline datetimepicker w-100">
                                                 <label for="examination_fr" class="form-label">Examination from</label>
-                                                <input value="{{$examination[0]->examination_from}}" type="datetime-local" placeholder="DD-MM-YYYY" min="01-01-1900T08:30" name="examination_fr" class="form-control form-control-lg" id="examination_fr" data-date-format='d-m-Y'/>
+                                                <input value="{{$examination[0]->examination_from}}" type="datetime-local" placeholder="DD-MM-YYYY" min="01-01-1900T08:30" name="examination_fr" class="form-control form-control-lg" id="examination_fr" data-date-format='d-m-Y' @if($examination[0]->examination_status == "done") disabled @endif/>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 mb-4 d-flex align-items-center">
                                             <div class="form-outline datepicker w-100">
                                                 <label for="examination_to" class="form-label">Examination to</label>
-                                                <input value="{{$examination[0]->examination_to}}" type="datetime-local" placeholder="dd-mm-yyyy" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}T[0-9]{2}:[0-9]{2}" min="01-01-1900T08:30" name="examination_to" class="form-control form-control-lg" id="examination_to" data-date-format='d-m-Y'/>
+                                                <input value="{{$examination[0]->examination_to}}" type="datetime-local" placeholder="dd-mm-yyyy" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}T[0-9]{2}:[0-9]{2}" min="01-01-1900T08:30" name="examination_to" class="form-control form-control-lg" id="examination_to" data-date-format='d-m-Y' @if($examination[0]->examination_status == "done") disabled @endif/>
                                             </div>
                                         </div>
                                         
@@ -85,7 +85,7 @@
                                         <div class="col-md-12 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="vet_examination_notes">Doctor's notes *</label>
-                                                <textarea  maxlength="255" name="vet_examination_notes" id="vet_examination_notes" class="form-control form-control-lg" rows="5" required>{{$examination[0]->vet_examination_notes}}</textarea>
+                                                <textarea  maxlength="255" name="vet_examination_notes" id="vet_examination_notes" class="form-control form-control-lg" rows="5" required @if($examination[0]->examination_status == "done") disabled @endif>{{$examination[0]->vet_examination_notes}}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -93,17 +93,17 @@
                                     <div class="col-md-12 mb-4 pt-2">
                                         <h6 class="mb-2 pb-1">Status: *</h6>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="status" id="requested"
+                                            <input @if($examination[0]->examination_status == "done") disabled @endif class="form-check-input" type="radio" name="status" id="requested"
                                                    value="requested" @if($examination[0]->examination_status == "requested") checked @endif/>
                                             <label class="form-check-label" for="requested">Requested</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="status" id="planned"
+                                            <input @if($examination[0]->examination_status == "done") disabled @endif class="form-check-input" type="radio" name="status" id="planned"
                                                    value="planned" @if($examination[0]->examination_status == "planned") checked @endif/>
                                             <label class="form-check-label" for="planned">Planned</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="status" id="done"
+                                            <input @if($examination[0]->examination_status == "done") disabled @endif class="form-check-input" type="radio" name="status" id="done"
                                                    value="done" @if($examination[0]->examination_status == "done") checked @endif/>
                                             <label class="form-check-label" for="done">Done</label>
                                             
@@ -114,7 +114,7 @@
                                     <div class="row">
                                     <div class="mt-12 pt-2 text-center">
                                         
-                                        <input class="btn btn-warning btn-lg" type="submit" value="Save"/>
+                                        <input class="btn btn-warning btn-lg" @if($examination[0]->examination_status == "done") type="hidden" @else type="submit" @endif  value="Save"/>
                                     </div>
                                     </div>
                                     

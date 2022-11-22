@@ -94,28 +94,28 @@
                                 <input type="hidden" id="request_id" name="request_id" value="{{$record->examination_id}}">
                                     
                                 <td>{{$record->name . " " . $record->surname}}</td>
-                                <td><input style="text-align: center;"value="{{$record->examination_type}}" type="text" name="examination_t" id="examination_t" class="form-control form-control-sm" required/></td>
-                                <td><textarea  maxlength="255" name="vet_examination_notes" id="vet_examination_notes" class="form-control form-control-sm" rows="1" required>{{$record->vet_examination_notes}}</textarea>
+                                <td><input @if($record->examination_status == "done") disabled @endif style="text-align: center;"value="{{$record->examination_type}}" type="text" name="examination_t" id="examination_t" class="form-control form-control-sm" required/></td>
+                                <td><textarea @if($record->examination_status == "done") disabled @endif maxlength="255" name="vet_examination_notes" id="vet_examination_notes" class="form-control form-control-sm" rows="1" required>{{$record->vet_examination_notes}}</textarea>
                                 </td>
-                                <td><input value="{{$record->examination_from}}" type="datetime-local" placeholder="DD-MM-YYYY" min="01-01-1900T08:30" name="examination_fr" class="form-control form-control-sm" id="examination_fr" data-date-format='d-m-Y'/></td>
-                                <td><input value="{{$record->examination_to}}" type="datetime-local" placeholder="DD-MM-YYYY" min="01-01-1900T08:30" name="examination_to" class="form-control form-control-sm" id="examination_to" data-date-format='d-m-Y'/></td>
+                                <td><input @if($record->examination_status == "done") disabled @endif value="{{$record->examination_from}}" type="datetime-local" placeholder="DD-MM-YYYY" min="01-01-1900T08:30" name="examination_fr" class="form-control form-control-sm" id="examination_fr" data-date-format='d-m-Y'/></td>
+                                <td><input @if($record->examination_status == "done") disabled @endif value="{{$record->examination_to}}" type="datetime-local" placeholder="DD-MM-YYYY" min="01-01-1900T08:30" name="examination_to" class="form-control form-control-sm" id="examination_to" data-date-format='d-m-Y'/></td>
                                 
                             
                                 <td>
-                                    <select class="form-control form-control-sm" id="status" name="status">
-                                        <option value="requested" @if($record->examination_status == "requested") selected="selected" @endif>requested</option>
-                                        <option value="planned" @if($record->examination_status == "planned") selected="selected" @endif>planned</option>
-                                        <option value="done" @if($record->examination_status == "done") selected="selected" @endif>done</option>
+                                    <select @if($record->examination_status == "done") disabled @endif class="form-control form-control-sm" id="status" name="status">
+                                        <option @if($record->examination_status == "done") disabled @endif value="requested" @if($record->examination_status == "requested") selected="selected" @endif>requested</option>
+                                        <option @if($record->examination_status == "done") disabled @endif value="planned" @if($record->examination_status == "planned") selected="selected" @endif>planned</option>
+                                        <option @if($record->examination_status == "done") disabled @endif value="done" @if($record->examination_status == "done") selected="selected" @endif>done</option>
                                     </select>
                                 </td>
-                                <td><button type="submit" class="btn text-success fa-solid fa-check"></button></td>
+                                <td>@if($record->examination_status == "done")  @else<button type="submit" class="btn text-success fa-solid fa-check"></button>@endif</td>
                                 </form>
                                 <form action="/vet/record/remove" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <input type="hidden" id="req_id" name="req_id" value="{{$record->examination_id}}">
         
-                                <td><button type="submit" class="btn text-danger fa-solid fa-xmark"></button></td>
+                                <td>@if($record->examination_status == "done")  @else <button  type="submit" class="btn text-danger fa-solid fa-xmark"></button> @endif</td>
                                 </form>
 
                                 </tr>
