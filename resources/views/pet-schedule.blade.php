@@ -198,7 +198,9 @@
                                                 {{$taken->reservation_status}}
                                             </div>
                                             <div class="col-sm-3 text-center mt-2">
-                                                action
+                                                cross
+                                                <p>{{$taken->animal_id}}</p>
+                                                <input type="hidden" name="animal_id" value="{{$taken->animal_id}}">
                                             </div>
                                         @endforeach
                                     </div>
@@ -218,7 +220,14 @@
                                                     {{$listed->reservation_status}}
                                                 </div>
                                                 <div class="col-sm-3 text-center mt-2">
-                                                    action
+                                                    <form action="/volunteer/bookTermin" method="POST">
+                                                        @csrf
+                                                        @method('POST')
+                                                        <input type="hidden" name="animal_id" value="{{$listed->animal_id}}">
+                                                        <input type="hidden" name="reservation_id" value="{{$listed->reservation_id}}">
+                                                        <input type="hidden" name="volunteer_id" value="{{Auth()->user()->id}}">
+                                                        <button title="Book animal" class="btn btn-outline-primary fa-solid fa-plus"> book</button>
+                                                    </form>
                                                 </div>
                                         @endforeach
                                     </div>

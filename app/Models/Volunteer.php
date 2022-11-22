@@ -34,8 +34,30 @@ class Volunteer extends Model
                         AND reservations.reservation_from > :date
                         AND reservations.reservation_status LIKE 'listed'", ['date' => $actual_date, 'animal_id' => $animal_id]);
         $result['taken'] = DB::select("SELECT * FROM reservations
+                        LEFT JOIN animals ON animals.animal_id = reservations.fk_animal_id
                         WHERE fk_taken_by_volunteer_id LIKE :user_id
-                        AND reservations.reservation_from > :date", ['date' => $actual_date,'user_id' => $volunteer_id]);
+                        AND reservations.fk_animal_id LIKE :animal_id
+                        AND reservations.reservation_from > :date", ['date' => $actual_date,'user_id' => $volunteer_id, 'animal_id' => $animal_id]);
+        return $result;
+    }
+
+    public function db_bookTermin($reservation_id, $volunteer_id){
+        $result = DB::table('reservations')
+            ->where('reservation_id', $reservation_id)
+            ->update([
+                'fk_taken_by_volunteer_id' => $volunteer_id,
+                'reservation_status' => 'requested',
+                ]);
+        return $result;
+    }
+
+    public function db_releaseTermin($reservation_id){
+        $result = DB::table('reservations')
+            ->where('reservation_id', $reservation_id)
+            ->update([
+                'reservation_status' => 'listed',
+                'fk_taken_by_volunteer_id' => null
+            ]);
         return $result;
     }
 
