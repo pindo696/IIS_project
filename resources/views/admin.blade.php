@@ -87,7 +87,7 @@
         </div>
 
         <div class="col-md-12 mt-4">
-            @unless(sizeof($users) == 0)
+            @unless(sizeof($animals) == 0)
                 <div class="card">
                     <div class="card-header text-center">{{ __('Animals') }}</div>
                     <div class="card-body">
@@ -115,7 +115,7 @@
                                         <form action="/admin/manage/animal" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
-                                        <input type="hidden" id="animal_id" name="animal_id" value="{{$animal->id}}">
+                                        <input type="hidden" id="animal_id" name="animal_id" value="{{$animal->animal_id}}">
                                         <td>{{$animal->animal_id}}</td>
                                         <td><input style="text-align: center;"value="{{$animal->animal_name}}" type="text" name="animal_name" id="animal_name" class="form-control form-control-sm" required/></td>
                                         <td><input style="text-align: center;"value="{{$animal->species}}" type="text" name="species" id="species" class="form-control form-control-sm" required/></td>
@@ -129,10 +129,10 @@
                                        
                                         <td><button type="submit" class="btn text-success fa-solid fa-check"></button></td>
                                         </form>
-                                        <form action="/admin/remove/user" method="POST" enctype="multipart/form-data">
+                                        <form action="/admin/remove/animal" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
-                                            <input type="hidden" id="id" name="id" value="{{$user->id}}">
+                                            <input type="hidden" id="id" name="id" value="{{$animal->animal_id}}">
                 
                                         <td><button type="submit" class="btn text-danger fa-solid fa-xmark"></button></td>
                                         </form>
