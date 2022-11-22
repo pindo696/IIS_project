@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; UTF-8"/>
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu
+     podle použitého editoru -->
+
+<h1>Zvířecí útulek</h1> <!-- Nahradte názvem svého zadání -->
+
+<dl>
+	<dt>Autori</dt>
+	<dd>Andrej Ľupták<!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xlupta05@stud.fit.vutbr.cz">xlupta05@stud.fit.vutbr.cz</a> -
+		Založenie projektu, stránka pečovatele, zobrazenie požiadaviek pre venčenie, vytváranie rozvrhov pre venčenie, zobrazenie histórie venčení, potvrdzvanie prihlasovania na termíny venčení, zobrazenie požiadaviek pre overenie dobrovolníkov, potvrdzovanie/odmietanie dobrovolníkov, vytváranie požiadaviek na pečovatela, stránka dobrovolníka, história venčení dobrovolníka, vyberanie z termínov venčení, odstránanie termínu venčení. Zabezpečenie hostingu, migrácia.
+	</dd>
+	<dd>Marián Backa<!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto: xbacka01@stud.fit.vutbr.cz"> xbacka01@stud.fit.vutbr.cz</a> -
+		TODO
+	</dd>
+  <dd>Michal Majer<!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xmajer22@stud.fit.vutbr.cz">xmajer22@stud.fit.vutbr.cz</a> -
+		TODO
+	</dd>
+	<dt>URL aplikácie</dt>
+	<dd><a href="https://animalshelter.netology.sk/">https://animalshelter.netology.sk/</a></dd>
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<p>Uveďte prosím existující zástupce <strong>všech rolí uživatelů</strong>.</p>
+<table>
+<tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>admin</td><td>admin</td><td>Administrátor</td></tr>
+<tr><td>prodavac</td><td>prodavac</td><td>Prodavač</td></tr>
+<tr><td>franta</td><td>franta</td><td>Zákazník</td></tr>
+</table>
+
+<h3>Video</h3>
+
+<p>Přiložte odkaz na komentované video demostrující použití informačního systému. Zaměřte se na případy užití definované zadáním (např. registrace uživatele, správa uživatelů a činnosti jednotlivých rolí). Video nahrajte například na VUT Google Drive, kde ho bude možné přímo spustit z odkazu.</p>
+
+<h2>Implementácia</h2>
+<p>Stručná dokumentace k implementaci, která popisuje, které části projektu (např. PHP skripty) implementují jednotlivé případy použití.</p>
+
+<h3>Bekend</h3>
+<p>Ako implementačný jazyk sme si vybrali Laravell 9.x.</p>
+
+<h3>Frontend</h3>
+<p>Stránky sú implementované najmä za pomoci jednoduchého Bootstrap doplnenom o php a základným html.</p>
+
+<h3>Popis implementácie</h3>
+<p>Projekt je implementovaný podľa modelu MVC.</p>
+<p>Súbory s príponami .blade.php predstavujúce časť View. V týchto súboroch sa nacházajú konktétne zobrazenia stránok. Jednotlivé stránky sú výstižne pomenované podľa toho, čo konkrétne majú zobrazovť.</p>
+<p>Časť Model predstavuje prácu s databázov. Tu sa nachádzajú čisto operácie, ktoré je nutné vykonať v databáze. Ide o dotazy ako napríklad select, delete, update a ďalšie. Súbory je možné nájsť 	v zložek App\Models. Každý model je pomenový podľa tabuľky, nad ktorou vykonáva operácie. Jednotlivé metódy modulov sú volané pomocou controlleru.</p>
+<p>Súbory v zložke App\Http\Controllers	predstavujú Controller časť MVC modelu. Tu sa vykonáva všetka komunikácia a spracovanie dát medzi View a Model časťou. Controllery sú opäť výstižne pomenované. Napríklad AnimalController.php slúži pre správu zvierat, zatiaľ čo ExaminaionController slúži k spracovaniu dát vyšetrení a iné.</p>
+<p>Vzhľad a vytvorenie databáze zabezpečujú takzvané migrácie. Pomocou príkazu php artisan migrate, sa zo zložky database\migrations načítajú schémy databázy, pomocou ktorých je databáza vytvorená.</p>
+<p>Prístup medzi jednotlivými používateľmi a zabránenie prístupu do sekcie, na ktorú iný používateľ nemá prístup je riešená pomocou rozšírenia middleware. Ide o rozšírenie, ktoré podľa autentifikovaného používeľa sprístupňuje len určitú časť prístupných ciest. Kontrola autentifuikácie používeľa pri prístupe k určitej ceste prebieha v častiach App\Http\Middleware. Povolené prístupové cesty sú definované pre každú rolu používateľa v súbore routes\web.php. Tento súbor slúži zároveň aj pre rozpoznanie dotazovaného pohľadu podľa linku a vyvolanie konkrétneho kontroleru.</p>
+
+<h3>Databáza</h3>
+<dd><a href="https://lucid.app/lucidchart/74c66f4e-f8d2-42ee-8226-2f159ad37ab4/edit?viewport_loc=-4%2C601%2C2136%2C1068%2C0_0&invitationId=inv_1387b3ff-2a73-4042-bebc-ee6d8442832e">ER diagram</a></dd>
+<image style="max-width:850px" src="IISv2.svg"></image>
+
+<h2>Inštalácia pre localhost</h2>
+<ul>
+	<li>Git clone / skopírovanie súborov do zložky projektu</li>
+	<li>Inštalácia a spustenie DB serveru, napríklad XAMPP s MariaDB min. verzia 10.4.25</li>
+	<li>Vytvoríť súbor .env pre prepojenie s DB systémom. Správne nastavenie parametrov. Ukažkový súbor example.env</li>
+	<li>Prípadné vloženie dummy dát vo forme .sql (priložný script) cez rozhranie phpmyadmin</li>
+	<li>Pomocou PowerShell (Windows) alebo terminálu (Linux) inštalácia php 8.1, composer, node.js min. 16.xx.x</li>
+	<li>Inicializácia databázi pomocou príkazu php artisan:migrate</li>
+	<li>V jednom terminály spusiť npm príkazom: npm install & npm run dev</li>
+	<li>V druhom terminály spustiť artisan príkazom: php artisan serve</li>
+	<li>Prístup ku stránke pomocou localhost, prípadne: http://127.0.0.1:8000/</li>
+</ul>
+<i>Projekt nie je možné spustiť iba z odovzdaných súborov, nakoľko neobsahujú všetky knižnice, dependencies a iné controllery vygenerované a požadované priamo Laravellom.
+Rovnako neobsahujú bootstrap knižnice potrebné pre korektné zobrazenie stránky. Celý projekt je možné po požiadaní zobraziť na <a href="https://github.com/pindo696/IIS_project">GitHub</a>.</i>
+
+<h2>Hosting aplikácie</h2>
+Nakoľko na školských serveroch sa nám nepodarilo rozumne spojazdniť laravel, nodejs ani rozumné prepojenie s databázovým systémom, sme sa rozhodli pre vlastný hosting poskytovaný portálom WebCreators, s.r.o. Na danej platforme beží aplikácia, spolu s databázovým systémom. <a href="https://animalshelter.netology.sk/">Link.</a>
+
+<h2>Známe problémy</h2>
+<p>Jednoduchší dizajn - pod 14' sa stráca responzivita stránky.</p>
+
+
+</body>
+</html>
+

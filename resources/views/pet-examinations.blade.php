@@ -220,7 +220,12 @@
                                                             </div>
                                                         </div>
                                                         @else
+                                                        <div class="row">
                                                             {{$data->examination_description}}
+                                                        </div>
+                                                        <div class="row">
+                                                            <i class="p-0">{{$data->vet_examination_notes}}</i>
+                                                        </div>
                                                         @endif
                                                 </div>
                                             </div>

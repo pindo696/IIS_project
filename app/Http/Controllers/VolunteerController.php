@@ -34,8 +34,10 @@ class VolunteerController extends Controller
 
     public function petSchedule(Request $request){
         if(!$request->isMethod('post')) return redirect('/volunteer');
-        $result = app()->call('App\Models\Reservation@db_getPetReservations', ['id' => $request->animal_id]);
+        $result = app()->call('App\Models\Volunteer@db_getPetScheduleByVolunteerIDAndAnimalID', ['animal_id' => $request->animal_id, 'volunteer_id' => $request->volunteer_id]);
         return view('pet-schedule', compact('result', 'result'));
+//        $result = app()->call('App\Models\Reservation@db_getPetReservations', ['id' => $request->animal_id]);
+//        return view('pet-schedule', compact('result', 'result'));
     }
 
     public function showPetSchedule(Request $request){
