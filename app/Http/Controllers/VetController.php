@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class VetController{
@@ -27,6 +27,9 @@ class VetController{
     }
     public function createExam(Request $request){
         if(!$request->isMethod('put')) return redirect('/vet');
+        //if((Carbon::parse($request->examination_fr)->gt(Carbon::parse($request->examination_to))) || Carbon::parse($request->examination_fr)->isPast()){
+        //    return redirect()->back()->with('dateError', true);
+        //}
         app()->call('App\Models\Examination@db_createExaminationRaw', ['request' => $request]);
         return redirect()->back()->with('success', true)->with('message', 'Successfully created record!');
     }
