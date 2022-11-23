@@ -14,6 +14,12 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
+     *
+     * Model part implements DB operations
+     * Implements DB operations against user table
+     */
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -49,22 +55,45 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Confirms volunteer
+     * @param $id
+     */
     public function db_changeUserConfirmationToAccepted($id){
         DB::table('users')->where('id', $id)->update(array('confirmation'=>'accepted'));
     }
 
+    /**
+     * Decline volunteer
+     * @param $id
+     * @return void
+     */
     public function db_changeUserConfirmationToDeclined($id){
         DB::table('users')->where('id', $id)->update(array('confirmation'=>'declined'));
     }
 
+    /**
+     * Ban volunteer
+     * @param $id
+     * @return void
+     */
     public function db_changeUserConfirmationToBanned($id){
         DB::table('users')->where('id', $id)->update(array('confirmation'=>'banned'));
     }
 
+    /**
+     * Delete user
+     * @param $id
+     * @return void
+     */
     public function db_deleteUser($id){
         DB::table('users')->delete($id);
     }
 
+    /**
+     * Get volunteers from DB
+     * @return - DB result
+     */
     public function db_getVolunteers(){
         $result = DB::table('users')
             -> where('role', 'like', 'volunteer') -> orderByDesc('confirmation')

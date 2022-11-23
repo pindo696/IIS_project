@@ -10,11 +10,22 @@ class Careman extends Model
 {
     use HasFactory;
 
-    protected $table = 'users';
+    /**
+     * Andrej Luptak (xlupta05)
+     * Model part implements DB operations
+     * Implements DB operations against careman table
+     */
 
+    /** careman uses users table
+     *  differentiated by role
+     */
+    protected $table = 'users';
     protected $primaryKey = 'id';
 
-    /* careman works with users table */
+    /**
+    * careman works with users table
+    * call DB actions from Users model
+    */
     public function acceptVolunteer(Request $request){
         app()->call('App\Models\User@db_changeUserConfirmationToAccepted', ['id' => $request->data_id]);
     }

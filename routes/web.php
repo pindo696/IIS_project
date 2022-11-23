@@ -19,6 +19,10 @@ use App\Http\Controllers\VetController;
 |
 */
 
+/**
+ * Represents web routes
+ */
+
 Route::get('/', [AnimalController::class, 'index']);
 
 Route::get('/about', [Controller::class, 'about']);
@@ -81,9 +85,6 @@ Route::middleware(['auth', 'careman'])->group( function (){
     Route::any('/careman/deleteWalk/', [App\Http\Controllers\ReservationController::class, 'deleteWalk']);
     Route::any('/careman/animals/createScheduleItem', [App\Http\Controllers\ReservationController::class, 'showCreateScheduleItemForm']);
     Route::post('/careman/animals/createScheduleItem/add', [App\Http\Controllers\ReservationController::class, 'crateScheduleItem']);
-
-
-
 });
 // Single pet simple detail
 Route::get('/animal/{id}', [AnimalController::class, 'show']);

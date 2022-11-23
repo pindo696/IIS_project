@@ -11,8 +11,21 @@ class Examination extends Model
 {
     use HasFactory;
 
+    /**
+     * Andrej Luptak (xlupta05)
+     * Model part implements DB operations
+     * Implements DB operations against examination table
+     */
+
+    /**
+     * @var string[] - attributes, which can be modified in DB
+     */
     protected $fillable = ['fk_animal_id', 'fk_requested_by_careman_id', 'fk_vet_id', 'examination_status', 'examination_type', 'examination_description', 'vet_examination_notes', 'examination_from', 'examination_to', 'fk_approved_by_id'];
 
+    /**
+     * Gets all examinations based on animal id
+     * @return array as DB query result
+     */
     public function db_getAllPetExaminationsAndRecords(){
         $examinations= DB::select("SELECT * FROM examinations JOIN users ON examinations.fk_requested_by_careman_id = users.id JOIN animals ON examinations.fk_animal_id=animals.animal_id ORDER BY examinations.examination_from DESC");
         $records = DB::select("SELECT * FROM animals");
@@ -22,7 +35,11 @@ class Examination extends Model
         ];
     }
 
-
+    /**
+     * Gets animal information - including information about animal and its examinations
+     * @param $id of animal
+     * @return array as DB result
+     */
     public function db_getAnimalRecordsDetailed($id){
         $records = DB::select("SELECT * FROM examinations JOIN animals ON examinations.fk_animal_id=animals.animal_id JOIN users ON examinations.fk_vet_id=users.id WHERE fk_animal_id=$id");
         $pets = DB::select("SELECT * FROM animals WHERE animal_id=$id");
@@ -32,10 +49,20 @@ class Examination extends Model
         ];
     }
 
+    /**
+     * Gets all pet examinations by pet id
+     * @param Request $request
+     * @return array
+     */
     public function db_getAllPetExaminations(Request $request){
         return DB::select("SELECT * FROM examinations WHERE examination_id LIKE :id ", ['id' => $request->examination_id]);
     }
 
+    /**
+     * Get pet examinations joined with animal info
+     * @param $id of animal
+     * @return array
+     */
     public function db_getPetExaminationById($id){
         $examination = DB::select("SELECT * FROM examinations JOIN animals ON examinations.fk_animal_id=animals.animal_id WHERE examination_id=$id");
         return [
@@ -43,10 +70,20 @@ class Examination extends Model
         ];
     }
 
+    /**
+     * Delete created examination request
+     * @param Request $request
+     * @return array
+     */
     public function db_deleteRequest(Request $request){
         return DB::select("DELETE FROM examinations WHERE examination_id LIKE :id", ['id' => $request->examination_id]);
     }
 
+    /**
+     * Insert created examination into DB from careman
+     * @param Request $request
+     * @return void
+     */
     public function db_createExamination(Request $request){
         $examination = Examination::create([
             'fk_animal_id' => $request->input('animal_id'),
@@ -57,11 +94,16 @@ class Examination extends Model
         ]);
     }
 
+    /**
+     * same but from vet
+     * @param Request $request
+     * @return void
+     */
     public function db_createExaminationRaw(Request $request){
         $examination = Examination::create([
             'fk_animal_id' => $request->input('animal_id'),
             'fk_vet_id' => $request->input('doctorID'),
-            'fk_requested_by_careman_id' => $request->input('doctorID'), 
+            'fk_requested_by_careman_id' => $request->input('doctorID'),
             'examination_status' => $request->input('status'),
             'examination_type' => $request->input('examination_t'),
             'examination_from' => $request->input('examination_fr'),
@@ -70,9 +112,14 @@ class Examination extends Model
         ]);
     }
 
+    /**
+     * Update examination
+     * @param Request $request
+     * @return void
+     */
     public function db_updateExamination(Request $request){
         $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
-        
+
         $examination = DB::table('examinations')
             -> where('examination_id', $request->request_id)
             -> update([
@@ -103,6 +150,11 @@ class Examination extends Model
 
     }
 
+    /**
+     * remove examination from DB
+     * @param Request $request
+     * @return void
+     */
     public function db_removeExamination(Request $request){
         $examination = DB::table('examinations')
             -> where('examination_id', $request->req_id)

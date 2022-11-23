@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id('examination_id');
             $table->unsignedBigInteger('fk_animal_id');
             $table->foreign('fk_animal_id')->references('animal_id')->on('animals')->onDelete('cascade');
-            //TODO make careman id nullable
+
             $table->unsignedBigInteger('fk_requested_by_careman_id');
             $table->foreign('fk_requested_by_careman_id')->references('id')->on('users')->onDelete('cascade');
 

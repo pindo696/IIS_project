@@ -11,6 +11,18 @@ class Volunteer extends Model
 {
     use HasFactory;
 
+    /**
+     * Andrej Luptak (xlupta05)
+     * Model part implements DB operations
+     * Implements DB operations against volunteer table
+     */
+
+
+    /**
+     * Get volunteer requests and walk history
+     * @param $id - as volunteer id
+     * @return array - as DB result
+     */
     public function db_getVolunteerHistory($id){
         $actual_date = Carbon::now();
         $result['upcomming'] = DB::select("SELECT * FROM reservations
@@ -26,6 +38,15 @@ class Volunteer extends Model
         return $result;
     }
 
+    /**
+     * Joins animal reservations with animal information to display listed schedule items and taken
+     * items by specific volunteer
+     * @param $animal_id
+     * @param $volunteer_id
+     * @return array - as DB result
+     * 'listed' - all listed, but not taken reservations
+     * 'taken' - all taken reservations by provided volunteer_id
+     */
     public function db_getPetScheduleByVolunteerIDAndAnimalID($animal_id, $volunteer_id){
         $actual_date = Carbon::now();
         $result['listed'] = DB::select("SELECT * FROM reservations
@@ -41,6 +62,12 @@ class Volunteer extends Model
         return $result;
     }
 
+    /**
+     * processes book request by volunteer
+     * @param $reservation_id
+     * @param $volunteer_id
+     * @return int
+     */
     public function db_bookTermin($reservation_id, $volunteer_id){
         $result = DB::table('reservations')
             ->where('reservation_id', $reservation_id)
@@ -51,6 +78,11 @@ class Volunteer extends Model
         return $result;
     }
 
+    /**
+     * release booked termin
+     * @param $reservation_id
+     * @return int
+     */
     public function db_releaseTermin($reservation_id){
         $result = DB::table('reservations')
             ->where('reservation_id', $reservation_id)
