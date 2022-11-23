@@ -20,11 +20,18 @@
 <dl>
 	<dt>Autori</dt>
 	<dd>Andrej Ľupták<!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
-	    <a href="mailto:xlupta05@stud.fit.vutbr.cz">xlupta05@stud.fit.vutbr.cz</a> -
-		Založenie projektu, stránka pečovatele, zobrazenie požiadaviek pre venčenie, vytváranie rozvrhov pre venčenie, zobrazenie histórie venčení, potvrdzvanie prihlasovania na termíny venčení, zobrazenie požiadaviek pre overenie dobrovolníkov, potvrdzovanie/odmietanie dobrovolníkov, vytváranie požiadaviek na pečovatela, stránka dobrovolníka, história venčení dobrovolníka, vyberanie z termínov venčení, odstránanie termínu venčení. Zabezpečenie hostingu, migrácia.
+	    <a href="mailto:xlupta05@stud.fit.vutbr.cz">xlupta05@stud.fit.vutbr.cz</a>
+		<ul>
+			<li>Založenie a počiatočná inštalácia projektu, vytvorenie databázových migrácií (tabulky), dodatočná validácia pri registácii a úprava ukladania používateľov do databázy</li>
+			<li>Prístup autentifikovaných užívateľov k jednotlivým podstránkam za pomoci Middleware</li>
+			<li>Stránka pečovatela - zobrazenie zvierat, vytvorenie, editácia a odstraňovanie zvierat, detail jednotlivého zvieraťa, zobrazenie požiadaviek pre venčenie dobrovolníkmi, vytváranie rozvrhov pre venčenie, zobrazenie histórie venčení pre jednotlivé zvieratá, potvrdzovanie prihlasovania na termíny venčení, 					odstránanie termínu venčení, zobrazenie požiadaviek pre overenie dobrovolníkov, potvrdzovanie/odmietanie dobrovolníkov, vytváranie požiadaviek na veterinára, zobrazenie histórie požiadaviek a vykonaných vyšetrení pre jednotlivé zvieratá</li>
+			
+			<li>Stránka dobrovolníka - história venčení dobrovolníka, zobrazenie voľných termínov venčení, vytvorenie požiadavky pre vypísaný termín venčenia, odhlásenie sa z termínu venčenia</li>
+			<li>Dokumentácia, zabezpečenie hostingu, migrácia (do 18.12.2022)</li>
+	</ul>
 	</dd>
 	<dd>Marián Backa<!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
-	    <a href="mailto: xbacka01@stud.fit.vutbr.cz"> xbacka01@stud.fit.vutbr.cz</a> -
+	    <a href="mailto:xbacka01@stud.fit.vutbr.cz">xbacka01@stud.fit.vutbr.cz</a> -
 		TODO
 	</dd>
   <dd>Michal Majer<!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
@@ -36,12 +43,11 @@
 </dl>
 
 <h2>Uživatelé systému pro testování</h2>
-<p>Uveďte prosím existující zástupce <strong>všech rolí uživatelů</strong>.</p>
 <table>
 <tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
-<tr><td>admin</td><td>admin</td><td>Administrátor</td></tr>
-<tr><td>prodavac</td><td>prodavac</td><td>Prodavač</td></tr>
-<tr><td>franta</td><td>franta</td><td>Zákazník</td></tr>
+<tr><td>admin</td><td>AdminAdmin1234</td><td>Administrátor</td></tr>
+<tr><td>careman</td><td>Careman1234</td><td>Ošetrovateľ</td></tr>
+<tr><td>volunteer</td><td>Volunteer1234</td><td>Vetarinár</td></tr>
 </table>
 
 <h3>Video</h3>
@@ -49,10 +55,9 @@
 <p>Přiložte odkaz na komentované video demostrující použití informačního systému. Zaměřte se na případy užití definované zadáním (např. registrace uživatele, správa uživatelů a činnosti jednotlivých rolí). Video nahrajte například na VUT Google Drive, kde ho bude možné přímo spustit z odkazu.</p>
 
 <h2>Implementácia</h2>
-<p>Stručná dokumentace k implementaci, která popisuje, které části projektu (např. PHP skripty) implementují jednotlivé případy použití.</p>
 
 <h3>Bekend</h3>
-<p>Ako implementačný jazyk sme si vybrali Laravell 9.x.</p>
+<p>Ako implementačný jazyk sme si vybrali Laravell 9.x. spolu s php.</p>
 
 <h3>Frontend</h3>
 <p>Stránky sú implementované najmä za pomoci jednoduchého Bootstrap doplnenom o php a základným html.</p>
@@ -60,12 +65,20 @@
 <h3>Popis implementácie</h3>
 <p>Projekt je implementovaný podľa modelu MVC.</p>
 <p>Súbory s príponami .blade.php predstavujúce časť View. V týchto súboroch sa nacházajú konktétne zobrazenia stránok. Jednotlivé stránky sú výstižne pomenované podľa toho, čo konkrétne majú zobrazovť.</p>
-<p>Časť Model predstavuje prácu s databázov. Tu sa nachádzajú čisto operácie, ktoré je nutné vykonať v databáze. Ide o dotazy ako napríklad select, delete, update a ďalšie. Súbory je možné nájsť 	v zložek App\Models. Každý model je pomenový podľa tabuľky, nad ktorou vykonáva operácie. Jednotlivé metódy modulov sú volané pomocou controlleru.</p>
-<p>Súbory v zložke App\Http\Controllers	predstavujú Controller časť MVC modelu. Tu sa vykonáva všetka komunikácia a spracovanie dát medzi View a Model časťou. Controllery sú opäť výstižne pomenované. Napríklad AnimalController.php slúži pre správu zvierat, zatiaľ čo ExaminaionController slúži k spracovaniu dát vyšetrení a iné.</p>
-<p>Vzhľad a vytvorenie databáze zabezpečujú takzvané migrácie. Pomocou príkazu php artisan migrate, sa zo zložky database\migrations načítajú schémy databázy, pomocou ktorých je databáza vytvorená.</p>
-<p>Prístup medzi jednotlivými používateľmi a zabránenie prístupu do sekcie, na ktorú iný používateľ nemá prístup je riešená pomocou rozšírenia middleware. Ide o rozšírenie, ktoré podľa autentifikovaného používeľa sprístupňuje len určitú časť prístupných ciest. Kontrola autentifuikácie používeľa pri prístupe k určitej ceste prebieha v častiach App\Http\Middleware. Povolené prístupové cesty sú definované pre každú rolu používateľa v súbore routes\web.php. Tento súbor slúži zároveň aj pre rozpoznanie dotazovaného pohľadu podľa linku a vyvolanie konkrétneho kontroleru.</p>
+<p>Časť Model predstavuje prácu s databázou. Tu sa nachádzajú čisto operácie, ktoré je nutné vykonať nad databázov. Ide o dotazy ako napríklad select, delete, update a ďalšie. Súbory je možné nájsť 	v zložek App\Models. Každý model je pomenový podľa tabuľky, nad ktorou vykonáva operácie. Jednotlivé metódy modulov sú volané pomocou Controllerov.</p>
+<p>Súbory v zložke App\Http\Controllers	predstavujú Controller časť MVC modelu. Tu sa vykonáva všetka komunikácia, spracovanie formulárov a dát medzi View a Model časťou. Controllery sú opäť výstižne pomenované. Napríklad AnimalController.php slúži pre správu zvierat, zatiaľ čo ExaminaionController.php slúži k spracovaniu dát vyšetrení a iné.</p>
+<p>Vzhľad a vytvorenie databázy zabezpečujú takzvané migrácie. Pomocou príkazu php artisan migrate, sa zo zložky database\migrations načítajú schémy databázy, pomocou ktorých je databáza vytvorená.</p>
+<p>Prístup medzi jednotlivými používateľmi a zabránenie prístupu do sekcie, na ktorú iný používateľ nemá prístup je riešená pomocou rozšírenia Middleware. Ide o rozšírenie, ktoré podľa autentifikovaného používeľa sprístupňuje len určitú časť prístupných ciest. Kontrola autentifuikácie používeľa pri prístupe k určitej ceste prebieha v častiach App\Http\Middleware. Povolené prístupové cesty sú definované pre každú rolu používateľa v súbore routes\web.php. Tento súbor slúži zároveň aj pre rozpoznanie dotazovaného pohľadu podľa linku a vyvolanie konkrétneho kontroleru. Počiatočné presmerovanie po prihlásení používateľa sa nachádza v súbore Http\Controllers\Auth\LoginController.php.</p>
 
 <h3>Databáza</h3>
+<h4>Návrh databázy:</h4>
+<p>Samotná databáza sa skladá zo štyroch, vzájomne prepojených tabuliek. Ide o tabuľky:</p>
+<ul>
+	<li>animals - obsahujúca informácie o zviearatách ako je ich meno, druh, farba, informácie o nájdení, vek a iné.</li>
+	<li>users - obsahujúca informácie o používateľoch ako je ich meno, priezvisko, prihlasovací email či heslo, rola, status potvrdzovanie pre dobrovolníkov, redundandá informácia o dátume narodenia či veku osoby.</li>
+	<li>examinations - tabuľka reprezentuje požiadavky pre vyšetrenia zvierat, informácie o vyšetrení či informácie o tom, ktorý veterinár vyšetrenie vykonal spolu s poznámkami vyšetrenia. Požiadavka vyšetrenia o vykonanom vyšetrení, či naplánovanom vyšetrení je zozlíšená pomocou atribútu <i>examination_type</i>. Tabuľka tak zabezpečuje aj históriu vyšetrení.</li>
+	<li>reservations - podobným spôsobom, ako tabuľa examinations reprezentuje jednotlivé vypísané termíny pre venčenie, rezerváciu a históriu venčení zvierat pomocou atribútu <i>reservation_status</i>. Vďaka spojeniu s tabuľkou používateľov tak vieme pre rezervované termíny a vykonané venčenie dodatočne dohľadať, ktorý dobrovolník mal v daný termín zviera požičané, či kým bol určitý termín pre venčenie potvrdený.</li>
+</ul>
 <dd><a href="https://lucid.app/lucidchart/74c66f4e-f8d2-42ee-8226-2f159ad37ab4/edit?viewport_loc=-4%2C601%2C2136%2C1068%2C0_0&invitationId=inv_1387b3ff-2a73-4042-bebc-ee6d8442832e">ER diagram</a></dd>
 <image style="max-width:850px" src="IISv2.svg"></image>
 
@@ -76,20 +89,24 @@
 	<li>Vytvoríť súbor .env pre prepojenie s DB systémom. Správne nastavenie parametrov. Ukažkový súbor example.env</li>
 	<li>Prípadné vloženie dummy dát vo forme .sql (priložný script) cez rozhranie phpmyadmin</li>
 	<li>Pomocou PowerShell (Windows) alebo terminálu (Linux) inštalácia php 8.1, composer, node.js min. 16.xx.x</li>
-	<li>Inicializácia databázi pomocou príkazu php artisan:migrate</li>
-	<li>V jednom terminály spusiť npm príkazom: npm install & npm run dev</li>
+	<li>Inicializácia databázy pomocou príkazu php artisan:migrate</li>
+	<li>V jednom terminály spustiť npm príkazom: npm install & npm run dev</li>
 	<li>V druhom terminály spustiť artisan príkazom: php artisan serve</li>
 	<li>Prístup ku stránke pomocou localhost, prípadne: http://127.0.0.1:8000/</li>
+	<li>Pre možnosť zobrazovania a ukladania obrázkov je dodatočne nutný príkaz php artisan storage:link</li>
 </ul>
 <i>Projekt nie je možné spustiť iba z odovzdaných súborov, nakoľko neobsahujú všetky knižnice, dependencies a iné controllery vygenerované a požadované priamo Laravellom.
-Rovnako neobsahujú bootstrap knižnice potrebné pre korektné zobrazenie stránky. Celý projekt je možné po požiadaní zobraziť na <a href="https://github.com/pindo696/IIS_project">GitHub</a>.</i>
+Rovnako neobsahujú Bootstrap knižnice potrebné pre korektné zobrazenie stránky. Celý projekt je možné po požiadaní zobraziť na <a href="https://github.com/pindo696/IIS_project">GitHub</a>.</i>
 
 <h2>Hosting aplikácie</h2>
-Nakoľko na školských serveroch sa nám nepodarilo rozumne spojazdniť laravel, nodejs ani rozumné prepojenie s databázovým systémom, sme sa rozhodli pre vlastný hosting poskytovaný portálom WebCreators, s.r.o. Na danej platforme beží aplikácia, spolu s databázovým systémom. <a href="https://animalshelter.netology.sk/">Link.</a>
+Nakoľko sa na školských serveroch nepodarilo rozumne spojazdniť laravel, nodejs ani rozumné prepojenie s databázovým systémom, sme sa rozhodli pre vlastný hosting poskytovaný portálom WebCreators, s.r.o. Na danej platforme bude aplikácia, spolu s databázovým systémom spustená najneskôr 18.12.2022. <a href="https://animalshelter.netology.sk/">Link.</a>
 
 <h2>Známe problémy</h2>
 <p>Jednoduchší dizajn - pod 14' sa stráca responzivita stránky.</p>
 
+<h2>Možné obmedzenia</h2>
+<p>Na strane veterninára nie je kontrolovaný zadaný dátum vyšetrenia pre prípad, kedy by veterinár potreboval vložiť prehliadnku vykonanú v minulosti.</p>
+<p>Pri používatelovi je redundandne zaznamenávaný dátum narodia spolu s vekom. Pri registrácii tieto údaje nie su požadované avšak admin má možnosť ich doplniť. Vek je vypočítaný dynamicky podľa roku narodenia.</p>
 
 </body>
 </html>
