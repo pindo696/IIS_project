@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -24,10 +25,10 @@ class Admin extends Model
             -> delete();
     }
 
-    
+
     public function db_updateUser(Request $request){
         $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
-        
+        $age = Carbon::parse($request->input('birth_date'))->age;
         $user = DB::table('users')
             -> where('id', $request->user_id)
             -> update([
@@ -35,7 +36,7 @@ class Admin extends Model
                 'surname' => $request->input('surname'),
                 'email' => $request->input('email'),
                 'birth_date' => $request->input('birth_date'),
-                'age' => $request->input('age'),
+                'age' => $age,
                 'phone' => $request->input('phone'),
                 'role' => $request->input('role'),
                 'confirmation' => $request->input('confirmation'),
@@ -46,7 +47,6 @@ class Admin extends Model
 
     public function db_updateAnimal(Request $request){
         $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
-        
         $animal = DB::table('animals')
             -> where('animal_id', $request->animal_id)
             -> update([
@@ -63,16 +63,15 @@ class Admin extends Model
 
     }
 
-    
     public function db_createUser(Request $request){
         $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
-        
+        $age = Carbon::parse($request->input('birth_date'))->age;
         $examination = User::create([
             'name' => $request->input('name'),
             'surname' => $request->input('surname'),
             'email' => $request->input('email'),
             'birth_date' => $request->input('birth_date'),
-            'age' => $request->input('age'),
+            'age' => $age,
             'phone' => $request->input('phone'),
             'role' => $request->input('role'),
             'confirmation' => $request->input('confirmation'),
