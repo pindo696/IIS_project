@@ -8,33 +8,71 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ReservationController extends Controller{
+
+    /**
+     * Andrej Luptak (xlupta05)
+     * Controller implements actions associated with reservations
+     * Implements methods for maintaining reservations
+     */
+
+    /**
+     * calls Model part to get all reservations
+     * @return DB result, possibly array of results
+     */
     public function getAllReservations(){
         return app()->call('App\Models\Reservation@db_getAllReservationsJoinAnimalsJoinUsers');
     }
 
+    /**
+     * Use to decline requested walk
+     * @param Request $request
+     * @return - requests view
+     */
     public function declineWalk(Request $request){
        $userID = auth()->user()->id;
        app()->call('App\Models\Reservation@db_declineWalk', ['userID' => $userID, 'id' => $request->request_id]);
        return redirect('/careman/requests');
     }
 
+    /**
+     * Use to accept requested walk
+     * @param Request $request
+     * @return - requests view
+     */
     public function acceptWalk(Request $request){
         $userID = auth()->user()->id;
         app()->call('App\Models\Reservation@db_acceptWalk', ['userID' => $userID, 'id' => $request->request_id]);
         return redirect('/careman/requests');
     }
 
+    /**
+     * Get all animal reservation, based on animaml id
+     * @param $id of animal
+     * @return array of DB results
+     */
     public function db_getPetReservations($id){
         $result = DB::select("SELECT * FROM reservations WHERE fk_animal_id LIKE :id", ['id' => $id]);
         return $result;
     }
 
+    /**
+     * Prepare for creating single item in schedule
+     * @param Request $request
+     * @return - formular for creating schedule item
+     */
     public function showCreateScheduleItemForm(Request $request){
         if(!$request->isMethod('post')) return redirect('/careman/animals');
         $result = $request->animal_id;
         return view('create-schedule-item', compact('result', 'result'));
     }
 
+    /**
+     * Method called on create schedule item formular send
+     * Parses and prepares data from formular for Model part
+     * @param Request $request
+     * @return - on error animal page with error message
+     *         - on success returns to animal view with success message
+     */
     public function crateScheduleItem(Request $request){
         $animal_id = $request->input('animal_id');
         $date_from = $request->input('dateFrom');
@@ -56,9 +94,6 @@ class ReservationController extends Controller{
                 ->with('error', true)
                 ->with('message', 'Invalid dates. Dates may be flipped.');
         }
-//        $format = Carbon::createFromFormat('Y-m-d H:i:s', $date_from);
-//        $start_date = Carbon::createFromDate($format->year, $format->month, $format->day);
-//        $start_time = Carbon::createFromTime($format->hour, $format->minute, $format->second);
         $format = strtotime($date_from);
         $start_date = date('Y-m-d', $format);
         $start_time = date('H:m:s', $format);
@@ -68,8 +103,6 @@ class ReservationController extends Controller{
 
         $start_time = $request->input('timeFrom');
         $end_time = $request->input('timeTo');
-
-        //dd($start_date, $start_time, $end_date, $end_time);
 
         $start = $start_date . ' ' . $start_time . ':00';
         $end = $end_date . ' ' . $end_time . ':00';
@@ -82,6 +115,11 @@ class ReservationController extends Controller{
         }
     }
 
+    /**
+     * Deletes walk from listed or booked schedule item
+     * @param Request $request
+     * @return - animal page with corresponding message
+     */
     public function deleteWalk(Request $request){
         $return_val = app()->call('App\Models\Reservation@db_deleteWalk', ['reservation_id' => $request->reservation_id]);
         if($return_val){
@@ -90,6 +128,5 @@ class ReservationController extends Controller{
             return redirect("/careman/animals")->with('error', true)->with('message', 'Unable to delete schedule item');
         }
     }
-
 
 }

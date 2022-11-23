@@ -8,7 +8,8 @@ class HomeController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
+     * Middleware used for authenticating routes
+     * Each user role has access to own part
      * @return void
      */
     public function __construct()

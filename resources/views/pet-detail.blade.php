@@ -5,7 +5,6 @@
         <link href="{{asset('css/all.css')}}" rel="stylesheet">
     </head>
     <section class="container-fluid">
-        {{--        @foreach($result as $pet)--}}
         @include('alertbox')
         <div class="container py-2">
             <div class="row">
@@ -32,7 +31,6 @@
                             @endif
                             <h5 class="my-3">{{$result[0]->animal_name}}</h5>
                             <?php
-                              //  $last = $result[0]->examination_from;
                                 $last = $result[0];
                                 foreach($result as $data) {
                                     if ($data->examination_type == 'Očkovanie' && $data->examination_status == 'done') {
@@ -175,7 +173,6 @@
                         </div>
                     </div>
                 </div>
-                {{--                @endforeach--}}
             </div>
         </div>
         </div>
