@@ -102,10 +102,15 @@ class Reservation extends Model{
         $actual_date = Carbon::now();
         $result['past']= DB::select("SELECT reservations.reservation_id, reservations.reservation_status, reservations.reservation_from, reservations.reservation_to, users.name, users.surname FROM reservations
                             LEFT JOIN users ON users.id = reservations.fk_taken_by_volunteer_id
-                            WHERE reservations.reservation_from <= :date AND fk_animal_id LIKE :id", ['date'=> $actual_date, 'id' => $id]);
+                            WHERE reservations.reservation_status LIKE 'returned'
+                            OR reservations.reservation_from <= :date
+                            AND reservations.reservation_status NOT LIKE 'pickedup'
+                            AND fk_animal_id LIKE :id", ['date'=> $actual_date, 'id' => $id]);
         $result['upcomming']= DB::select("SELECT reservations.reservation_id, reservations.reservation_status, reservations.reservation_from, reservations.reservation_to, users.name, users.surname FROM reservations
                             LEFT JOIN users ON users.id = reservations.fk_taken_by_volunteer_id
-                            WHERE reservations.reservation_from >= :date AND fk_animal_id LIKE :id", ['date'=> $actual_date, 'id' => $id]);
+                            WHERE reservations.reservation_from >= :date AND fk_animal_id LIKE :id
+                            AND reservations.reservation_status NOT LIKE 'returned'
+                            OR reservations.reservation_status LIKE 'pickedup'", ['date'=> $actual_date, 'id' => $id]);
         $result['animal'] = $id;
         return $result;
     }
@@ -117,6 +122,14 @@ class Reservation extends Model{
      */
     public function db_deleteWalk($reservation_id){
         return DB::table('reservations')->where('reservation_id', $reservation_id)->delete();
+    }
+
+    public function db_pickupAnimal($reservation_id){
+        DB::table('reservations')->where('reservation_id', $reservation_id)->update(array('reservation_status' => 'pickedup'));
+    }
+
+    public function db_returnAnimal($reservation_id){
+        DB::table('reservations')->where('reservation_id', $reservation_id)->update(array('reservation_status' => 'returned'));
     }
 
 }

@@ -129,4 +129,16 @@ class ReservationController extends Controller{
         }
     }
 
+    public function pickupAnimal(Request $request){
+        $reservation_id = $request->request_id;
+        app()->call('App\Models\Reservation@db_pickupAnimal', ['reservation_id' => $reservation_id]);
+        return redirect("/careman/animals")->with('warning', true)->with('message', 'Pet picked up');
+    }
+
+    public function returnAnimal(Request $request){
+        $reservation_id = $request->request_id;
+        app()->call('App\Models\Reservation@db_returnAnimal', ['reservation_id' => $reservation_id]);
+        return redirect("/careman/animals")->with('success', true)->with('message', 'Pet returned');
+    }
+
 }

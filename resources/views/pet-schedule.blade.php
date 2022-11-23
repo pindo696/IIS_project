@@ -72,6 +72,12 @@
                                 @if($data->reservation_status == 'approved')
                                     @php ($style = 'text-success fw-bold')
                                 @endif
+                                @if($data->reservation_status == 'pickedup')
+                                    @php ($style = 'text-orange fw-bold')
+                                @endif
+                                @if($data->reservation_status == 'returned')
+                                    @php ($style = 'text-success fw-bold')
+                                @endif
                                 <div class="row justify-content-center">
                                     <div class="col-sm-2 text-center mt-2">
                                         {{$data->reservation_from}}
@@ -114,6 +120,14 @@
                                                         class="btn text-danger fa-solid fa-trash-can"></button>
                                             </form>
                                         @elseif($data->reservation_status == 'approved')
+                                            <form class="d-inline" action="/careman/pickupAnimal/" method="POST">
+                                                @csrf
+                                                @method('POST')
+                                                <input type="hidden" id="request_id" name="request_id"
+                                                       value="{{$data->reservation_id}}">
+                                                <button title="Pickup Animal" type="submit"
+                                                        class="btn text-primary fa-solid fa-person-walking-arrow-right"></button>
+                                            </form>
                                             <form class="d-inline" action="/careman/declineWalk/" method="POST">
                                                 @csrf
                                                 @method('POST')
@@ -121,6 +135,15 @@
                                                        value="{{$data->reservation_id}}">
                                                 <button title="Decline walk" type="submit"
                                                         class="btn text-danger fa-solid fa-xmark"></button>
+                                            </form>
+                                        @elseif($data->reservation_status == 'pickedup')
+                                            <form class="d-inline" action="/careman/returnAnimal/" method="POST">
+                                                @csrf
+                                                @method('POST')
+                                                <input type="hidden" id="request_id" name="request_id"
+                                                       value="{{$data->reservation_id}}">
+                                                <button title="Return Animal" type="submit"
+                                                        class="btn text-primary fa-solid fa-person-walking-arrow-loop-left"></button>
                                             </form>
                                         @endif
                                         </div>
@@ -156,7 +179,11 @@
                                         {{$data->name." ".$data->surname}}
                                     </div>
                                     <div class="col-sm-2 text-center mt-2">
-                                        <p class="text-muted"> in past </p>
+                                        @if($data->reservation_status == 'returned')
+                                            <p class="text-muted"> returned </p>
+                                        @else
+                                            <p class="text-muted"> in past </p>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach
