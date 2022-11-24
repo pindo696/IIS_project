@@ -98,6 +98,10 @@ class ReservationController extends Controller{
                     return redirect("/careman/animals")
                         ->with('error', true)
                         ->with('message', 'Date(s) or time in past');
+            }elseif($time_from >= $time_to){
+                return redirect("/careman/animals")
+                    ->with('error', true)
+                    ->with('message', 'Wrong entered times');
             }
         }
         if($date_from > $date_to){
