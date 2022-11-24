@@ -32,6 +32,7 @@ Route::get('/support', [App\Http\Controllers\VolunteerController::class, 'suppor
 
 Route::middleware(['auth', 'admin'])->group( function (){
     Route::any('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+    Route::get('/admin/animals', [App\Http\Controllers\AdminController::class, 'animals'])->name('pets');
     Route::put('/admin/remove/user', [App\Http\Controllers\AdminController::class, 'remove_user'])->name('admin');
     Route::put('/admin/remove/animal', [App\Http\Controllers\AdminController::class, 'remove_animal'])->name('admin');
     Route::put('/admin/manage/animal', [App\Http\Controllers\AdminController::class, 'manage_animal'])->name('admin');
