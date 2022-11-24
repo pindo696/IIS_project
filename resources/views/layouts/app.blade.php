@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Gray Paw | Animal shelter</title>
-    
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -21,7 +21,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a href="{{ url('/') }}">
-        
+
                 <img style="height: 50px; max-width: 70px;"class="img-thumbnail rounded-circle mx-auto d-block hover-overlay ripple shadow-1-strong " src={{asset("images/pawlogo.png")}} alt="Logo"/>
                 </a>
                 <a style="padding-left: 1rem;" class="navbar-brand " href="{{ url('/') }}">
@@ -29,22 +29,22 @@
                 </a>
 
                 <ul class="list-group list-group-horizontal flex-reverse">
-                    <a style="text-decoration: none;" href="{{ url('/') }}"><li style="margin-right: 1rem; color: rgb(47, 103, 193);"class="list-group-item list-group-item-info">Home</li></a>
-                    @auth 
+                    <a style="text-decoration: none;" href="{{ url('/') }}"><li style="margin-right: 1rem; border-radius: 8px; border-width: 0; background: rgb(230, 230, 230); color: black"class="list-group-item list-group-item-info">Home</li></a>
+                    @auth
                     @if(Auth::user()->role == "admin")
-                    <a style="text-decoration: none;" href="{{ url('/admin') }}"><li style="margin-right: 1rem; color: rgb(47, 103, 193);"class="list-group-item list-group-item-info">Manage</li></a>
+                    <a style="text-decoration: none;" href="{{ url('/admin') }}"><li style="margin-right: 1rem; border-radius: 8px; border-width: 0; background: rgb(230, 230, 230); color: black"class="list-group-item list-group-item-info">Manage</li></a>
                     @endif
                     @if(Auth::user()->role == "vet")
-                    <a style="text-decoration: none;" href="{{ url('/vet') }}"><li style="margin-right: 1rem; color: rgb(47, 103, 193);"class="list-group-item list-group-item-info">Manage</li></a>
+                    <a style="text-decoration: none;" href="{{ url('/vet') }}"><li style="margin-right: 1rem; border-radius: 8px; border-width: 0; background: rgb(230, 230, 230); color: black"class="list-group-item list-group-item-info">Manage</li></a>
                     @endif
                     @if(Auth::user()->role == "careman")
-                    <a style="text-decoration: none;" href="{{ url('/careman/requests') }}"><li style="margin-right: 1rem; color: rgb(47, 103, 193);"class="list-group-item list-group-item-info">Manage</li></a>
+                    <a style="text-decoration: none;" href="{{ url('/careman/requests') }}"><li style="margin-right: 1rem; border-radius: 8px; border-width: 0; background: rgb(230, 230, 230); color: black"class="list-group-item list-group-item-info">Manage</li></a>
                     @endif
                     @if(Auth::user()->role == "volunteer")
-                    <a style="text-decoration: none;" href="{{ url('/volunteer') }}"><li style="margin-right: 1rem; color: rgb(47, 103, 193);"class="list-group-item list-group-item-info">Manage</li></a>
+                    <a style="text-decoration: none;" href="{{ url('/volunteer') }}"><li style="margin-right: 1rem; border-radius: 8px; border-width: 0; background: rgb(230, 230, 230); color: black"class="list-group-item list-group-item-info">Manage</li></a>
                     @endif
                     @endauth
-                    <a style=" text-decoration: none;" href="{{ url('/about') }}"><li style="margin-right: 1rem; color: rgb(47, 103, 193);"class="list-group-item list-group-item-info">About</li></a>
+                    <a style=" text-decoration: none;" href="{{ url('/about') }}"><li style="margin-right: 1rem; border-radius: 8px; border-width: 0; background: rgb(230, 230, 230); color: black"class="list-group-item list-group-item-info">About</li></a>
                 </ul>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -114,7 +114,7 @@
         <main class="py-4">
             @yield('content')
         </main>
-        
+
     </div>
 </body>
 </html>

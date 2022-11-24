@@ -8,21 +8,21 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-            
+
                 @unless(sizeof($users) == 0)
                     <div class="card">
                         <div class="card-header text-center">{{ __('Manage Users') }}</div>
                         <div class="card-body">
-                                
+
                             <table class="table text-center">
                                     <thead class="bg-white">
                                         <tr style="vertical-align: middle;">
                                         <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Surname</th>
+                                        <th style="width: 12%">Name</th>
+                                        <th style="width: 12%">Surname</th>
                                         <th>Email</th>
                                         <th>Date of birth</th>
-                                        <th>Age</th>
+                                        <th style="width: 8%">Age</th>
                                         <th>Phone</th>
                                         <th>Role</th>
                                         <th>Confirmation</th>
@@ -31,7 +31,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+
                                         @foreach ($users as $user)
                                         <tr style="vertical-align: middle;" class="alert text-center" role="alert">
                                             <form action="/admin/manage/user" method="POST" enctype="multipart/form-data">
@@ -45,7 +45,7 @@
                                             <td><input value="{{$user->birth_date}}" type="date" placeholder="DD-MM-YYYY" min="01-01-1900" name="birth_date" class="form-control form-control-sm" id="birth_date" data-date-format='d-m-Y'/></td>
                                             <td><input style="text-align: center;"value="{{$user->age}}" type="text" name="age" id="age" class="form-control form-control-sm"/></td>
                                             <td><input style="text-align: center;"value="{{$user->phone}}" type="tel" name="phone" id="phone" class="form-control form-control-sm" required/></td>
-                                            
+
                                             <td>
                                                 <select class="form-control form-control-sm" id="role" name="role">
                                                     <option value="admin" @if($user->role == "admin") selected="selected" @endif>admin</option>
@@ -54,7 +54,7 @@
                                                     <option value="volunteer" @if($user->role == "volunteer") selected="selected" @endif>volunteer</option>
                                                 </select>
                                             </td>
-                                        
+
                                             <td>
                                                 <select class="form-control form-control-sm" id="confirmation" name="confirmation">
                                                     <option value="waiting" @if($user->confirmation == "waiting") selected="selected" @endif>waiting</option>
@@ -63,24 +63,26 @@
                                             </td>
                                             <td><button type="submit" class="btn text-success fa-solid fa-check"></button></td>
                                             </form>
+                                            @if(Auth::user() != $user)
                                             <form action="/admin/remove/user" method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <input type="hidden" id="id" name="id" value="{{$user->id}}">
-                    
+
                                             <td><button type="submit" class="btn text-danger fa-solid fa-xmark"></button></td>
                                             </form>
-            
+                                            @endif
+
                                             </tr>
-                                        
+
                                         @endforeach
-            
+
                                     </tbody>
                             </table>
-                                
+
                         </div>
                     </div>
-            
+
                 @else
                 <h3 class="mb-5 mt-5" >No users in system.</h3>
                 @endunless
@@ -89,7 +91,7 @@
         <div class="card mt-5">
             <div class="card-header pt-2 text-center">{{ __('Create user') }}</div>
                 <div class="card-body">
-                    
+
                     <table class="table text-center">
                         <thead class="bg-white">
                             <tr style="vertical-align: middle;">
@@ -106,7 +108,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                             <tr style="vertical-align: middle;" class="alert text-center" role="alert">
                                 <form action="/admin/create/user" method="POST" enctype="multipart/form-data">
                                     @csrf
@@ -117,7 +119,7 @@
                                     <td><input value="" type="date" placeholder="DD-MM-YYYY" min="01-01-1900" name="birth_date" class="form-control form-control-sm" id="birth_date" data-date-format='d-m-Y'/></td>
                                     <td><input style="text-align: center;"value="" type="text" name="age" id="age" class="form-control form-control-sm"/></td>
                                     <td><input style="text-align: center;"value="" type="tel" name="phone" id="phone" class="form-control form-control-sm" required/></td>
-                                    
+
                                     <td>
                                         <select class="form-control form-control-sm" id="role" name="role">
                                             <option value="volunteer" selected="selected">volunteer</option>
@@ -126,7 +128,7 @@
                                             <option value="admin">admin</option>
                                             </select>
                                     </td>
-                                
+
                                     <td>
                                         <select class="form-control form-control-sm" id="confirmation" name="confirmation">
                                             <option value="waiting">waiting</option>
@@ -134,16 +136,16 @@
                                         </select>
                                     </td>
                                     <td><input style="text-align: center;"value="" type="password" name="password" id="password" class="form-control form-control-sm" required/></td>
-                                    
+
                                     <td><button type="submit" class="btn text-success fa-solid fa-check"></button></td>
                                     </form>
-                        
+
 
                                 </tr>
-                            
+
                         </tbody>
                     </table>
-                    
+
                 </div>
         </div>
 
@@ -152,7 +154,7 @@
                 <div class="card">
                     <div class="card-header text-center">{{ __('Manage Animals') }}</div>
                     <div class="card-body">
-                            
+
                         <table class="table text-center">
                                 <thead class="bg-white">
                                     <tr style="vertical-align: middle;">
@@ -170,7 +172,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                     @foreach ($animals as $animal)
                                     <tr style="vertical-align: middle;" class="alert text-center" role="alert">
                                         <form action="/admin/manage/animal" method="POST" enctype="multipart/form-data">
@@ -186,28 +188,28 @@
                                         <td><textarea maxlength="255" rows="1" style="text-align: center;" type="text-area" name="animal_description" id="animal_description" class="form-control form-control-sm">{{$animal->animal_description}}</textarea></td>
                                         <td><input style="text-align: center;"value="{{$animal->discovery_place}}" type="text" name="discovery_place" id="discovery_place" class="form-control form-control-sm"/></td>
                                         <td><input value="{{$animal->discovery_date}}" type="date" placeholder="DD-MM-YYYY" min="01-01-1900" name="discovery_date" class="form-control form-control-sm" id="discovery_date" data-date-format='d-m-Y'/></td>
-                                            
-                                       
+
+
                                         <td><button type="submit" class="btn text-success fa-solid fa-check"></button></td>
                                         </form>
                                         <form action="/admin/remove/animal" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
                                             <input type="hidden" id="id" name="id" value="{{$animal->animal_id}}">
-                
+
                                         <td><button type="submit" class="btn text-danger fa-solid fa-xmark"></button></td>
                                         </form>
-        
+
                                         </tr>
-                                    
+
                                     @endforeach
-        
+
                                 </tbody>
                         </table>
-                            
+
                     </div>
                 </div>
-        
+
             @else
             <h3 class="mb-5 mt-5" >No animals in system.</h3>
             @endunless
