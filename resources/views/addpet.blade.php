@@ -68,7 +68,7 @@
                                         <div class="col-md-9 mb-4 pt-2">
                                             <div class="form-outline">
                                                 <label class="form-label" for="color">Color *</label>
-                                                <input value="{{ Session::get('color', '') }}" type="text" name="color" id="color" class="form-control form-control-lg" />
+                                                <input value="{{ Session::get('color', '') }}" type="text" name="color" id="color" class="form-control form-control-lg" required/>
                                             </div>
                                         </div>
 

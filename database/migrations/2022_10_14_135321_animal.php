@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('animal_description')->nullable();
             $table->string('photo_path')->nullable();
             $table->string('discovery_place')->nullable();
-            $table->date('discovery_date')->default(DB::raw('CURRENT_DATE'));
+            $table->date('discovery_date');
             $table->timestamps();
         });
     }
