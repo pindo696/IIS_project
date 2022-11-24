@@ -93,6 +93,7 @@
             @else
                 <div>
                     <h1 class="font-weight-bold d-flex justify-content-center" style="margin: 4rem 2rem 4rem 2rem;">You have no reservations yet.</h1>
+                    <h3 class="font-weight-bold d-flex justify-content-center" style="margin: 0rem 2rem 4rem 2rem;">Press the "Home" button and book your first pet.</h3>
                 </div>
             @endunless
         </div>
