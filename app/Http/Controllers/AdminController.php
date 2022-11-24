@@ -13,6 +13,9 @@ class AdminController{
     public function index(Request $request){
         return view('admin', ['users' => User::latest()->get(), 'animals' => Animal::latest()->get()]);
     }
+    public function animals(Request $request){
+        return view('adminanimals', ['animals' => Animal::latest()->get()]);
+    }
 
     public function remove_user(Request $request){
         if(!$request->isMethod('put')) return redirect('/admin');
