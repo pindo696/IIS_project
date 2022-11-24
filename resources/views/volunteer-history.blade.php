@@ -9,6 +9,11 @@
                 <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
                 <link href="{{asset('css/all.css')}}" rel="stylesheet">
             </head>
+
+            @unless (count($result['upcomming']) == 0 && count($result['past']) == 0)
+            <div>
+                <h2 class="font-weight-bold d-flex justify-content-center" style="margin: 1rem;">Reservations</h2>
+            </div>
             <table class="table table-striped mb-0">
                 <thead>
                 <tr>
@@ -85,6 +90,11 @@
                 @endforeach
                 </tbody>
             </table>
+            @else
+                <div>
+                    <h1 class="font-weight-bold d-flex justify-content-center" style="margin: 4rem 2rem 4rem 2rem;">You have no reservations yet.</h1>
+                </div>
+            @endunless
         </div>
         </div>
         </div>

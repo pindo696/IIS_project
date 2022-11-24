@@ -28,7 +28,7 @@
                             @method('POST')
                             <input type="hidden" name="volunteer_id" value={{Auth::user()->id}}>
                             <input type="hidden" name="animal_id" value="{{$animal[0]->animal_id}}">
-                            <button class="btn btn-secondary">View pete schedule</button>
+                            <button class="btn btn-secondary">View pet schedule</button>
                         </form>
                     </div>
                 </div>

@@ -37,7 +37,7 @@
                                         <th>Date of birth</th>
                                         <th style="width: 8%">Age</th>
                                         <th>Phone</th>
-                                        <th>Role</th>
+                                        <th  style="width: 8%">Role</th>
                                         <th>Confirmation</th>
                                         <th>Save</th>
                                         <th>Remove</th>

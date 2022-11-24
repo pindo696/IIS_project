@@ -7,10 +7,10 @@
     <link href="{{asset('css/all.css')}}" rel="stylesheet">
 </head>
 <div style="width: 80%; margin: auto;" class="input-group">
-    <form style="width:100%; margin-left: 8%;" action="/" method="GET">
+    <form style="width:100%; margin-left: 5%;" action="/" method="GET">
         <div class="form-outline">
-          <input value="{{request('search')}}" style="width:85%; margin: auto; padding-left: 15px;  border-radius: 8px; border-color: lightgray; border-width: 1px; height: 2rem" type="text" name="search" class=""
-            placeholder="Search animals by name, species, age, color, gender or finding location" />
+          <input value="{{request('search')}}" style="width:90%; margin: auto; padding-left: 15px;  border-radius: 8px; border-color: lightgray; border-width: 1px; height: 2rem" type="text" name="search" class=""
+            placeholder="Search animals by name, species, age, color, gender or discovery location" />
 
         <button style="width:5%; min-width: 30px; height: 2rem;"type="submit" class="btn btn-primary"><i class="fa fa-search center" aria-hidden="true"></i></button>
 
