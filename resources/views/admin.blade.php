@@ -5,6 +5,19 @@
     <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
     <link href="{{asset('css/all.css')}}" rel="stylesheet">
 </head>
+
+<div style="width: 80%; margin: auto auto 30px auto" class="input-group">
+    <form style="width:100%; margin-left: 8%;" method="GET">
+        <div class="form-outline">
+            <input value="{{request('searchUser')}}" style="width:85%; margin: auto; padding-left: 15px;  border-radius: 8px; border-color: lightgray; border-width: 1px; height: 2rem" type="text" name="searchUser" class=""
+                   placeholder="Search users by name, surname, role, email, number, confirmation state or age" />
+
+            <button style="width:5%; min-width: 30px; height: 2rem;"type="submit" class="btn btn-primary"><i class="fa fa-search center" aria-hidden="true"></i></button>
+
+        </div>
+    </form>
+</div>
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -33,6 +46,7 @@
                                     <tbody>
 
                                         @foreach ($users as $user)
+                                        @if(request('searchUser') == "" || str_contains($user->name, request('searchUser')) || str_contains($user->surname, request('searchUser'))  || str_contains($user->role, request('searchUser')) || $user->age == request('searchUser') || str_contains($user->confirmation, request('searchUser')) || str_contains($user->email, request('searchUser')) || str_contains($user->phone, request('searchUser')))
                                         <tr style="vertical-align: middle;" class="alert text-center" role="alert">
                                             <form action="/admin/manage/user" method="POST" enctype="multipart/form-data">
                                             @csrf
@@ -71,6 +85,7 @@
 
                                             <td><button type="submit" class="btn text-danger fa-solid fa-xmark"></button></td>
                                             </form>
+                                            @endif
                                             @endif
 
                                             </tr>
@@ -149,6 +164,18 @@
                 </div>
         </div>
 
+        <div style="width: 80%; margin: 30px auto auto auto" class="input-group">
+            <form style="width:100%; margin-left: 8%;" method="GET">
+                <div class="form-outline">
+                    <input value="{{request('searchAnimal')}}" style="width:85%; margin: auto; padding-left: 15px;  border-radius: 8px; border-color: lightgray; border-width: 1px; height: 2rem" type="text" name="searchAnimal" class=""
+                           placeholder="Search animals by name, species, age, color, gender or discovery location" />
+
+                    <button style="width:5%; min-width: 30px; height: 2rem;"type="submit" class="btn btn-primary"><i class="fa fa-search center" aria-hidden="true"></i></button>
+
+                </div>
+            </form>
+        </div>
+
         <div class="col-md-12 mt-4">
             @unless(sizeof($animals) == 0)
                 <div class="card">
@@ -174,6 +201,7 @@
                                 <tbody>
 
                                     @foreach ($animals as $animal)
+                                    @if(request('searchAnimal') == "" || str_contains($animal->animal_name, request('searchAnimal')) || str_contains($animal->species, request('searchAnimal')) || str_contains($animal->color, request('searchAnimal')) || str_contains($animal->gender, request('searchAnimal'))  || str_contains($animal->discovery_place, request('searchAnimal')) || $animal->animal_age == request('searchAnimal'))
                                     <tr style="vertical-align: middle;" class="alert text-center" role="alert">
                                         <form action="/admin/manage/animal" method="POST" enctype="multipart/form-data">
                                         @csrf
@@ -202,6 +230,7 @@
 
                                         </tr>
 
+                                    @endif
                                     @endforeach
 
                                 </tbody>
