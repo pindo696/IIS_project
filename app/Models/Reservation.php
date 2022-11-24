@@ -124,10 +124,20 @@ class Reservation extends Model{
         return DB::table('reservations')->where('reservation_id', $reservation_id)->delete();
     }
 
+    /**
+     * Handles marking pet as pickedup by setting its attribute
+     * @param $reservation_id
+     * @return void
+     */
     public function db_pickupAnimal($reservation_id){
         DB::table('reservations')->where('reservation_id', $reservation_id)->update(array('reservation_status' => 'pickedup'));
     }
 
+    /**
+     * Handles marking pet as returned by setting its attribute
+     * @param $reservation_id
+     * @return void
+     */
     public function db_returnAnimal($reservation_id){
         DB::table('reservations')->where('reservation_id', $reservation_id)->update(array('reservation_status' => 'returned'));
     }

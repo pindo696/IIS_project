@@ -26,27 +26,31 @@ class ReservationController extends Controller{
     /**
      * Use to decline requested walk
      * @param Request $request
-     * @return - requests view
+     * @return - back to pet schedule view
      */
     public function declineWalk(Request $request){
        $userID = auth()->user()->id;
        app()->call('App\Models\Reservation@db_declineWalk', ['userID' => $userID, 'id' => $request->request_id]);
-       return redirect('/careman/requests');
+       $result = app()->call('App\Models\Reservation@db_getPetReservations', ['id' => $request->animal_id]);
+       return view('pet-schedule', compact('result', 'result'));
+       //return redirect('/careman/requests');
     }
 
     /**
      * Use to accept requested walk
      * @param Request $request
-     * @return - requests view
+     * @return - back to pet schedule view
      */
     public function acceptWalk(Request $request){
         $userID = auth()->user()->id;
         app()->call('App\Models\Reservation@db_acceptWalk', ['userID' => $userID, 'id' => $request->request_id]);
-        return redirect('/careman/requests');
+        $result = app()->call('App\Models\Reservation@db_getPetReservations', ['id' => $request->animal_id]);
+        return view('pet-schedule', compact('result', 'result'));
+        //return redirect('/careman/requests');
     }
 
     /**
-     * Get all animal reservation, based on animaml id
+     * Get all animal reservation, based on animal id
      * @param $id of animal
      * @return array of DB results
      */
@@ -77,6 +81,8 @@ class ReservationController extends Controller{
         $animal_id = $request->input('animal_id');
         $date_from = $request->input('dateFrom');
         $date_to = $request->input('dateTo');
+        $time_from = $request->input('timeFrom');
+        $time_to = $request->input('timeTo');
         if($date_from == null || $date_to == null){
             return redirect("/careman/animals")
                 ->with('error', true)
@@ -84,10 +90,15 @@ class ReservationController extends Controller{
         }
         $date_from = Carbon::parse($request->dateFrom);
         $date_to = Carbon::parse($request->dateTo);
-        if((($date_from->isPast()) ||($date_to->isPast()))){
-            return redirect("/careman/animals")
-                ->with('error', true)
-                ->with('message', 'Date(s) in past');
+        $time_from = Carbon::parse($request->timeFrom);
+        $time_to = Carbon::parse($request->timeTo);
+        //just void because isPast() function does not consider times and php does nto support continue statement
+        if((($date_from->isPast()) || ($date_to->isPast()))){ //same or older dates
+            if($time_from->isPast() || $time_to->isPast()){ //compare times
+                    return redirect("/careman/animals")
+                        ->with('error', true)
+                        ->with('message', 'Date(s) or time in past');
+            }
         }
         if($date_from > $date_to){
             return redirect("/careman/animals")
@@ -121,6 +132,7 @@ class ReservationController extends Controller{
      * @return - animal page with corresponding message
      */
     public function deleteWalk(Request $request){
+        if(!$request->isMethod('post')) return redirect('/careman/animals');
         $return_val = app()->call('App\Models\Reservation@db_deleteWalk', ['reservation_id' => $request->reservation_id]);
         if($return_val){
             return redirect("/careman/animals")->with('success', true)->with('message', 'Schedule item succesfully deleted from list');
@@ -129,16 +141,32 @@ class ReservationController extends Controller{
         }
     }
 
+    /**
+     * Function used to mark pet as picked up by volunteer
+     * @param Request $request
+     * @return - back to pet schedule view
+     */
     public function pickupAnimal(Request $request){
+        if(!$request->isMethod('post')) return redirect('/careman/animals');
         $reservation_id = $request->request_id;
         app()->call('App\Models\Reservation@db_pickupAnimal', ['reservation_id' => $reservation_id]);
-        return redirect("/careman/animals")->with('warning', true)->with('message', 'Pet picked up');
+        $result = app()->call('App\Models\Reservation@db_getPetReservations', ['id' => $request->animal_id]);
+        return view('pet-schedule', compact('result', 'result'));
+        //return redirect("/careman/animals")->with('warning', true)->with('message', 'Pet picked up');
     }
 
+    /**
+     * Function used to mark pet as returned by volunteer
+     * @param Request $request
+     * @return - back to pet schedule view
+     */
     public function returnAnimal(Request $request){
+        if(!$request->isMethod('post')) return redirect('/careman/animals');
         $reservation_id = $request->request_id;
         app()->call('App\Models\Reservation@db_returnAnimal', ['reservation_id' => $reservation_id]);
-        return redirect("/careman/animals")->with('success', true)->with('message', 'Pet returned');
+        $result = app()->call('App\Models\Reservation@db_getPetReservations', ['id' => $request->animal_id]);
+        return view('pet-schedule', compact('result', 'result'));
+        //return redirect("/careman/animals")->with('success', true)->with('message', 'Pet returned');
     }
 
 }
