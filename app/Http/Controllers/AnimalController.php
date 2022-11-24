@@ -22,7 +22,11 @@ class AnimalController{
      * call Model part to insert pet
      */
     public function addPet(Request $request){
-        $date = Carbon::parse($request->discoveryDate);
+        if($request->discoveryDate != NULL){
+            $date = Carbon::parse($request->discoveryDate);
+        }else{
+            $date = Carbon::now();
+        }
         if(!($date->isPast())){
             return redirect()->back()
                 ->with('dateError', true)
