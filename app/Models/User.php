@@ -100,4 +100,16 @@ class User extends Authenticatable
             ->get();
         return $result;
     }
+
+    public function scopeFilter($query, array $filters){
+        if($filters['searchUser'] ?? false){
+            $query->where('name', 'like', '%' . request('searchUser') . '%')
+                ->orWhere('surname', 'like', '%' . request('searchUser') . '%')
+                ->orWhere('email', 'like', '%' . request('searchUser') . '%')
+                ->orWhere('age', 'like', '%' . request('searchUser') . '%')
+                ->orWhere('phone', 'like', '%' . request('searchUser') . '%')
+                ->orWhere('role', 'like', '%' . request('searchUser') . '%')
+                ->orWhere('confirmation', 'like', '%' . request('searchUser') . '%');
+        }
+    }
 }

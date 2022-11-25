@@ -20,6 +20,7 @@
 <div class="container">
 
     @unless (count($animals) == 0)
+
     <div class="row justify-content-center p-2">
     @foreach ($animals as $animal)
 

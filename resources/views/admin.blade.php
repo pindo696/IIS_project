@@ -20,11 +20,11 @@
             </div>
         </form>
     </div>
-
+        @unless(sizeof($users) == 0)
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                @unless(sizeof($users) == 0)
+
                     <div class="card">
                         <div class="card-header text-center">{{ __('Manage Users') }}</div>
                         <div class="card-body">
@@ -48,33 +48,33 @@
                                     <tbody>
 
                                         @foreach ($users as $user)
-                                        @if(request('searchUser') == "" || str_contains($user->name, request('searchUser')) || str_contains($user->surname, request('searchUser'))  || str_contains($user->role, request('searchUser')) || $user->age == request('searchUser') || str_contains($user->confirmation, request('searchUser')) || str_contains($user->email, request('searchUser')) || str_contains($user->phone, request('searchUser')))
+
                                         <tr style="vertical-align: middle;" class="alert text-center" role="alert">
                                             <form action="/admin/manage/user" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
-                                            <input type="hidden" id="user_id" name="user_id" value="{{$user->id}}">
-                                            <td>{{$user->id}}</td>
-                                            <td><input style="text-align: center;"value="{{$user->name}}" type="text" name="name" id="name" class="form-control form-control-sm" required/></td>
-                                            <td><input style="text-align: center;"value="{{$user->surname}}" type="text" name="surname" id="surname" class="form-control form-control-sm" required/></td>
-                                            <td><input style="text-align: center;"value="{{$user->email}}" type="email" name="email" id="email" class="form-control form-control-sm" required/></td>
-                                            <td><input value="{{$user->birth_date}}" type="date" placeholder="DD-MM-YYYY" min="01-01-1900" name="birth_date" class="form-control form-control-sm" id="birth_date" data-date-format='d-m-Y'/></td>
-                                            <td><input style="text-align: center;"value="{{$user->age}}" type="text" name="age" id="age" class="form-control form-control-sm"/></td>
-                                            <td><input style="text-align: center;"value="{{$user->phone}}" type="tel" name="phone" id="phone" class="form-control form-control-sm" required/></td>
+                                            <input type="hidden" id="user_id" name="user_id" value="{{$user['id']}}">
+                                            <td>{{$user['id']}}</td>
+                                            <td><input style="text-align: center;"value="{{$user['name']}}" type="text" name="name" id="name" class="form-control form-control-sm" required/></td>
+                                            <td><input style="text-align: center;"value="{{$user['surname']}}" type="text" name="surname" id="surname" class="form-control form-control-sm" required/></td>
+                                            <td><input style="text-align: center;"value="{{$user['email']}}" type="email" name="email" id="email" class="form-control form-control-sm" required/></td>
+                                            <td><input value="{{$user['birth_date']}}" type="date" placeholder="DD-MM-YYYY" min="01-01-1900" name="birth_date" class="form-control form-control-sm" id="birth_date" data-date-format='d-m-Y'/></td>
+                                            <td><input style="text-align: center;"value="{{$user['age']}}" type="text" name="age" id="age" class="form-control form-control-sm"/></td>
+                                            <td><input style="text-align: center;"value="{{$user['phone']}}" type="tel" name="phone" id="phone" class="form-control form-control-sm" required/></td>
 
                                             <td>
                                                 <select class="form-control form-control-sm" id="role" name="role">
-                                                    <option value="admin" @if($user->role == "admin") selected="selected" @endif>admin</option>
-                                                    <option value="careman" @if($user->role == "careman") selected="selected" @endif>careman</option>
-                                                    <option value="vet" @if($user->role == "vet") selected="selected" @endif>vet</option>
-                                                    <option value="volunteer" @if($user->role == "volunteer") selected="selected" @endif>volunteer</option>
+                                                    <option value="admin" @if($user['role'] == "admin") selected="selected" @endif>admin</option>
+                                                    <option value="careman" @if($user['role'] == "careman") selected="selected" @endif>careman</option>
+                                                    <option value="vet" @if($user['role'] == "vet") selected="selected" @endif>vet</option>
+                                                    <option value="volunteer" @if($user['role'] == "volunteer") selected="selected" @endif>volunteer</option>
                                                 </select>
                                             </td>
 
                                             <td>
                                                 <select class="form-control form-control-sm" id="confirmation" name="confirmation">
-                                                    <option value="waiting" @if($user->confirmation == "waiting") selected="selected" @endif>waiting</option>
-                                                    <option value="accepted" @if($user->confirmation == "accepted") selected="selected" @endif>accepted</option>
+                                                    <option value="waiting" @if($user['confirmation'] == "waiting") selected="selected" @endif>waiting</option>
+                                                    <option value="accepted" @if($user['confirmation'] == "accepted") selected="selected" @endif>accepted</option>
                                                 </select>
                                             </td>
                                             <td><button type="submit" class="btn text-success fa-solid fa-check"></button></td>
@@ -88,7 +88,7 @@
                                             <td><button type="submit" class="btn text-danger fa-solid fa-xmark"></button></td>
                                             </form>
                                             @endif
-                                            @endif
+
 
                                             </tr>
 
@@ -100,11 +100,12 @@
                         </div>
                     </div>
 
-                @else
-                <h3 class="mb-5 mt-5" >No users in system.</h3>
-                @endunless
+
         </div>
         </div>
+        @else
+            <h3 class="mb-5 mt-3" >No users found</h3>
+        @endunless
 
         <div class="card mt-5">
             <div class="card-header pt-2 text-center">{{ __('Create user') }}</div>
@@ -131,12 +132,12 @@
                                 <form action="/admin/create/user" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-                                    <td><input style="text-align: center;"value="" type="text" name="name" id="name" class="form-control form-control-sm" required/></td>
-                                    <td><input style="text-align: center;"value="" type="text" name="surname" id="surname" class="form-control form-control-sm" required/></td>
-                                    <td><input style="text-align: center;"value="" type="email" name="email" id="email" class="form-control form-control-sm" required/></td>
+                                    <td><input style="text-align: center;"value="" type="text" name="name" id="name" pattern="[A-Ž]{1}[a-ž]+" class="form-control form-control-sm" required/></td>
+                                    <td><input style="text-align: center;"value="" type="text" name="surname" id="surname" pattern="[A-Ž]{1}[a-ž]+" class="form-control form-control-sm" required/></td>
+                                    <td><input style="text-align: center;"value="" type="email" name="email" id="email" pattern="[a-z0-9]+@[a-z0-9]+.[[a-z]+" class="form-control form-control-sm" required/></td>
                                     <td><input value="" type="date" placeholder="DD-MM-YYYY" min="01-01-1900" name="birth_date" class="form-control form-control-sm" id="birth_date" data-date-format='d-m-Y'/></td>
-                                    <td><input style="text-align: center;"value="" type="text" name="age" id="age" class="form-control form-control-sm"/></td>
-                                    <td><input style="text-align: center;"value="" type="tel" name="phone" id="phone" class="form-control form-control-sm" required/></td>
+                                    <td><input style="text-align: center;"value="" type="text" name="age" id="age" pattern="[0-9]+" class="form-control form-control-sm"/></td>
+                                    <td><input style="text-align: center;"value="" type="tel" name="phone" id="phone" pattern="(\+421|00421|0)[9][0-9]{8}|(\+420|00420|0)[4-7][0-9]{8}" class="form-control form-control-sm" required/></td>
 
                                     <td>
                                         <select class="form-control form-control-sm" id="role" name="role">

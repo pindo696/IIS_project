@@ -31,13 +31,14 @@ Route::get('/unauth', [App\Http\Controllers\VolunteerController::class, 'unauth'
 Route::get('/support', [App\Http\Controllers\VolunteerController::class, 'support'])->name('support');
 
 Route::middleware(['auth', 'admin'])->group( function (){
-    Route::any('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
-    Route::get('/admin/animals', [App\Http\Controllers\AdminController::class, 'animals'])->name('pets');
+    Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+    Route::get('/admin/animals', [App\Http\Controllers\AdminController::class, 'show_animals'])->name('admin');
     Route::put('/admin/remove/user', [App\Http\Controllers\AdminController::class, 'remove_user'])->name('admin');
     Route::put('/admin/remove/animal', [App\Http\Controllers\AdminController::class, 'remove_animal'])->name('admin');
     Route::put('/admin/manage/animal', [App\Http\Controllers\AdminController::class, 'manage_animal'])->name('admin');
     Route::put('/admin/manage/user', [App\Http\Controllers\AdminController::class, 'manage_user'])->name('admin');
     Route::put('/admin/create/user', [App\Http\Controllers\AdminController::class, 'create_user'])->name('admin');
+    Route::put('/admin/create/animal', [App\Http\Controllers\AdminController::class, 'create_animal'])->name('admin');
 });
 
 Route::middleware(['auth', 'volunteer'])->group( function (){

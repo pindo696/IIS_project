@@ -5,18 +5,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Animal;
 use App\Models\User;
+use App\Models\Admin;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AdminController{
-    public function index(Request $request){
-        return view('admin', ['users' => User::latest()->get()]);
-        //return view('admin', ['users' => User::latest()->filter(request(['searchUser']))]);
+    public function index(){
+        return view('admin', ['users' => User::latest()->filter(request(['searchUser']))->get()]);
     }
-    public function animals(){
-        return view('adminanimals', ['animals' => Animal::latest()->get()]);
-        //return view('adminanimals', ['animals' => Animal::latest()->filter(request(['searchAnimal']))]);
+
+    public function show_animals() {
+        return view('adminanimals', ['animals' => Animal::latest()->filter(request(['search']))->get()]);
     }
 
     public function remove_user(Request $request){

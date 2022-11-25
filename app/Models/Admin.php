@@ -25,7 +25,6 @@ class Admin extends Model
             -> delete();
     }
 
-
     public function db_updateUser(Request $request){
         $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
         $age = Carbon::parse($request->input('birth_date'))->age;
