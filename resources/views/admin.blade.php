@@ -7,6 +7,7 @@
     @include('adminheader')
 </head>
 @include('alertbox')
+@include('errorbox')
 @include('successbox')
 
     <div style="width: 80%; margin: 30px auto 30px auto" class="input-group">

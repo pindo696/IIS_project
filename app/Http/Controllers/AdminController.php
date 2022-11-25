@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Admin;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;use Illuminate\Support\Facades\Validator;
 
 class AdminController{
     public function index(){
@@ -42,6 +42,15 @@ class AdminController{
                 ->with('dateError', true)
                 ->with('message','Birth date is in the future!');
         }else {
+            $validate = Validator::make($request->all(), [
+                'name' => ['required', 'string', 'max:255'],
+                'surname' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'regex: ^[a-z0-9]+@[a-z0-9]+.[[a-z]+^'],
+                'phone' => ['required', 'min:9', 'max:14', 'regex: ^(\+421|00421|0)[9][0-9]{8}|(\+420|00420|0)[4-7][0-9]{8}^'],
+            ],[]);
+            if($validate->fails()){
+                return redirect()->back()->with('error', true)->with('message','Unable to edit user. Invalid data format!');
+            }
             app()->call('App\Models\Admin@db_updateUser', ['request' => $request]);
             return redirect("/admin")->with('success', true)->with('message', 'Successfully updated user: ' . $request->name . '!')
                 ->with('success', true)
@@ -56,6 +65,12 @@ class AdminController{
                 ->with('dateError', true)
                 ->with('message','Discovery date is in the future!');
         }else{
+            $validate = Validator::make($request->all(), [
+                'animal_age' => ['required', 'int', 'max:150', 'regex: ^[0-9]+^'],
+            ],[]);
+            if($validate->fails()){
+                return redirect()->back()->with('error', true)->with('message','Unable to edit animal. Invalid age!');
+            }
             app()->call('App\Models\Admin@db_updateAnimal', ['request' => $request]);
             return redirect("/admin/animals")->with('success', true)->with('message', 'Successfully updated animal: ' . $request->animal_name . '!')
                 ->with('success', true)
@@ -78,6 +93,15 @@ class AdminController{
                 ->with('password', $request->input('password'))
                 ->with('message','Birth date is in the future!');
         }else {
+            $validate = Validator::make($request->all(), [
+                'name' => ['required', 'string', 'max:255'],
+                'surname' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'regex: ^[a-z0-9]+@[a-z0-9]+.[[a-z]+^'],
+                'phone' => ['required', 'min:9', 'max:14', 'regex: ^(\+421|00421|0)[9][0-9]{8}|(\+420|00420|0)[4-7][0-9]{8}^'],
+            ],[]);
+            if($validate->fails()){
+                return redirect()->back()->with('error', true)->with('message','Unable to create user. Invalid data format!');
+            }
             app()->call('App\Models\Admin@db_createUser', ['request' => $request]);
             return redirect()->back()
                 ->with('success', true)
@@ -93,6 +117,12 @@ class AdminController{
                 ->with('dateError', true)
                 ->with('message','Discovery date is in the future!');
         }else {
+            $validate = Validator::make($request->all(), [
+                'age' => ['required', 'int', 'max:150', 'regex: ^[0-9]+^'],
+            ],[]);
+            if($validate->fails()) {
+                return redirect()->back()->with('error', true)->with('message', 'Unable to add animal. Invalid age!');
+            }
             app()->call('App\Models\Animal@db_addPet', ['request' => $request]);
             return redirect()->back()
                 ->with('success', true)
