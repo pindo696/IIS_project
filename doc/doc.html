@@ -41,7 +41,7 @@
 		</ul>
 	</dd>
   <dd>Michal Majer<!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
-	    <a href="mailto:xmajer22@stud.fit.vutbr.cz">xmajer22@stud.fit.vutbr.cz</a> -
+	    <a href="mailto:xmajer22@stud.fit.vutbr.cz">xmajer22@stud.fit.vutbr.cz</a>
 		<ul>
 			<li>Overenie platnosti vstupných údajov pri registrácii (validácia)</li>
 			<li>Stránka administrátora - Pridávanie používateľov a zvierat. Overenie platnosti zadaných údajov a ošetrenie chybových stavov. Vyhľadávanie používateľov a zvierat na základe kľúčových slov</li>
@@ -79,7 +79,7 @@
 <h3>Popis implementácie</h3>
 <p>Projekt je implementovaný podľa modelu MVC.</p>
 <p>Súbory s príponami .blade.php predstavujúce časť View. V týchto súboroch sa nacházajú konktétne zobrazenia stránok. Jednotlivé stránky sú výstižne pomenované podľa toho, čo konkrétne majú zobrazovť.</p>
-<p>Časť Model predstavuje prácu s databázou. Tu sa nachádzajú čisto operácie, ktoré je nutné vykonať nad databázov. Ide o dotazy ako napríklad select, delete, update a ďalšie. Súbory je možné nájsť 	v zložek App\Models. Každý model je pomenový podľa tabuľky, nad ktorou vykonáva operácie. Jednotlivé metódy modulov sú volané pomocou Controllerov.</p>
+<p>Časť Model predstavuje prácu s databázou. Tu sa nachádzajú čisto operácie, ktoré je nutné vykonať nad databázou. Ide o dotazy ako napríklad select, delete, update a ďalšie. Súbory je možné nájsť 	v zložek App\Models. Každý model je pomenový podľa tabuľky, nad ktorou vykonáva operácie. Jednotlivé metódy modulov sú volané pomocou Controllerov.</p>
 <p>Súbory v zložke App\Http\Controllers	predstavujú Controller časť MVC modelu. Tu sa vykonáva všetka komunikácia, spracovanie formulárov a dát medzi View a Model časťou. Controllery sú opäť výstižne pomenované. Napríklad AnimalController.php slúži pre správu zvierat, zatiaľ čo ExaminaionController.php slúži k spracovaniu dát vyšetrení a iné.</p>
 <p>Vzhľad a vytvorenie databázy zabezpečujú takzvané migrácie. Pomocou príkazu php artisan migrate, sa zo zložky database\migrations načítajú schémy databázy, pomocou ktorých je databáza vytvorená.</p>
 <p>Prístup medzi jednotlivými používateľmi a zabránenie prístupu do sekcie, na ktorú iný používateľ nemá prístup je riešená pomocou rozšírenia Middleware. Ide o rozšírenie, ktoré podľa autentifikovaného používeľa sprístupňuje len určitú časť prístupných ciest. Kontrola autentifuikácie používeľa pri prístupe k určitej ceste prebieha v častiach App\Http\Middleware. Povolené prístupové cesty sú definované pre každú rolu používateľa v súbore routes\web.php. Tento súbor slúži zároveň aj pre rozpoznanie dotazovaného pohľadu podľa linku a vyvolanie konkrétneho kontroleru. Počiatočné presmerovanie po prihlásení používateľa sa nachádza v súbore Http\Controllers\Auth\LoginController.php.</p>
@@ -89,7 +89,7 @@
 <p>Samotná databáza sa skladá zo štyroch, vzájomne prepojených tabuliek. Ide o tabuľky:</p>
 <ul>
 	<li>animals - obsahujúca informácie o zviearatách ako je ich meno, druh, farba, informácie o nájdení, vek a iné.</li>
-	<li>users - obsahujúca informácie o používateľoch ako je ich meno, priezvisko, prihlasovací email či heslo, rola, status potvrdzovanie pre dobrovolníkov, redundandá informácia o dátume narodenia či veku osoby.</li>
+	<li>users - obsahujúca informácie o používateľoch ako je ich meno, priezvisko, prihlasovací email či heslo, rola, status potvrdzovanie pre dobrovolníkov, redundantná informácia o dátume narodenia či veku osoby.</li>
 	<li>examinations - tabuľka reprezentuje požiadavky pre vyšetrenia zvierat, informácie o vyšetrení či informácie o tom, ktorý veterinár vyšetrenie vykonal spolu s poznámkami vyšetrenia. Požiadavka vyšetrenia o vykonanom vyšetrení, či naplánovanom vyšetrení je zozlíšená pomocou atribútu <i>examination_type</i>. Tabuľka tak zabezpečuje aj históriu vyšetrení.</li>
 	<li>reservations - podobným spôsobom, ako tabuľa examinations reprezentuje jednotlivé vypísané termíny pre venčenie, rezerváciu a históriu venčení zvierat pomocou atribútu <i>reservation_status</i>. Vďaka spojeniu s tabuľkou používateľov tak vieme pre rezervované termíny a vykonané venčenie dodatočne dohľadať, ktorý dobrovolník mal v daný termín zviera požičané, či kým bol určitý termín pre venčenie potvrdený.</li>
 </ul>
