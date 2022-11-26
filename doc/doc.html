@@ -24,7 +24,7 @@
 		<ul>
 			<li>Založenie a počiatočná inštalácia projektu, vytvorenie databázových migrácií (tabulky), dodatočná validácia pri registácii a úprava ukladania používateľov do databázy</li>
 			<li>Prístup autentifikovaných užívateľov k jednotlivým podstránkam za pomoci Middleware</li>
-			<li>Stránka pečovatela - zobrazenie zvierat, vytvorenie, editácia a odstraňovanie zvierat, detail jednotlivého zvieraťa, zobrazenie požiadaviek pre venčenie dobrovolníkmi, vytváranie rozvrhov pre venčenie, zobrazenie histórie venčení pre jednotlivé zvieratá, potvrdzovanie prihlasovania na termíny venčení, evidencia zapožičania a vrátenia,			odstránanie termínu venčení, zobrazenie požiadaviek pre overenie dobrovolníkov, potvrdzovanie/odmietanie dobrovolníkov, vytváranie požiadaviek na veterinára, zobrazenie histórie požiadaviek a vykonaných vyšetrení pre jednotlivé zvieratá</li>
+			<li>Stránka pečovatela - zobrazenie zvierat, vytvorenie, editácia a odstraňovanie zvierat, detail jednotlivého zvieraťa, zobrazenie požiadaviek pre venčenie dobrovolníkmi, vytváranie rozvrhov pre venčenie, zobrazenie histórie venčení pre jednotlivé zvieratá, potvrdzovanie prihlasovania na termíny venčení, evidencia zapožičania a vrátenia,			odstránanie termínu venčení, zobrazenie požiadaviek pre overenie dobrovolníkov, potvrdzovanie/odmietanie dobrovolníkov, vytváranie požiadaviek na veterinára, zobrazenie histórie požiadaviek a vykonaných vyšetrení pre jednotlivé zvieratá, overenie nevalidných vstupov</li>
 			
 			<li>Stránka dobrovolníka - história venčení dobrovolníka, zobrazenie voľných termínov venčení, vytvorenie požiadavky pre vypísaný termín venčenia, odhlásenie sa z termínu venčenia</li>
 			<li>Dokumentácia, zabezpečenie hostingu, migrácia (do 18.12.2022)</li>
@@ -51,7 +51,8 @@
 		</ul>
 	</dd>
 	<dt>URL aplikácie</dt>
-	<dd><a href="https://animalshelter.netology.sk/">https://animalshelter.netology.sk/</a></dd>
+	<p>Dodatočne dostupné na</p>
+	<dd><a href=" http://www.stud.fit.vutbr.cz/~xlupta05/index.html"> http://www.stud.fit.vutbr.cz/~xlupta05/index.html</a></dd>
 </dl>
 
 <h2>Uživatelé systému pro testování</h2>
@@ -71,7 +72,7 @@
 <h2>Implementácia</h2>
 
 <h3>BackEnd</h3>
-<p>Ako implementačný jazyk sme si vybrali Laravell 9.x. spolu s php.</p>
+<p>Ako implementačný jazyk sme si vybrali Laravell 9.xx.x spolu s php.</p>
 
 <h3>FrontEnd</h3>
 <p>Stránky sú implementované najmä za pomoci jednoduchého Bootstrap doplnenom o php a základným html.</p>
@@ -79,10 +80,10 @@
 <h3>Popis implementácie</h3>
 <p>Projekt je implementovaný podľa modelu MVC.</p>
 <p>Súbory s príponami .blade.php predstavujúce časť View. V týchto súboroch sa nacházajú konktétne zobrazenia stránok. Jednotlivé stránky sú výstižne pomenované podľa toho, čo konkrétne majú zobrazovť.</p>
-<p>Časť Model predstavuje prácu s databázou. Tu sa nachádzajú čisto operácie, ktoré je nutné vykonať nad databázou. Ide o dotazy ako napríklad select, delete, update a ďalšie. Súbory je možné nájsť 	v zložek App\Models. Každý model je pomenový podľa tabuľky, nad ktorou vykonáva operácie. Jednotlivé metódy modulov sú volané pomocou Controllerov.</p>
-<p>Súbory v zložke App\Http\Controllers	predstavujú Controller časť MVC modelu. Tu sa vykonáva všetka komunikácia, spracovanie formulárov a dát medzi View a Model časťou. Controllery sú opäť výstižne pomenované. Napríklad AnimalController.php slúži pre správu zvierat, zatiaľ čo ExaminaionController.php slúži k spracovaniu dát vyšetrení a iné.</p>
+<p>Časť Model predstavuje prácu s databázou. Tu sa nachádzajú čisto operácie, ktoré je nutné vykonať nad databázou. Ide o dotazy ako napríklad select, delete, update a ďalšie. Súbory je možné nájsť 	v zložek Models. Každý model je pomenový podľa tabuľky, nad ktorou vykonáva operácie. Jednotlivé metódy modulov sú volané pomocou Controllerov.</p>
+<p>Súbory v zložke Controllers	predstavujú Controller časť MVC modelu. Tu sa vykonáva všetka komunikácia, spracovanie formulárov a dát medzi View a Model časťou. Controllery sú opäť výstižne pomenované. Napríklad AnimalController.php slúži pre správu zvierat, zatiaľ čo ExaminaionController.php slúži k spracovaniu dát vyšetrení a iné.</p>
 <p>Vzhľad a vytvorenie databázy zabezpečujú takzvané migrácie. Pomocou príkazu php artisan migrate, sa zo zložky database\migrations načítajú schémy databázy, pomocou ktorých je databáza vytvorená.</p>
-<p>Prístup medzi jednotlivými používateľmi a zabránenie prístupu do sekcie, na ktorú iný používateľ nemá prístup je riešená pomocou rozšírenia Middleware. Ide o rozšírenie, ktoré podľa autentifikovaného používeľa sprístupňuje len určitú časť prístupných ciest. Kontrola autentifuikácie používeľa pri prístupe k určitej ceste prebieha v častiach App\Http\Middleware. Povolené prístupové cesty sú definované pre každú rolu používateľa v súbore routes\web.php. Tento súbor slúži zároveň aj pre rozpoznanie dotazovaného pohľadu podľa linku a vyvolanie konkrétneho kontroleru. Počiatočné presmerovanie po prihlásení používateľa sa nachádza v súbore Http\Controllers\Auth\LoginController.php.</p>
+<p>Prístup medzi jednotlivými používateľmi a zabránenie prístupu do sekcie, na ktorú iný používateľ nemá prístup je riešená pomocou rozšírenia Middleware. Ide o rozšírenie, ktoré podľa autentifikovaného používeľa sprístupňuje len určitú časť prístupných ciest. Kontrola autentifuikácie používeľa pri prístupe k určitej ceste prebieha v častiach Middleware. Povolené prístupové cesty sú definované pre každú rolu používateľa v súbore routes\web.php. Tento súbor slúži zároveň aj pre rozpoznanie dotazovaného pohľadu podľa linku a vyvolanie konkrétneho kontroleru. Počiatočné presmerovanie po prihlásení používateľa sa nachádza v súbore Controllers\LoginController.php.</p>
 
 <h3>Databáza</h3>
 <h4>Návrh databázy:</h4>
@@ -101,19 +102,20 @@
 	<li>Git clone / skopírovanie súborov do zložky projektu</li>
 	<li>Inštalácia a spustenie DB serveru, napríklad XAMPP s MariaDB min. verzia 10.4.25</li>
 	<li>Vytvoríť súbor .env pre prepojenie s DB systémom. Správne nastavenie parametrov. Ukažkový súbor example.env</li>
-	<li>Pomocou PowerShell (Windows) alebo terminálu (Linux) inštalácia php 8.1, composer, node.js min. 16.xx.x</li>
+	<li>Pomocou PowerShell (Windows) alebo terminálu (Linux) inštalácia php 8.1, composer, npm min. 9.1.x, node.js min. 16.xx.x</li>
 	<li>Inicializácia databázy pomocou príkazu php artisan:migrate</li>
+	<li>Vygenerovani kľúča pre databázu pomocou príkazu php artisan key:generate</li>
 	<li>Prípadné vloženie dummy dát vo forme .sql cez rozhranie phpmyadmin</li>
 	<li>V jednom termináli spustiť npm príkazom: npm install & npm run dev</li>
 	<li>V druhom termináli spustiť artisan príkazom: php artisan serve</li>
-	<li>Prístup ku stránke pomocou localhost, prípadne: http://127.0.0.1:8000/</li>
+	<li>Prístup ku stránke pomocou localhost, prípadne v základnom nastavení: http://127.0.0.1:8000/</li>
 	<li>Pre možnosť zobrazovania a ukladania obrázkov je dodatočne nutný príkaz: php artisan storage:link</li>
 </ul>
 <i>Projekt nie je možné spustiť iba z odovzdaných súborov, nakoľko neobsahujú všetky knižnice, dependencies a iné controllery vygenerované a požadované priamo Laravellom.
 Rovnako neobsahujú Bootstrap knižnice potrebné pre korektné zobrazenie stránky. Celý projekt je možné po požiadaní zobraziť na <a href="https://github.com/pindo696/IIS_project">GitHub</a>.</i>
 
 <h2>Hosting aplikácie</h2>
-Nakoľko sa na školských serveroch nepodarilo rozumne spojazdniť laravel, nodejs ani rozumné prepojenie s databázovým systémom, sme sa rozhodli pre vlastný hosting poskytovaný portálom WebCreators, s.r.o. Na danej platforme bude aplikácia, spolu s databázovým systémom spustená najneskôr 18.12.2022. <a href="https://animalshelter.netology.sk/">Link.</a>
+Adresa pre hosting aplikácie bude dostupná na adrese: <a href="http://www.stud.fit.vutbr.cz/~xlupta05/index.html">http://www.stud.fit.vutbr.cz/~xlupta05/index.html</a>
 
 <h2>Známe problémy</h2>
 <p>Jednoduchší dizajn - pod 14' sa stráca responzivita stránky.</p>

@@ -51,6 +51,12 @@
                         @if($data->reservation_status == 'approved')
                             <td style="color: green">approved</td>
                         @endif
+                        @if($data->reservation_status == 'returned')
+                            <td style="color: dodgerblue">returned</td>
+                        @endif
+                        @if($data->reservation_status == 'pickedup')
+                            <td style="color: orange">pickedup</td>
+                        @endif
                     </tr>
                 @endforeach
                 <tr style="background: dimgray">
@@ -85,6 +91,12 @@
                         @endif
                         @if($data->reservation_status == 'approved')
                             <td style="color: green">approved</td>
+                        @endif
+                        @if($data->reservation_status == 'returned')
+                            <td style="color: dodgerblue">returned</td>
+                        @endif
+                        @if($data->reservation_status == 'pickedup')
+                            <td style="color: orange">pickedup</td>
                         @endif
                     </tr>
                 @endforeach

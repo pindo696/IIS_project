@@ -131,16 +131,16 @@
                                 </div>
                                 <div class="col-sm-2 p-2">
                                     <div class="d-inline-block">
-                                        <form class="d-inline" action="/careman/acceptWalk/" method="POST">
+                                        <form class="d-inline" action="/careman/acceptWalk/fromMain" method="POST">
                                             @csrf
                                             @method('POST')
-                                            <input type="hidden" name="request_id" value="{{$data->reservation_id}}">
+                                            <input type="hidden" name="reservation_id" value="{{$data->reservation_id}}">
                                             <button title="Accept walk" type="submit" class="btn text-success fa-solid fa-check"></button>
                                         </form>
-                                        <form class="d-inline" action="/careman/declineWalk/" method="POST">
+                                        <form class="d-inline" action="/careman/declineWalk/fromMain" method="POST">
                                             @csrf
                                             @method('POST')
-                                            <input type="hidden" name="request_id" value="{{$data->reservation_id}}">
+                                            <input type="hidden" name="reservation_id" value="{{$data->reservation_id}}">
                                             <button title="Decline walk" type="submit" class="btn text-danger fa-solid fa-xmark"></button>
                                         </form>
                                     </div>

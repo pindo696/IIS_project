@@ -89,6 +89,9 @@ Route::middleware(['auth', 'careman'])->group( function (){
     Route::post('/careman/animals/createScheduleItem/add', [App\Http\Controllers\ReservationController::class, 'crateScheduleItem']);
     Route::post('/careman/pickupAnimal/', [App\Http\Controllers\ReservationController::class, 'pickupAnimal']);
     Route::post('/careman/returnAnimal/', [App\Http\Controllers\ReservationController::class, 'returnAnimal']);
+    Route::post('/careman/declineWalk/fromMain', [App\Http\Controllers\ReservationController::class, 'declineWalkFromMain']);
+    Route::post('/careman/acceptWalk/fromMain', [App\Http\Controllers\ReservationController::class, 'acceptWalkFromMain']);
+
 });
 // Single pet simple detail
 Route::get('/animal/{id}', [AnimalController::class, 'show']);

@@ -67,6 +67,7 @@ class Reservation extends Model{
                             LEFT JOIN users ON reservations.fk_taken_by_volunteer_id = users.id
                             WHERE reservations.reservation_from <= :date
                             AND reservations.reservation_status LIKE 'listed'
+                            ORDER BY reservation_from DESC
                             LIMIT 6", ['date' => $actual_date]);
         return $result;
     }
@@ -103,14 +104,15 @@ class Reservation extends Model{
         $result['past']= DB::select("SELECT reservations.reservation_id, reservations.reservation_status, reservations.reservation_from, reservations.reservation_to, users.name, users.surname FROM reservations
                             LEFT JOIN users ON users.id = reservations.fk_taken_by_volunteer_id
                             WHERE reservations.reservation_status LIKE 'returned'
+                            AND fk_animal_id LIKE :idf
                             OR reservations.reservation_from <= :date
                             AND reservations.reservation_status NOT LIKE 'pickedup'
-                            AND fk_animal_id LIKE :id", ['date'=> $actual_date, 'id' => $id]);
-        $result['upcomming']= DB::select("SELECT reservations.reservation_id, reservations.reservation_status, reservations.reservation_from, reservations.reservation_to, users.name, users.surname FROM reservations
+                            AND fk_animal_id LIKE :id" , ['idf'=>$id  ,'date'=> $actual_date, 'id' => $id]);
+        $result['upcomming']= DB::select("SELECT reservations.fk_animal_id, reservations.reservation_id, reservations.reservation_status, reservations.reservation_from, reservations.reservation_to, users.name, users.surname FROM reservations
                             LEFT JOIN users ON users.id = reservations.fk_taken_by_volunteer_id
                             WHERE reservations.reservation_from >= :date AND fk_animal_id LIKE :id
                             AND reservations.reservation_status NOT LIKE 'returned'
-                            OR reservations.reservation_status LIKE 'pickedup'", ['date'=> $actual_date, 'id' => $id]);
+                            OR reservations.reservation_status LIKE 'pickedup' ORDER BY reservations.reservation_from DESC", ['date'=> $actual_date, 'id' => $id]);
         $result['animal'] = $id;
         return $result;
     }

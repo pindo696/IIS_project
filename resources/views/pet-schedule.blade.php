@@ -97,16 +97,18 @@
                                                 <form class="d-inline" action="/careman/acceptWalk/" method="POST">
                                                     @csrf
                                                     @method('POST')
-                                                    <input type="hidden" id="request_id" name="request_id"
+                                                    <input type="hidden" id="reservation_id" name="reservation_id"
                                                            value="{{$data->reservation_id}}">
+                                                    <input type="hidden" name="animal_id" value="{{$data->fk_animal_id}}">
                                                     <button title="Accept walk" type="submit"
                                                             class="btn text-success fa-solid fa-check"></button>
                                                 </form>
                                                 <form class="d-inline" action="/careman/declineWalk/" method="POST">
                                                     @csrf
                                                     @method('POST')
-                                                    <input type="hidden" id="request_id" name="request_id"
+                                                    <input type="hidden" id="reservation_id" name="reservation_id"
                                                            value="{{$data->reservation_id}}">
+                                                    <input type="hidden" name="animal_id" value="{{$data->fk_animal_id}}">
                                                     <button title="Decline walk" type="submit"
                                                             class="btn text-danger fa-solid fa-xmark"></button>
                                                 </form>
@@ -116,6 +118,7 @@
                                                 @method('POST')
                                                 <input type="hidden" id="reservation_id" name="reservation_id"
                                                        value="{{$data->reservation_id}}">
+                                                <input type="hidden" name="animal_id" value="{{$data->fk_animal_id}}">
                                                 <button title="Delete walk" type="submit"
                                                         class="btn text-danger fa-solid fa-trash-can"></button>
                                             </form>
@@ -123,16 +126,18 @@
                                             <form class="d-inline" action="/careman/pickupAnimal/" method="POST">
                                                 @csrf
                                                 @method('POST')
-                                                <input type="hidden" id="request_id" name="request_id"
+                                                <input type="hidden" id="reservation_id" name="reservation_id"
                                                        value="{{$data->reservation_id}}">
+                                                <input type="hidden" name="animal_id" value="{{$data->fk_animal_id}}">
                                                 <button title="Pickup Animal" type="submit"
                                                         class="btn text-primary fa-solid fa-person-walking-arrow-right"></button>
                                             </form>
                                             <form class="d-inline" action="/careman/declineWalk/" method="POST">
                                                 @csrf
                                                 @method('POST')
-                                                <input type="hidden" id="request_id" name="request_id"
+                                                <input type="hidden" id="reservation_id" name="reservation_id"
                                                        value="{{$data->reservation_id}}">
+                                                <input type="hidden" name="animal_id" value="{{$data->fk_animal_id}}">
                                                 <button title="Decline walk" type="submit"
                                                         class="btn text-danger fa-solid fa-xmark"></button>
                                             </form>
@@ -140,8 +145,9 @@
                                             <form class="d-inline" action="/careman/returnAnimal/" method="POST">
                                                 @csrf
                                                 @method('POST')
-                                                <input type="hidden" id="request_id" name="request_id"
+                                                <input type="hidden" id="reservation_id" name="reservation_id"
                                                        value="{{$data->reservation_id}}">
+                                                <input type="hidden" name="animal_id" value="{{$data->fk_animal_id}}">
                                                 <button title="Return Animal" type="submit"
                                                         class="btn text-primary fa-solid fa-person-walking-arrow-loop-left"></button>
                                             </form>

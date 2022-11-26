@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -130,15 +131,21 @@ class Examination extends Model
      */
     public function db_updateExamination(Request $request){
         $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
-
+        if($request->input('examination_fr') == NULL){
+            $examination_from = Carbon::now();
+            $examination_to = Carbon::now();
+        }else{
+            $examination_from = $request->input('examination_fr');
+            $examination_to= $request->input('examination_to');
+        }
         $examination = DB::table('examinations')
             -> where('examination_id', $request->request_id)
             -> update([
                 'examination_type' => $request->input('examination_t'),
                 'examination_description' => $request->input('examination_desc'),
                 'vet_examination_notes' => $request->input('vet_examination_notes'),
-                'examination_from' => $request->input('examination_fr'),
-                'examination_to' => $request->input('examination_to'),
+                'examination_from' => $examination_from,
+                'examination_to' => $examination_to,
                 'updated_at' => $current_date_time,
                 'examination_status' => $request->input('status'),
                 'fk_vet_id' => $request->input('vet_id'),

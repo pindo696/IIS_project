@@ -30,10 +30,17 @@ class ReservationController extends Controller{
      */
     public function declineWalk(Request $request){
        $userID = auth()->user()->id;
-       app()->call('App\Models\Reservation@db_declineWalk', ['userID' => $userID, 'id' => $request->request_id]);
+       app()->call('App\Models\Reservation@db_declineWalk', ['userID' => $userID, 'id' => $request->reservation_id]);
        $result = app()->call('App\Models\Reservation@db_getPetReservations', ['id' => $request->animal_id]);
        return view('pet-schedule', compact('result', 'result'));
        //return redirect('/careman/requests');
+    }
+
+    public function declineWalkFromMain(Request $request){
+        $userID = auth()->user()->id;
+        app()->call('App\Models\Reservation@db_declineWalk', ['userID' => $userID, 'id' => $request->reservation_id]);
+        $result = app()->call('App\Models\Reservation@db_getPetReservations', ['id' => $request->animal_id]);
+        return redirect('/careman/requests');
     }
 
     /**
@@ -43,10 +50,18 @@ class ReservationController extends Controller{
      */
     public function acceptWalk(Request $request){
         $userID = auth()->user()->id;
-        app()->call('App\Models\Reservation@db_acceptWalk', ['userID' => $userID, 'id' => $request->request_id]);
+        app()->call('App\Models\Reservation@db_acceptWalk', ['userID' => $userID, 'id' => $request->reservation_id]);
         $result = app()->call('App\Models\Reservation@db_getPetReservations', ['id' => $request->animal_id]);
+
         return view('pet-schedule', compact('result', 'result'));
         //return redirect('/careman/requests');
+    }
+
+    public function acceptWalkFromMain(Request $request){
+        $userID = auth()->user()->id;
+        app()->call('App\Models\Reservation@db_acceptWalk', ['userID' => $userID, 'id' => $request->reservation_id]);
+        $result = app()->call('App\Models\Reservation@db_getPetReservations', ['id' => $request->animal_id]);
+        return redirect('/careman/requests');
     }
 
     /**
@@ -152,7 +167,7 @@ class ReservationController extends Controller{
      */
     public function pickupAnimal(Request $request){
         if(!$request->isMethod('post')) return redirect('/careman/animals');
-        $reservation_id = $request->request_id;
+        $reservation_id = $request->reservation_id;
         app()->call('App\Models\Reservation@db_pickupAnimal', ['reservation_id' => $reservation_id]);
         $result = app()->call('App\Models\Reservation@db_getPetReservations', ['id' => $request->animal_id]);
         return view('pet-schedule', compact('result', 'result'));
@@ -166,7 +181,7 @@ class ReservationController extends Controller{
      */
     public function returnAnimal(Request $request){
         if(!$request->isMethod('post')) return redirect('/careman/animals');
-        $reservation_id = $request->request_id;
+        $reservation_id = $request->reservation_id;
         app()->call('App\Models\Reservation@db_returnAnimal', ['reservation_id' => $reservation_id]);
         $result = app()->call('App\Models\Reservation@db_getPetReservations', ['id' => $request->animal_id]);
         return view('pet-schedule', compact('result', 'result'));
