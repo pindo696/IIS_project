@@ -23,31 +23,69 @@
                             </tr>
                         </thead>
                         <tbody>
-            
-                            @foreach ($examinations as $examination)
+                            @foreach ($examinations['planned'] as $examination)
                                 @php ($style = '#FFFFFF')
-                                @if($examination->examination_status == 'requested')
-                                    @php ($style = 'text-orange')
-                                @endif
-                                @if($examination->examination_status == 'done')
-                                    @php ($style = 'text-success')
-                                @endif
-                                @if($examination->examination_status == 'planned')
-                                    @php ($style = 'text-info')
-                                @endif
+                                @php ($style = 'text-info')
+
                                 <tr style="vertical-align: middle;" class="alert text-center" role="alert">
                                 <td>{{$examination->name . " " . $examination->surname}}</td>
                                 <td>{{$examination->animal_name}}</td>
                                 <td>{{$examination->species}}</td>
                                 <td>{{$examination->examination_description}}</td>
                                 <td class="{{$style}}">{{$examination->examination_status}}</td>
-                                <td>  
+                                <td>
                                     <form action="/vet/request/{{$examination->examination_id}}" method="POST">
                                         @csrf
                                         <input type="hidden" id="examination_id" name="examination_id" value="{{$examination->examination_id}}">
                                         <button title="Administer" class="btn text-primary fa-solid fa-book"></button>
                                     </form>
                                 </td>
+                                </tr>
+                            @endforeach
+                            @unless(count($examinations['planned']) == 0)
+                            <tr style="height: 20px; border-bottom: 2px solid; border-color: lightgray;">
+                            <tr style="height: 20px; border-top: 0px;">
+                            @endunless
+                            @foreach ($examinations['requested'] as $examination)
+                                @php ($style = '#FFFFFF')
+                                @php ($style = 'text-orange')
+
+                                <tr style="vertical-align: middle;" class="alert text-center" role="alert">
+                                    <td>{{$examination->name . " " . $examination->surname}}</td>
+                                    <td>{{$examination->animal_name}}</td>
+                                    <td>{{$examination->species}}</td>
+                                    <td>{{$examination->examination_description}}</td>
+                                    <td class="{{$style}}">{{$examination->examination_status}}</td>
+                                    <td>
+                                        <form action="/vet/request/{{$examination->examination_id}}" method="POST">
+                                            @csrf
+                                            <input type="hidden" id="examination_id" name="examination_id" value="{{$examination->examination_id}}">
+                                            <button title="Administer" class="btn text-primary fa-solid fa-book"></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            @unless(count($examinations['requested']) == 0 ||count($examinations['done']) == 0 )
+                            <tr style="height: 20px; border-bottom: 2px solid; border-color: lightgray;">
+                            <tr style="height: 20px; border-top: 0px;">
+                            @endunless
+                            @foreach ($examinations['done'] as $examination)
+                                @php ($style = '#FFFFFF')
+                                @php ($style = 'text-success')
+
+                                <tr style="vertical-align: middle;" class="alert text-center" role="alert">
+                                    <td>{{$examination->name . " " . $examination->surname}}</td>
+                                    <td>{{$examination->animal_name}}</td>
+                                    <td>{{$examination->species}}</td>
+                                    <td>{{$examination->examination_description}}</td>
+                                    <td class="{{$style}}">{{$examination->examination_status}}</td>
+                                    <td>
+                                        <form action="/vet/request/{{$examination->examination_id}}" method="POST">
+                                            @csrf
+                                            <input type="hidden" id="examination_id" name="examination_id" value="{{$examination->examination_id}}">
+                                            <button title="Administer" class="btn text-primary fa-solid fa-book"></button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
 
@@ -78,7 +116,7 @@
                                 <td>{{$record->animal_name}}</td>
                                 <td>{{$record->species}}</td>
                                 <td>{{$record->animal_age}}</td>
-                                <td>  
+                                <td>
                                     <form action="/vet/records/animal/{{$record->animal_id}}" method="GET">
                                         @csrf
                                         <input type="hidden" id="animal_id" name="animal_id" value="{{$record->animal_id}}">

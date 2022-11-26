@@ -35,6 +35,17 @@ class Examination extends Model
         ];
     }
 
+    public function db_getAllPetExaminationsAndRecordsSorted(){
+        $examinations['done']= DB::select("SELECT * FROM examinations JOIN users ON examinations.fk_requested_by_careman_id = users.id JOIN animals ON examinations.fk_animal_id=animals.animal_id WHERE examinations.examination_status LIKE 'done' ORDER BY examinations.examination_from DESC");
+        $examinations['planned']= DB::select("SELECT * FROM examinations JOIN users ON examinations.fk_requested_by_careman_id = users.id JOIN animals ON examinations.fk_animal_id=animals.animal_id WHERE examinations.examination_status LIKE 'planned' ORDER BY examinations.examination_from DESC");
+        $examinations['requested']= DB::select("SELECT * FROM examinations JOIN users ON examinations.fk_requested_by_careman_id = users.id JOIN animals ON examinations.fk_animal_id=animals.animal_id WHERE examinations.examination_status LIKE 'requested' ORDER BY examinations.examination_from DESC");
+        $records = DB::select("SELECT * FROM animals");
+        return [
+            'examinations' =>$examinations,
+            'records' => $records
+        ];
+    }
+
     /**
      * Gets animal information - including information about animal and its examinations
      * @param $id of animal

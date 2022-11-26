@@ -54,9 +54,9 @@
                                         <input type="hidden" id="animal_id" name="animal_id" value="{{$animal['animal_id']}}">
                                         <td>{{$animal->animal_id}}</td>
                                         <td><input style="text-align: center;"value="{{$animal['animal_name']}}" type="text" name="animal_name" id="animal_name" class="form-control form-control-sm" required/></td>
-                                        <td><input style="text-align: center;"value="{{$animal['species']}}" type="text" name="species" id="species" class="form-control form-control-sm" required/></td>
-                                        <td><input style="text-align: center;"value="{{$animal['color']}}" type="text" name="color" id="color" class="form-control form-control-sm" required/></td>
-                                        <td><input style="text-align: center;"value="{{$animal['animal_age']}}" type="text" name="animal_age" id="animal_age" class="form-control form-control-sm"/></td>
+                                        <td><input style="text-align: center;" value="{{$animal['species']}}" type="text" name="species" id="species" class="form-control form-control-sm" required/></td>
+                                        <td><input style="text-align: center;" value="{{$animal['color']}}" type="text" name="color" id="color" class="form-control form-control-sm" required/></td>
+                                        <td><input style="text-align: center;" value="{{$animal['animal_age']}}" type="number" name="animal_age" id="animal_age" class="form-control form-control-sm"/></td>
 
                                         <td>
                                             <select class="form-control form-control-sm" style="width: 60px" id="gender" name="gender">
@@ -120,7 +120,7 @@
                     <td><input style="text-align: center;"value="" type="text" name="name" id="name" class="form-control form-control-sm" required/></td>
                     <td><input style="text-align: center;"value="" type="text" name="species" id="species" class="form-control form-control-sm" required/></td>
                     <td><input style="text-align: center;"value="" type="text" name="color" id="color" class="form-control form-control-sm" required/></td>
-                    <td><input style="text-align: center;"value="" type="text" name="age" id="age" class="form-control form-control-sm"/></td>
+                    <td><input style="text-align: center;"value="" type="number" name="age" id="age" class="form-control form-control-sm"/></td>
 
                     <td>
                         <select class="form-control form-control-sm" id="inlineRadioOptions" name="inlineRadioOptions">

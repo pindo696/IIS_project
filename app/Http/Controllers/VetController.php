@@ -35,16 +35,16 @@ class VetController{
     }
 
     public function getPetExaminationsAndRecords(){
-        return view('vet', app()->call('App\Models\Examination@db_getAllPetExaminationsAndRecords'));
+        return view('vet', app()->call('App\Models\Examination@db_getAllPetExaminationsAndRecordsSorted'));
     }
 
     public function getRequestDetailed($id){
         return view('vet_request', app()->call('App\Models\Examination@db_getPetExaminationById', ['id' => $id]));
-    
+
     }
 
     public function getAnimalRecordsDetailed($id){
         return view('vet_animal_record', app()->call('App\Models\Examination@db_getAnimalRecordsDetailed', ['id' => $id]));
     }
-    
+
 }
