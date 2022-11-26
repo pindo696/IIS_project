@@ -60,7 +60,7 @@
                                             <td><input style="text-align: center;"value="{{$user['surname']}}" type="text" name="surname" id="surname" class="form-control form-control-sm" required/></td>
                                             <td><input style="text-align: center;"value="{{$user['email']}}" type="email" name="email" id="email" class="form-control form-control-sm" required/></td>
                                             <td><input value="{{$user['birth_date']}}" type="date" placeholder="DD-MM-YYYY" min="01-01-1900" name="birth_date" class="form-control form-control-sm" id="birth_date" data-date-format='d-m-Y'/></td>
-                                            <td><input style="text-align: center;"value="{{$user['age']}}" type="text" name="age" id="age" class="form-control form-control-sm"/></td>
+                                            <td><input style="text-align: center;"value="{{$user['age']}}" type="number" name="age" id="age" class="form-control form-control-sm"/></td>
                                             <td><input style="text-align: center;"value="{{$user['phone']}}" type="tel" name="phone" id="phone" class="form-control form-control-sm" required/></td>
 
                                             <td>
@@ -137,7 +137,7 @@
                                     <td><input style="text-align: center;"value="" type="text" name="surname" id="surname" pattern="[A-Ž]{1}[a-ž]+" class="form-control form-control-sm" required/></td>
                                     <td><input style="text-align: center;"value="" type="email" name="email" id="email" pattern="[a-z0-9]+@[a-z0-9]+.[[a-z]+" class="form-control form-control-sm" required/></td>
                                     <td><input value="" type="date" placeholder="DD-MM-YYYY" min="01-01-1900" name="birth_date" class="form-control form-control-sm" id="birth_date" data-date-format='d-m-Y'/></td>
-                                    <td><input style="text-align: center;"value="" type="text" name="age" id="age" pattern="[0-9]+" class="form-control form-control-sm"/></td>
+                                    <td><input style="text-align: center;"value="" type="number" name="age" id="age" pattern="[0-9]+" class="form-control form-control-sm"/></td>
                                     <td><input style="text-align: center;"value="" type="tel" name="phone" id="phone" pattern="(\+421|00421|0)[9][0-9]{8}|(\+420|00420|0)[4-7][0-9]{8}" class="form-control form-control-sm" required/></td>
 
                                     <td>

@@ -51,6 +51,12 @@ class AdminController{
             if($validate->fails()){
                 return redirect()->back()->with('error', true)->with('message','Unable to edit user. Invalid data format!');
             }
+            $validate = Validator::make($request->all(), [
+                'email' => ['required', 'string', 'email', 'max:255', 'regex: ^[a-z0-9]+@[a-z0-9]+.[[a-z]+^', 'unique:users'],
+            ],[]);
+            if($validate->fails()){
+                //return redirect()->back()->with('error', true)->with('message','Unable to edit user. Email address already in use!');
+            }
             app()->call('App\Models\Admin@db_updateUser', ['request' => $request]);
             return redirect("/admin")->with('success', true)->with('message', 'Successfully updated user: ' . $request->name . '!')
                 ->with('success', true)
@@ -66,7 +72,7 @@ class AdminController{
                 ->with('message','Discovery date is in the future!');
         }else{
             $validate = Validator::make($request->all(), [
-                'animal_age' => ['required', 'int', 'max:150', 'regex: ^[0-9]+^'],
+                'animal_age' => ['required', 'int', 'min:0', 'max:150', 'regex: ^[0-9]+^'],
             ],[]);
             if($validate->fails()){
                 return redirect()->back()->with('error', true)->with('message','Unable to edit animal. Invalid age!');
@@ -102,6 +108,12 @@ class AdminController{
             if($validate->fails()){
                 return redirect()->back()->with('error', true)->with('message','Unable to create user. Invalid data format!');
             }
+            $validate = Validator::make($request->all(), [
+                'email' => ['required', 'string', 'email', 'max:255', 'regex: ^[a-z0-9]+@[a-z0-9]+.[[a-z]+^', 'unique:users'],
+            ],[]);
+            if($validate->fails()){
+                return redirect()->back()->with('error', true)->with('message','Unable to create user. Email address already in use!');
+            }
             app()->call('App\Models\Admin@db_createUser', ['request' => $request]);
             return redirect()->back()
                 ->with('success', true)
@@ -118,7 +130,7 @@ class AdminController{
                 ->with('message','Discovery date is in the future!');
         }else {
             $validate = Validator::make($request->all(), [
-                'age' => ['required', 'int', 'max:150', 'regex: ^[0-9]+^'],
+                'age' => ['required', 'int', 'min:0', 'max:150', 'regex: ^[0-9]+^'],
             ],[]);
             if($validate->fails()) {
                 return redirect()->back()->with('error', true)->with('message', 'Unable to add animal. Invalid age!');
