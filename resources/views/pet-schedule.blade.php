@@ -94,7 +94,7 @@
                                     <div class="col-sm-2 text-center mt-2">
                                         <div class="d-inline-block">
                                             @if($data->reservation_status == 'requested')
-                                                <form class="d-inline" action="/careman/acceptWalk/" method="POST">
+                                                <form class="d-inline" action="/careman/acceptWalk" method="POST">
                                                     @csrf
                                                     @method('POST')
                                                     <input type="hidden" id="reservation_id" name="reservation_id"
@@ -103,7 +103,7 @@
                                                     <button title="Accept walk" type="submit"
                                                             class="btn text-success fa-solid fa-check"></button>
                                                 </form>
-                                                <form class="d-inline" action="/careman/declineWalk/" method="POST">
+                                                <form class="d-inline" action="/careman/declineWalk" method="POST">
                                                     @csrf
                                                     @method('POST')
                                                     <input type="hidden" id="reservation_id" name="reservation_id"
@@ -113,7 +113,7 @@
                                                             class="btn text-danger fa-solid fa-xmark"></button>
                                                 </form>
                                         @elseif($data->reservation_status == 'listed')
-                                            <form class="d-inline" action="/careman/deleteWalk/" method="POST">
+                                            <form class="d-inline" action="/careman/deleteWalk" method="POST">
                                                 @csrf
                                                 @method('POST')
                                                 <input type="hidden" id="reservation_id" name="reservation_id"
@@ -123,7 +123,7 @@
                                                         class="btn text-danger fa-solid fa-trash-can"></button>
                                             </form>
                                         @elseif($data->reservation_status == 'approved')
-                                            <form class="d-inline" action="/careman/pickupAnimal/" method="POST">
+                                            <form class="d-inline" action="/careman/pickupAnimal" method="POST">
                                                 @csrf
                                                 @method('POST')
                                                 <input type="hidden" id="reservation_id" name="reservation_id"
@@ -132,7 +132,7 @@
                                                 <button title="Pickup Animal" type="submit"
                                                         class="btn text-primary fa-solid fa-person-walking-arrow-right"></button>
                                             </form>
-                                            <form class="d-inline" action="/careman/declineWalk/" method="POST">
+                                            <form class="d-inline" action="/careman/declineWalk" method="POST">
                                                 @csrf
                                                 @method('POST')
                                                 <input type="hidden" id="reservation_id" name="reservation_id"
@@ -142,7 +142,7 @@
                                                         class="btn text-danger fa-solid fa-xmark"></button>
                                             </form>
                                         @elseif($data->reservation_status == 'pickedup')
-                                            <form class="d-inline" action="/careman/returnAnimal/" method="POST">
+                                            <form class="d-inline" action="/careman/returnAnimal" method="POST">
                                                 @csrf
                                                 @method('POST')
                                                 <input type="hidden" id="reservation_id" name="reservation_id"

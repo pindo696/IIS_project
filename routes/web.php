@@ -81,14 +81,14 @@ Route::middleware(['auth', 'careman'])->group( function (){
     Route::any('/careman/animals/request-examination', [App\Http\Controllers\ExaminationController::class, 'requestExamination']);
     Route::any('/careman/animals/pet-edit/request-examination/send', [App\Http\Controllers\ExaminationController::class, 'createExamination']);
     Route::any('/careman/examination/examination-request/delete', [App\Http\Controllers\ExaminationController::class, 'deleteRequest']);
-    Route::post('/careman/declineWalk/', [App\Http\Controllers\ReservationController::class, 'declineWalk']);
-    Route::post('/careman/acceptWalk/', [App\Http\Controllers\ReservationController::class, 'acceptWalk']);
-    Route::any('/careman/animals/pet-schedule/', [App\Http\Controllers\AnimalController::class, 'petSchedule']);
-    Route::any('/careman/deleteWalk/', [App\Http\Controllers\ReservationController::class, 'deleteWalk']);
+    Route::post('/careman/declineWalk', [App\Http\Controllers\ReservationController::class, 'declineWalk']);
+    Route::post('/careman/acceptWalk', [App\Http\Controllers\ReservationController::class, 'acceptWalk']);
+    Route::any('/careman/animals/pet-schedule', [App\Http\Controllers\AnimalController::class, 'petSchedule']);
+    Route::any('/careman/deleteWalk', [App\Http\Controllers\ReservationController::class, 'deleteWalk']);
     Route::any('/careman/animals/createScheduleItem', [App\Http\Controllers\ReservationController::class, 'showCreateScheduleItemForm']);
     Route::post('/careman/animals/createScheduleItem/add', [App\Http\Controllers\ReservationController::class, 'crateScheduleItem']);
-    Route::post('/careman/pickupAnimal/', [App\Http\Controllers\ReservationController::class, 'pickupAnimal']);
-    Route::post('/careman/returnAnimal/', [App\Http\Controllers\ReservationController::class, 'returnAnimal']);
+    Route::post('/careman/pickupAnimal', [App\Http\Controllers\ReservationController::class, 'pickupAnimal']);
+    Route::post('/careman/returnAnimal', [App\Http\Controllers\ReservationController::class, 'returnAnimal']);
     Route::post('/careman/declineWalk/fromMain', [App\Http\Controllers\ReservationController::class, 'declineWalkFromMain']);
     Route::post('/careman/acceptWalk/fromMain', [App\Http\Controllers\ReservationController::class, 'acceptWalkFromMain']);
 

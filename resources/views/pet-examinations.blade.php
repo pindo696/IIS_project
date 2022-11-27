@@ -48,7 +48,7 @@
 
                             <div class="d-flex justify-content-center mb-2">
                                 @if(Auth::user()->role == "admin" || Auth::user()->role == "careman")
-                                    <form action="/careman/animals/request-examination/" method="POST">
+                                    <form action="/careman/animals/request-examination" method="POST">
                                         @csrf
                                         @method('POST')
                                         <input type="hidden" id="animal_id" name="animal_id"

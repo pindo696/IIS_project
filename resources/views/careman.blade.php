@@ -44,21 +44,21 @@
                                         @endif
                                     <td style="text-align: left;">
                                         @if($data->confirmation == 'accepted')
-                                            <form action="/careman/banVolunteer/" method="POST">
+                                            <form action="/careman/banVolunteer" method="POST">
                                                 @csrf
                                                 @method('POST')
                                                 <input type="hidden" id="data_id" name="data_id" value="{{$data->id}}">
                                                 <button title="Ban volunteer" class="btn text-danger fa-solid fa-ban"></button>
                                             </form>
                                         @elseif($data->confirmation == 'declined')
-                                            <form action="/careman/acceptVolunteer/" method="POST">
+                                            <form action="/careman/acceptVolunteer" method="POST">
                                                 @csrf
                                                 @method('POST')
                                                 <input type="hidden" id="data_id" name="data_id" value="{{$data->id}}">
                                                 <button title="Accept volunteer" type="submit" class="btn text-success fa-solid fa-check"></button>
                                             </form>
                                         @elseif($data->confirmation == 'banned')
-                                            <form action="/careman/deleteVolunteer/" method="POST">
+                                            <form action="/careman/deleteVolunteer" method="POST">
                                                 @csrf
                                                 @method('POST')
                                                 <input type="hidden" id="data_id" name="data_id" value="{{$data->id}}">
@@ -66,13 +66,13 @@
                                             </form>
                                         @else
                                             <div class="d-inline-block">
-                                                <form class="d-inline" action="/careman/acceptVolunteer/" method="POST">
+                                                <form class="d-inline" action="/careman/acceptVolunteer" method="POST">
                                                     @csrf
                                                     @method('POST')
                                                     <input type="hidden" id="data_id" name="data_id" value="{{$data->id}}">
                                                     <button title="Accept volunteer" type="submit" class="btn text-success fa-solid fa-check"></button>
                                                 </form>
-                                                <form class="d-inline" action="/careman/declineVolunteer/" method="POST">
+                                                <form class="d-inline" action="/careman/declineVolunteer" method="POST">
                                                     @csrf
                                                     @method('POST')
                                                     <input type="hidden" id="data_id" name="data_id" value="{{$data->id}}">

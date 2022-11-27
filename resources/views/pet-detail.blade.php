@@ -49,14 +49,14 @@
                             ?>
                             <div class="d-flex justify-content-center mb-2">
                                 @if(Auth::user()->role == "admin" || Auth::user()->role == "careman")
-                                    <form action="/careman/animals/pet-edit/" method="POST">
+                                    <form action="/careman/animals/pet-edit" method="POST">
                                         @csrf
                                         @method('POST')
                                         <input type="hidden" id="animal_id" name="animal_id"
                                                value="{{$result[0]->animal_id}}">
                                         <button type="submit" class="btn btn-outline-primary ms-1">Edit Pet</button>
                                     </form>
-                                    <form action="/careman/animals/pet-schedule/" method="POST">
+                                    <form action="/careman/animals/pet-schedule" method="POST">
                                         @csrf
                                         @method('POST')
                                         <input type="hidden" id="animal_id" name="animal_id"
